@@ -1,5 +1,6 @@
-const homepage = () => {
-return 
-}
+import { Redirect } from "expo-router"
 
-export default homepage
+const Page = () => {
+  return <Redirect href={"/(tabs)/plan"}/>
+}
+export default Page

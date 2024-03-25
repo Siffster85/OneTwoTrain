@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "TESTAPP",
-    "slug": "TESTAPP",
+    "name": "OneTwoTrain",
+    "slug": "OneTwoTrain",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

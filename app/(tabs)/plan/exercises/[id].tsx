@@ -1,15 +1,14 @@
 import CustomButton from '@/components/CustomButton';
 import ExerciseList from '@/components/exerciseCard/ExerciseList';
-import { router } from 'expo-router';
-import { Stack, useLocalSearchParams } from 'expo-router';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { router, Stack, useLocalSearchParams } from 'expo-router';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 export default function CurrentExercise() {
   const { id, title } = useLocalSearchParams();
 
-  const setQuantity = 3
-  const reps = 5
-  const weight = "50KG"
+  const setQuantity = 3;
+  const reps = 5;
+  const weight = '50KG';
 
   return (
     <SafeAreaView style={styles.container}>
@@ -29,17 +28,24 @@ export default function CurrentExercise() {
           justifyContent: 'space-between',
         }}>
         <CustomButton
-          theme={'deleteExercise'}
-          label={'Remove Exercise'}
+          theme="deleteExercise"
+          label="Remove Exercise"
           onPress={() => alert('pushed it babes')}
         />
         <CustomButton
-          theme={'startExercise'}
-          label={'Start'}
-          onPress={() => router.push({
-            pathname: "/(tabs)/plan/timer",
-            params: { setQuantity: setQuantity, reps: reps, weight: weight, title: title }
-          })}
+          theme="startExercise"
+          label="Start"
+          onPress={() =>
+            router.push({
+              pathname: '/(tabs)/plan/timer',
+              params: {
+                setQuantity,
+                reps,
+                weight,
+                title,
+              },
+            })
+          }
         />
       </View>
     </SafeAreaView>

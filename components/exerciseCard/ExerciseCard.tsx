@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native';
 
 interface props {
-    weight: string,
-    reps: number,
-    title: string,
+  weight: string;
+  reps: number;
+  title: string;
 }
 
-const ExerciseCard = ({title, weight, reps}: props) => {
+const ExerciseCard = ({ title, weight, reps }: props) => {
   return (
     <View style={styles.card}>
       <Text style={styles.title}>{title}</Text>

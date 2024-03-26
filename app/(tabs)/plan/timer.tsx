@@ -36,7 +36,7 @@ export default function Timer() {
         <CountdownCircleTimer
           key={key}
           isPlaying={isPlaying}
-          duration={3}
+          duration={90}
           colors={['#004777', '#F7B801', '#A30000', '#A30000']}
           colorsTime={[90, 60, 30, 10]}
           onComplete={() => {

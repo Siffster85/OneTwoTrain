@@ -39,57 +39,69 @@ export default function CustomButton({
         </Pressable>
       </View>
     );
-  } else if (theme === "deleteExercise") {
+  } else if (theme === 'deleteExercise') {
     return (
-    <View style={[styles.buttonContainer, { 
-      borderWidth: 4, 
-      padding: 35,
-      alignItems:'center',
-      justifyContent:'center',
-      width:150,
-      height:150,
-      borderColor: "red", 
-      borderRadius: 150, }]}>
-    <Pressable
-      style={[styles.button, { backgroundColor: "#fff" }]}
-      onPress={onPress}
-    >
-      <FontAwesome
-        name="trash"
-        size={18}
-        color="#25292e"
-        style={styles.buttonIcon}
-      />
-      <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
-    </Pressable>
-  </View>
-);
-} else if (theme === "startExercise") {
-  return (
-  <View style={[styles.buttonContainer, { 
-    borderWidth: 4, 
-    padding: 35,
-    alignItems:'center',
-    justifyContent:'center',
-    width:150,
-    height:150,
-    borderColor: "green", 
-    borderRadius: 150, }]}>
-  <Pressable
-    style={[styles.button, { backgroundColor: "#fff" }]}
-    onPress={onPress}
-  >
-    <FontAwesome
-      name="play"
-      size={18}
-      color="#25292e"
-      style={styles.buttonIcon}
-    />
-    <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
-  </Pressable>
-</View>
-);
-} else {
+      <View
+        style={[
+          styles.buttonContainer,
+          {
+            borderWidth: 4,
+            padding: 35,
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 150,
+            height: 150,
+            borderColor: 'red',
+            borderRadius: 150,
+          },
+        ]}>
+        <Pressable
+          style={[styles.button, { backgroundColor: '#fff' }]}
+          onPress={onPress}>
+          <FontAwesome
+            name="trash"
+            size={18}
+            color="#25292e"
+            style={styles.buttonIcon}
+          />
+          <Text style={[styles.buttonLabel, { color: '#25292e' }]}>
+            {label}
+          </Text>
+        </Pressable>
+      </View>
+    );
+  } else if (theme === 'startExercise') {
+    return (
+      <View
+        style={[
+          styles.buttonContainer,
+          {
+            borderWidth: 4,
+            padding: 35,
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 150,
+            height: 150,
+            borderColor: 'green',
+            borderRadius: 150,
+          },
+        ]}>
+        <Pressable
+          style={[styles.button, { backgroundColor: '#fff' }]}
+          onPress={onPress}>
+          <FontAwesome
+            name="play"
+            size={18}
+            color="#25292e"
+            style={styles.buttonIcon}
+          />
+          <Text style={[styles.buttonLabel, { color: '#25292e' }]}>
+            {label}
+          </Text>
+        </Pressable>
+      </View>
+    );
+  } else {
     return (
       <View style={styles.buttonContainer}>
         <Pressable
@@ -125,6 +137,5 @@ const styles = StyleSheet.create({
   buttonLabel: {
     color: '#fff',
     fontSize: 15,
-    
   },
 });

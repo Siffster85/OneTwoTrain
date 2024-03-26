@@ -5,6 +5,8 @@ import { auth } from "@/firebaseConfig";
 import { Alert, Button } from "react-native";
 
 const profile = () => {
+  const user = auth.currentUser;
+
   const handleSignOut = () => {
     signOut(auth).then(() => {
       Alert.alert("Sign-out successful.")
@@ -12,11 +14,11 @@ const profile = () => {
       Alert.alert(error)
     });
   }
-  
+
   return (
     <View>
       <Stack.Screen options={{headerShown: true, title: "Profile"}}/>
-      <Text>Profile page</Text>
+      <Text>Profile page of {user?.email}</Text>
       <Button title="Sign Out" onPress={() => handleSignOut()}/>
     </View>
   )

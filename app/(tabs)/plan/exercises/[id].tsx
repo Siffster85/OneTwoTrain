@@ -1,3 +1,5 @@
+import CustomButton from '@/components/CustomButton';
+import ExerciseList from '@/components/exerciseCard/ExerciseList';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
@@ -12,17 +14,26 @@ export default function currentExercise() {
           headerBackTitleVisible: false,
         }}
       />
-      <View style={{ flex: 3, backgroundColor: 'red' }}>
-        <View style={styles.card}>
-          <Text style={styles.title}>#SET1</Text>
-            <View>
-              <Text style={styles.infoText}>Weight: 50kg </Text>
-              <Text style={styles.infoText}>Reps: 50kg </Text>
-            </View>
-        </View>
-      </View>
-      <View style={{ flex: 1, backgroundColor: 'yellow' }}>
+      <View style={{ flex: 3 }}>
+        <ExerciseList metricData={{weight: '50kg', reps: 5, setQuantity: 6}}/>
 
+      </View>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}>
+        <CustomButton
+          theme={'deleteExercise'}
+          label={'Remove Exercise'}
+          onPress={() => alert('pushed it babes')}
+        />
+        <CustomButton
+          theme={'startExercise'}
+          label={'Start'}
+          onPress={() => alert('Your gonna start working out babes')}
+        />
       </View>
     </SafeAreaView>
   );
@@ -36,7 +47,7 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: "white",
+    backgroundColor: '#387C44',
     padding: 20,
     justifyContent: 'space-between',
     marginVertical: 8,
@@ -47,5 +58,5 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: 15,
-  }
+  },
 });

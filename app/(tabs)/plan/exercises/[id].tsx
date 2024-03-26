@@ -1,7 +1,7 @@
-import { Stack, router, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import { Text, View } from 'react-native';
 
-export default function currentExercise() {
+export default function CurrentExercise() {
   const { id, title } = useLocalSearchParams();
 
   return (

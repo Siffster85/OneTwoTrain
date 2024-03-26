@@ -16,6 +16,8 @@ module.exports = {
   plugins: ['react-hooks'],
   rules: {
     'import/order': 'off',
+    'prefer-const': 'error',
+    'no-console': 'error',
   },
   env: {
     node: true,

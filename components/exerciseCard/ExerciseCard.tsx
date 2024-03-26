@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 interface props {
     weight: string,
-    reps: string,
+    reps: number,
     title: string,
 }
 

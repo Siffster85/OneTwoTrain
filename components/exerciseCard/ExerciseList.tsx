@@ -2,15 +2,14 @@ import { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import ExerciseCard from './ExerciseCard';
 
-interface metricData {
+interface props {
   setQuantity: number;
-  weight: string;
   reps: number;
+  weight: string;
 }
 
-const ExerciseList = ({ metricData }: props) => {
+const ExerciseList = ({ setQuantity, reps, weight }: props) => {
   const [exerciseCount, setExerciseCount] = useState(0);
-  const { setQuantity, weight, reps } = metricData;
 
   useEffect(() => {
     setExerciseCount(setQuantity);

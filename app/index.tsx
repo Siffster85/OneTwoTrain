@@ -6,7 +6,7 @@ export default function IndexPage() {
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      router.replace("/(tabs)/plan")
+      router.replace("/(tabs)/plan/")
     } else {
       router.replace("/(auth)")
     }

@@ -1,7 +1,15 @@
 import Button from '@/components/Button';
 import { View, Text } from '@/components/Themed';
 import { router } from 'expo-router';
-import { FlatList, Pressable, StatusBar, StyleSheet } from 'react-native';
+import {
+  Alert,
+  FlatList,
+  Pressable,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 
 const DATA = [
   {
@@ -26,16 +34,16 @@ type ItemProps = { title: string };
 
 const Item = ({ title }: ItemProps): any => {
   return (
-    <View style={styles.item}>
+    <SafeAreaView style={styles.item}>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.exerciseQuantity}>Change to exercise quantity</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const workout = () => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={DATA}
         renderItem={({ item }) => (
@@ -50,7 +58,13 @@ const workout = () => {
             <Item title={item.title} />
           </Pressable>
         )}></FlatList>
-    </View>
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => router.push('/(tabs)/plan/addExercise')}>
+          <Text>Add An Exercise</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -62,7 +76,7 @@ const styles = StyleSheet.create({
   item: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#4BA663',
+    backgroundColor: '#87CEEB',
     padding: 20,
     justifyContent: 'space-between',
     marginVertical: 8,

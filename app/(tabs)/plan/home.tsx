@@ -5,7 +5,7 @@ import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 const plan = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <Link style={styles.item} href={'/plan/workout'}>
+      <Link style={styles.item} href="/plan/workout">
         <Text style={styles.title}>Go To Workout</Text>
       </Link>
     </SafeAreaView>
@@ -15,7 +15,7 @@ const plan = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    marginTop: StatusBar.currentHeight ?? 0,
   },
   item: {
     flexDirection: 'row',

@@ -1,5 +1,4 @@
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
 
 const PlanLayout = () => {
   return (
@@ -22,7 +21,7 @@ const PlanLayout = () => {
       <Stack.Screen
         name="workout"
         options={{
-          headerTitle: 'Todays Workout',
+          headerTitle: "Today's Workout",
         }}
       />
       <Stack.Screen name="exercises/[id]" />

@@ -1,7 +1,7 @@
-import UserAuthentication from "@/components/UserAuthentication";
+import UserAuthentication from '@/components/UserAuthentication';
 
 const signin = () => {
-  return <UserAuthentication isUserRegistered={true}/>
-}
+  return <UserAuthentication isUserRegistered />;
+};
 
 export default signin;

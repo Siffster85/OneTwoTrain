@@ -1,29 +1,41 @@
 import { StyleSheet, View, Pressable, Text } from 'react-native';
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
-export default function CustomButton({ label, theme, onPress }:{[key:string]:any}) {
-    if(theme === "circular") {
-        return (
-        <View style={[styles.buttonContainer, { 
-          borderWidth: 4, 
-          padding: 35,
-          alignItems:'center',
-          justifyContent:'center',
-          width:150,
-          height:150,
-          borderColor: "#ffd33d", 
-          borderRadius: 100, }]}>
+export default function CustomButton({
+  label,
+  theme,
+  onPress,
+}: {
+  [key: string]: any;
+}) {
+  if (theme === 'circular') {
+    return (
+      <View
+        style={[
+          styles.buttonContainer,
+          {
+            borderWidth: 4,
+            padding: 35,
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 150,
+            height: 150,
+            borderColor: '#ffd33d',
+            borderRadius: 100,
+          },
+        ]}>
         <Pressable
-          style={[styles.button, { backgroundColor: "#fff" }]}
-          onPress={onPress}
-        >
+          style={[styles.button, { backgroundColor: '#fff' }]}
+          onPress={onPress}>
           <FontAwesome
             name="picture-o"
             size={18}
             color="#25292e"
             style={styles.buttonIcon}
           />
-          <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
+          <Text style={[styles.buttonLabel, { color: '#25292e' }]}>
+            {label}
+          </Text>
         </Pressable>
       </View>
     );
@@ -80,10 +92,12 @@ export default function CustomButton({ label, theme, onPress }:{[key:string]:any
 } else {
     return (
       <View style={styles.buttonContainer}>
-          <Pressable style={styles.button} onPress={() => alert('You pressed a button.')}>
-            <Text style={styles.buttonLabel}>{label}</Text>
-          </Pressable>
-        </View>
+        <Pressable
+          style={styles.button}
+          onPress={() => alert('You pressed a button.')}>
+          <Text style={styles.buttonLabel}>{label}</Text>
+        </Pressable>
+      </View>
     );
   }
 }

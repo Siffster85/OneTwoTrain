@@ -1,8 +1,6 @@
-import CustomButton from '@/components/CustomButton';
-import { View, Text } from '@/components/Themed';
+import { Text, View } from '@/components/Themed';
 import { router } from 'expo-router';
 import {
-  Alert,
   FlatList,
   Pressable,
   SafeAreaView,
@@ -57,7 +55,8 @@ const workout = () => {
             }>
             <Item title={item.title} />
           </Pressable>
-        )}></FlatList>
+        )}
+      />
       <View style={styles.container}>
         <TouchableOpacity
           onPress={() => router.push('/(tabs)/plan/addExercise')}>
@@ -71,7 +70,7 @@ const workout = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    marginTop: StatusBar.currentHeight ?? 0,
   },
   item: {
     flex: 1,

@@ -1,7 +1,7 @@
 import { StyleSheet, View, Pressable, Text } from 'react-native';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-export default function Button({ label, theme, onPress }:{[key:string]:any}) {
+export default function CustomButton({ label, theme, onPress }:{[key:string]:any}) {
     if(theme === "circular") {
         return (
         <View style={[styles.buttonContainer, { 

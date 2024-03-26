@@ -1,4 +1,4 @@
-import Button from '@/components/Button';
+import CustomButton from '@/components/CustomButton';
 import { View, Text } from '@/components/Themed';
 import { router } from 'expo-router';
 import {

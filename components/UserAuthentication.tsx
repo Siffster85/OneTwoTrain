@@ -1,31 +1,51 @@
-import { Stack } from 'expo-router';
-import React, { useState } from 'react';
-import { Alert, Button, StyleSheet, TextInput, View, Text } from 'react-native';
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from 'firebase/auth';
 import { auth } from '@/firebaseConfig';
+import { Stack } from 'expo-router';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
+import React, { useState } from 'react';
+import {
+  Alert,
+  Keyboard,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 
 interface AuthProps {
   isUserRegistered: boolean;
+  userName: string;
+  caloriesPerDay: number;
 }
 
-const UserAuthentication: React.FC<AuthProps> = ({ isUserRegistered }) => {
+const UserAuthentication: React.FC<AuthProps> = ({
+  isUserRegistered,
+  userName,
+  caloriesPerDay,
+}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const btnTitle = isUserRegistered ? 'Sign in' : 'Sign up';
-  const pageText = isUserRegistered
-    ? 'Sign in into existing account:'
-    : "Let's create a new account:";
+  const pageTitle = isUserRegistered
+    ? 'Welcome Back to Your Fitness Journey'
+    : 'Last Step:\nSecure Your Path';
+  const pageSubtitle = isUserRegistered
+    ? 'Sign In to Continue Transforming'
+    : 'This step ensures you have exclusive access to your fitness roadmap, progress tracking, and motivational insights.';
 
   const signUpWithEmail = () => {
     setLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         const user = userCredential.user;
-        Alert.alert(`Signed up ${user}`);
+        Alert.alert(
+          `Signed up as ${userName}\nEmail: ${user.email}\nCalories Per Day: ${caloriesPerDay}`,
+        );
       })
       .catch(error => {
         const errorCode = error.code;
@@ -65,40 +85,42 @@ const UserAuthentication: React.FC<AuthProps> = ({ isUserRegistered }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Stack.Screen options={{ headerShown: true, title: 'Auth' }} />
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>{pageText}</Text>
-      </View>
-      <View style={styles.verticallySpaced}>
-        <TextInput
-          style={styles.input}
-          onChangeText={text => setEmail(text)}
-          value={email}
-          placeholder="Email"
-          placeholderTextColor="#808080"
-        />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <TextInput
-          style={styles.input}
-          onChangeText={text => setPassword(text)}
-          value={password}
-          secureTextEntry
-          placeholder="Password"
-          placeholderTextColor="#808080"
-        />
-      </View>
-      <View style={[styles.verticallySpaced, styles.buttonContainer]}>
-        <Button
-          title={btnTitle}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <Stack.Screen options={{ headerShown: true, title: 'Auth' }} />
+        <View style={styles.titleContainer}>
+          <Text style={[styles.title, styles.text]}>{pageTitle}</Text>
+          <Text style={[styles.subtitle, styles.text]}>{pageSubtitle}</Text>
+        </View>
+        <View style={styles.verticallySpaced}>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setEmail(text)}
+            value={email}
+            placeholder="Email"
+            placeholderTextColor="#808080"
+          />
+        </View>
+        <View style={styles.verticallySpaced}>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setPassword(text)}
+            value={password}
+            secureTextEntry
+            placeholder="Password"
+            placeholderTextColor="#808080"
+          />
+        </View>
+        <TouchableOpacity
+          style={styles.button}
           disabled={loading}
           onPress={() =>
             isUserRegistered ? signInWithEmail() : signUpWithEmail()
-          }
-        />
+          }>
+          <Text style={styles.text}>{btnTitle}</Text>
+        </TouchableOpacity>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -109,6 +131,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#25292e',
     padding: 20,
+    paddingTop: 60,
   },
   titleContainer: {
     height: '30%',
@@ -119,32 +142,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    color: '#fff',
     fontSize: 32,
+    marginBottom: 20,
   },
-  answerContainer: {
-    flexGrow: 1,
-    width: '100%',
-    padding: 20,
-    backgroundColor: 'transparent',
-    justifyContent: 'flex-end',
-    marginBottom: 80,
-  },
-  answer: {
-    padding: 12,
+  subtitle: {
     fontSize: 20,
-    backgroundColor: '#464C55',
-    marginBottom: 24,
+    marginBottom: 48,
+  },
+  text: {
+    color: '#fff',
+    textAlign: 'center',
   },
   verticallySpaced: {
     paddingTop: 4,
     paddingBottom: 4,
     alignSelf: 'stretch',
   },
-  buttonContainer: {
+  button: {
     fontSize: 20,
     backgroundColor: '#464C55',
     borderRadius: 12,
+    padding: 12,
+    color: '#fff',
   },
   input: {
     backgroundColor: '#fff',

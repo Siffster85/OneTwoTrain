@@ -101,7 +101,6 @@ export default function AddExercise() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
   },
   input: {
     flex: 0.5,

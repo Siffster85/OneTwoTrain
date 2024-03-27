@@ -1,6 +1,7 @@
 import { Entypo } from '@expo/vector-icons';
 import { Stack, router, useLocalSearchParams } from 'expo-router';
-import { useState } from 'react';
+import LottieView from 'lottie-react-native';
+import { useRef, useState } from 'react';
 import {
   Pressable,
   SafeAreaView,
@@ -13,10 +14,15 @@ import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
 export default function Timer() {
   const { reps, weight, setQuantity, title } = useLocalSearchParams();
-
+  const confettiRef = useRef<LottieView>(null);
   const [endCount, setEndCount] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [key, setKey] = useState(0);
+
+  function triggerConfetti() {
+    confettiRef.current?.play(0);
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen
@@ -41,7 +47,10 @@ export default function Timer() {
           colorsTime={[90, 60, 30, 10]}
           onComplete={() => {
             if (endCount === Number(setQuantity)) {
-              router.back();
+              triggerConfetti();
+              setTimeout(() => {
+                router.back();
+              }, 3000);
             }
             setEndCount(currentCount => currentCount + 1);
             setKey(prevKey => prevKey + 1);
@@ -71,6 +80,14 @@ export default function Timer() {
           <Text>Pause Timer</Text>
         </TouchableOpacity>
       </View>
+      <LottieView
+        ref={confettiRef}
+        source={require('../../../assets/animations/confetti.json')}
+        autoPlay={false}
+        loop={false}
+        style={styles.lottie}
+        resizeMode="cover"
+      />
     </SafeAreaView>
   );
 }
@@ -114,5 +131,14 @@ const styles = StyleSheet.create({
   buttonIcon: {
     paddingRight: 8,
     textAlign: 'right',
+  },
+  lottie: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1000,
+    pointerEvents: 'none',
   },
 });

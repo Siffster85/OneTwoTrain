@@ -6,7 +6,7 @@ import { SafeAreaView, StyleSheet, View } from 'react-native';
 export default function CurrentExercise() {
   const { id, title } = useLocalSearchParams();
 
-  const setQuantity = 3;
+  const Quantity = 3;
   const reps = 5;
   const weight = '50KG';
 
@@ -18,8 +18,8 @@ export default function CurrentExercise() {
           headerBackTitleVisible: false,
         }}
       />
-      <View style={{ flex: 3 }}>
-        <ExerciseList setQuantity={setQuantity} reps={reps} weight={weight} />
+      <View style={styles.exerciseListContainer}>
+        <ExerciseList setQuantity={Quantity} reps={reps} weight={weight} />
       </View>
       <View
         style={{
@@ -39,7 +39,7 @@ export default function CurrentExercise() {
             router.push({
               pathname: '/(tabs)/plan/timer',
               params: {
-                setQuantity,
+                Quantity,
                 reps,
                 weight,
                 title,
@@ -72,4 +72,7 @@ const styles = StyleSheet.create({
   infoText: {
     fontSize: 15,
   },
+  exerciseListContainer: {
+    flex: 3
+  }
 });

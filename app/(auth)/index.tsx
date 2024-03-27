@@ -11,7 +11,7 @@ export default function Welcome() {
       </View>
       <View style={styles.answerContainer}>
         <TouchableOpacity
-          onPress={() => router.push('/(auth)/signup')}
+          onPress={() => router.push('/(auth)/quiz-1')}
           style={styles.answer}>
           <Text>Not yet</Text>
         </TouchableOpacity>

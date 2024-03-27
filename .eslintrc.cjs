@@ -18,6 +18,7 @@ module.exports = {
     'import/order': 'off',
     'prefer-const': 'warn',
     'no-console': 'warn',
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
   },
   env: {
     node: true,

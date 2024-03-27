@@ -3,8 +3,7 @@ import { auth } from '@/firebaseConfig';
 import { Stack } from 'expo-router';
 import {
   EmailAuthProvider,
-  getAuth,
-  signInWithCredential,
+  reauthenticateWithCredential,
   updatePassword,
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
@@ -17,10 +16,8 @@ const ChangePassword = () => {
   const [reset, setReset] = useState(false);
   const newPassword = password;
 
-  const credential: any = signInWithCredential(
-    getAuth(),
-    EmailAuthProvider.credential(user.email, oldPassword),
-  );
+  const credential: any = EmailAuthProvider.credential(user.email, oldPassword);
+
   useEffect(() => {
     if (!reset) {
       handleSubmit();
@@ -29,7 +26,7 @@ const ChangePassword = () => {
   }, []);
   const handleSubmit = () => {
     if (reset) {
-      signInWithCredential(user, credential)
+      reauthenticateWithCredential(user, credential)
         .then(() => {
           updatePassword(user, newPassword);
         })
@@ -37,7 +34,6 @@ const ChangePassword = () => {
           Alert.alert('Password Changed');
         })
         .catch(error => {
-          console.log(error);
           Alert.alert('Error:', error.message);
         });
     }

@@ -19,6 +19,7 @@
     "@react-native-community/datetimepicker": "^7.6.3",
     "@react-native-picker/picker": "^2.7.2",
     "@react-navigation/native": "^6.0.2",
+    "axios": "^1.6.8",
     "expo": "~50.0.14",
     "expo-font": "~11.10.3",
     "expo-image-picker": "~14.7.1",

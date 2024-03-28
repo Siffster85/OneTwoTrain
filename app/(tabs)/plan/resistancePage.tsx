@@ -1,4 +1,4 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import {
   FlatList,
@@ -14,30 +14,56 @@ import {
 const ResistancePage = () => {
   const params = useLocalSearchParams();
   const { category, exerciseName } = params;
-  const [weight, setWeight] = useState(0);
-  const [reps, setReps] = useState(0);
-  const [data, setData] = useState([]);
+  const [weight, setWeight] = useState('');
+  const [reps, setReps] = useState('');
+  const [data, setData] = useState<Excersie[]>([]);
+  let nextSetDataIndex = 0;
 
-  console.log(data);
-  
+
+  interface Excersie {
+    exerciseName: string | string[];
+    category?: string | string[];
+    weight: string;
+    reps: string;
+  }
 
   const handleAddSet = () => {
-    const newSet = { exerciseName, category,  weight, reps };
+    const newSet: Excersie = {
+      exerciseName,
+      category,
+      weight,
+      reps,
+    };
     setData(prevData => [...prevData, newSet]);
-    setWeight(0);
-    setReps(0);
+    nextSetDataIndex++;
+    setWeight('');
+    setReps('');
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    try {
+      //Add data to the API
+    } catch (error) {
+      console.log(error);
+    }
 
+    router.replace('/(tabs)/plan/workout');
+    //Redirect user back to excerise page
   };
 
-  const Item = ({ exerciseName = 'lol', weight = 54, reps = 2 }) => {
+  const handleRemoveSet = () => {
+    if (data.length > 0) {
+      setData(prevData => prevData.slice(0, prevData.length - 1));
+      nextSetDataIndex--;
+    }
+  };
+
+  const Item = ({ exerciseName, weight, reps }: Excersie) => {
     return (
       <View style={styles.setCard}>
-        <Text style={styles.cardInfo}>{exerciseName}</Text>
-        <Text style={styles.cardInfo}>{weight}KG</Text>
-        <Text style={styles.cardInfo}>{reps}</Text>
+        <Text style={styles.cardInfo}>Name: {exerciseName}</Text>
+        <Text style={styles.cardInfo}>Weight: {weight}KG</Text>
+        <Text style={styles.cardInfo}>Reps: {reps}</Text>
       </View>
     );
   };
@@ -56,7 +82,7 @@ const ResistancePage = () => {
             enterKeyHint="done"
             inputMode="numeric"
             clearButtonMode="while-editing"
-            placeholder="Input Weight in KG"
+            placeholder="input weight in KG"
             placeholderTextColor="black"
             value={weight}
             onChangeText={number => setWeight(number)}
@@ -78,11 +104,12 @@ const ResistancePage = () => {
         <TouchableOpacity style={styles.upperButtonLeft} onPress={handleAddSet}>
           <Text>Add Set</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.upperButtonRight}>
+        <TouchableOpacity
+          style={styles.upperButtonRight}
+          onPress={handleRemoveSet}>
           <Text>Remove Set</Text>
         </TouchableOpacity>
       </View>
-
       <View style={styles.setContainer}>
         <FlatList
           data={data}
@@ -122,7 +149,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   setContainer: {
-    // flex: 2,
+    flex: 2,
     backgroundColor: 'white',
   },
   submitButtonContainer: {
@@ -134,6 +161,8 @@ const styles = StyleSheet.create({
     flex: 0.5,
     borderWidth: 2,
     margin: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'green',
   },
   upperButtonRight: {
@@ -157,14 +186,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
   },
   setCard: {
-    borderWidth: 2,
+    flexDirection: 'row',
+    padding: 3,
+    borderWidth: 1,
     borderRadius: 150,
-    padding: 10,
-    textAlign: 'center',
-    alignContent: 'center',
   },
   cardInfo: {
-    alignContent: 'center',
-    justifyContent: 'center',
+    marginLeft: 35,
   },
 });

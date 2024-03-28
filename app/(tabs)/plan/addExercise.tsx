@@ -14,7 +14,7 @@ export default function AddExercise() {
   const [exerciseName, setExerciseName] = useState('');
   const [category, setCategory] = useState('');
   const [metrics, setMetrics] = useState('');
-  const [nextButtonNav, isNextButtonNav] = useState(false);
+  const [isNextButtonNav, setIsNextButtonNav] = useState(false);
 
   const categoryItems = [
     { label: 'Abs', value: 'Abs' },
@@ -41,9 +41,9 @@ export default function AddExercise() {
 
   useEffect(() => {
     if (metrics === 'Weight and Reps') {
-      isNextButtonNav(true);
+      setIsNextButtonNav(true);
     } else {
-      isNextButtonNav(false);
+      setIsNextButtonNav(false);
     }
   }, [metrics]);
 
@@ -85,7 +85,7 @@ export default function AddExercise() {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            nextButtonNav
+            isNextButtonNav
               ? router.push({
                   pathname: '/(tabs)/plan/resistancePage',
                   params: { exerciseName, metrics, category },

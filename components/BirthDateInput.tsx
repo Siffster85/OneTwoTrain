@@ -2,7 +2,7 @@ import DateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
 import React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 interface BirthDateProps {
   date: Date;
@@ -17,17 +17,15 @@ const BirthDateInput: React.FC<BirthDateProps> = ({ date, setDate }) => {
   return (
     <View style={styles.dateContainer}>
       <Text style={styles.dateText}>Select your date of birth:</Text>
-      {Platform.OS === 'ios' && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode="date"
-          is24Hour
-          display="default"
-          onChange={onChange}
-          maximumDate={new Date()}
-        />
-      )}
+      <DateTimePicker
+        testID="dateTimePicker"
+        value={date}
+        mode="date"
+        is24Hour
+        display="default"
+        onChange={onChange}
+        maximumDate={new Date()}
+      />
     </View>
   );
 };

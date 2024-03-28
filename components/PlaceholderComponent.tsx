@@ -8,20 +8,8 @@ function PlaceholderComponent({
   [key: string]: any;
 }) {
   return (
-    <View
-      style={[
-        styles.buttonContainer,
-        {
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: 120,
-          height: 80,
-          paddingTop: 10,
-        },
-      ]}>
-      <Pressable
-        style={[styles.button, { backgroundColor: 'red' }]}
-        onPress={onPress}>
+    <View style={[styles.buttonContainer]}>
+      <Pressable style={[styles.button]} onPress={onPress}>
         <Text style={styles.buttonLabel}>{label}</Text>
       </Pressable>
     </View>
@@ -44,6 +32,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+    backgroundColor: 'red',
   },
   buttonLabel: {
     color: '#fff',

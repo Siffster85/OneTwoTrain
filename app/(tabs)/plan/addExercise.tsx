@@ -14,13 +14,36 @@ export default function AddExercise() {
   const [exerciseName, setExerciseName] = useState('');
   const [category, setCategory] = useState('');
   const [metrics, setMetrics] = useState('');
-  const [nextButtonNav, setNextButtonNav] = useState(false);
+  const [isNextButtonNav, setIsNextButtonNav] = useState(false);
+
+  const categoryItems = [
+    { label: 'Abs', value: 'Abs' },
+    { label: 'Back', value: 'Back' },
+    { label: 'Biceps', value: 'Biceps' },
+    { label: 'Cardio', value: 'Cardio' },
+    { label: 'Chest', value: 'Chest' },
+    { label: 'Knees Over Toes', value: 'Knees Over Toes' },
+    { label: 'Legs', value: 'Legs' },
+    { label: 'Shoulders', value: 'Shoulders' },
+    { label: 'Triceps', value: 'Triceps' },
+  ]
+
+  const metricItems = [
+    {
+      label: 'Weight and Reps',
+      value: 'Weight and Reps',
+    },
+    {
+      label: 'Distance and Time',
+      value: 'Distance and Time',
+    },
+  ]
 
   useEffect(() => {
     if (metrics === 'Weight and Reps') {
-      setNextButtonNav(true);
+      setIsNextButtonNav(true);
     } else {
-      setNextButtonNav(false);
+      setIsNextButtonNav(false);
     }
   }, [metrics]);
 
@@ -36,17 +59,7 @@ export default function AddExercise() {
         <RNPickerSelect
           value={category}
           onValueChange={value => setCategory(value)}
-          items={[
-            { label: 'Abs', value: 'Abs' },
-            { label: 'Back', value: 'Back' },
-            { label: 'Biceps', value: 'Biceps' },
-            { label: 'Cardio', value: 'Cardio' },
-            { label: 'Chest', value: 'Chest' },
-            { label: 'Knees Over Toes', value: 'Knees Over Toes' },
-            { label: 'Legs', value: 'Legs' },
-            { label: 'Shoulders', value: 'Shoulders' },
-            { label: 'Triceps', value: 'Triceps' },
-          ]}
+          items={categoryItems}
         />
       </View>
       <View style={styles.input}>
@@ -65,23 +78,14 @@ export default function AddExercise() {
         <RNPickerSelect
           value={metrics}
           onValueChange={value => setMetrics(value)}
-          items={[
-            {
-              label: 'Weight and Reps',
-              value: 'Weight and Reps',
-            },
-            {
-              label: 'Distance and Time',
-              value: 'Distance and Time',
-            },
-          ]}
+          items={metricItems}
         />
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            nextButtonNav
+            isNextButtonNav
               ? router.push({
                   pathname: '/(tabs)/plan/resistancePage',
                   params: { exerciseName, category },

@@ -23,6 +23,18 @@ export default function Timer() {
     confettiRef.current?.play(0);
   }
 
+  function complete() {
+    if (endCount === Number(setQuantity)) {
+      triggerConfetti();
+      setTimeout(() => {
+        router.back();
+      }, 3000);
+    }
+    setEndCount(currentCount => currentCount + 1);
+    setKey(prevKey => prevKey + 1);
+    setIsPlaying(false);
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen
@@ -45,17 +57,7 @@ export default function Timer() {
           duration={90}
           colors={['#004777', '#F7B801', '#A30000', '#A30000']}
           colorsTime={[90, 60, 30, 10]}
-          onComplete={() => {
-            if (endCount === Number(setQuantity)) {
-              triggerConfetti();
-              setTimeout(() => {
-                router.back();
-              }, 3000);
-            }
-            setEndCount(currentCount => currentCount + 1);
-            setKey(prevKey => prevKey + 1);
-            setIsPlaying(false);
-          }}
+          onComplete={complete}
           size={250}
           updateInterval={1}>
           {({ remainingTime, color }) => (

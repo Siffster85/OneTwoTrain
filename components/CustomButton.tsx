@@ -13,16 +13,7 @@ export default function CustomButton({
       <View
         style={[
           styles.buttonContainer,
-          {
-            borderWidth: 4,
-            padding: 35,
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 150,
-            height: 150,
-            borderColor: '#ffd33d',
-            borderRadius: 100,
-          },
+          styles.circular
         ]}>
         <Pressable
           style={[styles.button, { backgroundColor: '#fff' }]}
@@ -44,16 +35,7 @@ export default function CustomButton({
       <View
         style={[
           styles.buttonContainer,
-          {
-            borderWidth: 4,
-            padding: 35,
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 150,
-            height: 150,
-            borderColor: 'red',
-            borderRadius: 150,
-          },
+          styles.deletedExercise
         ]}>
         <Pressable
           style={[styles.button, { backgroundColor: '#fff' }]}
@@ -75,16 +57,7 @@ export default function CustomButton({
       <View
         style={[
           styles.buttonContainer,
-          {
-            borderWidth: 4,
-            padding: 35,
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 150,
-            height: 150,
-            borderColor: 'green',
-            borderRadius: 150,
-          },
+          styles.startExercise
         ]}>
         <Pressable
           style={[styles.button, { backgroundColor: '#fff' }]}
@@ -137,5 +110,35 @@ const styles = StyleSheet.create({
   buttonLabel: {
     color: '#fff',
     fontSize: 15,
+  },
+  circular: {
+      borderWidth: 4,
+      padding: 35,
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 150,
+      height: 150,
+      borderColor: '#ffd33d',
+      borderRadius: 100,
+  },
+  deletedExercise: {
+    borderWidth: 4,
+    padding: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 150,
+    height: 150,
+    borderColor: 'red',
+    borderRadius: 150,
+  },
+  startExercise:  {
+    borderWidth: 4,
+    padding: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 150,
+    height: 150,
+    borderColor: 'green',
+    borderRadius: 150,
   },
 });

@@ -59,8 +59,15 @@ const workout = () => {
       />
       <View style={styles.container}>
         <TouchableOpacity
+          style={styles.item}
           onPress={() => router.push('/(tabs)/plan/addExercise')}>
           <Text>Add An Exercise</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.item}>
+          <Text>Browse Previous Workouts</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.item}>
+          <Text>Browse Exercises</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -75,7 +82,7 @@ const styles = StyleSheet.create({
   item: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#87CEEB',
+    backgroundColor: '#4BA663',
     padding: 20,
     justifyContent: 'space-between',
     marginVertical: 8,

@@ -1,11 +1,13 @@
-import PlaceholderComponent from '@/components/PlaceholderComponent';
 import { Text, View } from '@/components/Themed';
 import { auth } from '@/firebaseConfig';
 import * as ImagePicker from 'expo-image-picker';
 import { Stack, router } from 'expo-router';
 import { signOut } from 'firebase/auth';
+import { Stack } from 'expo-router';
+import { signOut } from 'firebase/auth';
 import { useState } from 'react';
 import { Alert, Button, StyleSheet } from 'react-native';
+import { Alert, Button } from 'react-native';
 import CustomButton from '../../../components/CustomButton';
 
 const Profile = () => {

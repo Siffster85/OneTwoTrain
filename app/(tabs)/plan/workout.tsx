@@ -1,5 +1,5 @@
 import { Text, View } from '@/components/Themed';
-import { router } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import {
   FlatList,
   Pressable,
@@ -42,6 +42,11 @@ const Item = ({ title }: ItemProps): any => {
 const workout = () => {
   return (
     <SafeAreaView style={styles.container}>
+      <Stack.Screen
+        options={{
+          headerBackTitleVisible: false,
+        }}
+      />
       <FlatList
         data={DATA}
         renderItem={({ item }) => (

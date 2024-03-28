@@ -26,7 +26,7 @@ export default function AddExercise() {
     { label: 'Legs', value: 'Legs' },
     { label: 'Shoulders', value: 'Shoulders' },
     { label: 'Triceps', value: 'Triceps' },
-  ]
+  ];
 
   const metricItems = [
     {
@@ -37,7 +37,7 @@ export default function AddExercise() {
       label: 'Distance and Time',
       value: 'Distance and Time',
     },
-  ]
+  ];
 
   useEffect(() => {
     if (metrics === 'Weight and Reps') {
@@ -52,11 +52,19 @@ export default function AddExercise() {
       <Stack.Screen
         options={{
           headerTitle: 'Create A Custom Exercise',
+          headerBackTitleVisible: false,
         }}
       />
       <View style={styles.input}>
         <Text>Please select a category below</Text>
         <RNPickerSelect
+          style={{
+            ...pickerSelectStyles,
+            iconContainer: {
+              top: 10,
+              right: 12,
+            },
+          }}
           value={category}
           onValueChange={value => setCategory(value)}
           items={categoryItems}
@@ -76,6 +84,13 @@ export default function AddExercise() {
       <View style={styles.input}>
         <Text>Please select measurement</Text>
         <RNPickerSelect
+          style={{
+            ...pickerSelectStyles,
+            iconContainer: {
+              top: 10,
+              right: 12,
+            },
+          }}
           value={metrics}
           onValueChange={value => setMetrics(value)}
           items={metricItems}
@@ -85,14 +100,14 @@ export default function AddExercise() {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            isNextButtonNav
+            return isNextButtonNav
               ? router.push({
                   pathname: '/(tabs)/plan/resistancePage',
-                  params: { exerciseName, metrics, category },
+                  params: { exerciseName, category },
                 })
               : router.push({
                   pathname: '/(tabs)/plan/cardioPage',
-                  params: { exerciseName, metrics, category },
+                  params: { exerciseName, category },
                 });
           }}>
           <Text style={{ fontSize: 20 }}>Next</Text>
@@ -105,7 +120,6 @@ export default function AddExercise() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
   },
   input: {
     flex: 0.5,
@@ -129,5 +143,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 150,
     backgroundColor: 'green',
+  },
+});
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30,
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: 'purple',
+    borderRadius: 8,
+    color: 'black',
+    paddingRight: 30,
+  },
+  placeholder: {
+    color: 'gray',
   },
 });

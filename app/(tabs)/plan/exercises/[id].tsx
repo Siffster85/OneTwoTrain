@@ -5,7 +5,6 @@ import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 export default function CurrentExercise() {
   const { id, title } = useLocalSearchParams();
-
   const quantity = 3;
   const reps = 5;
   const weight = '50KG';
@@ -19,7 +18,12 @@ export default function CurrentExercise() {
         }}
       />
       <View style={styles.exerciseListContainer}>
-        <ExerciseList setQuantity={quantity} reps={reps} weight={weight} />
+        <ExerciseList
+          key={id.toString()}
+          setQuantity={quantity}
+          reps={reps}
+          weight={weight}
+        />
       </View>
       <View
         style={{
@@ -30,7 +34,11 @@ export default function CurrentExercise() {
         <CustomButton
           theme="deleteExercise"
           label="Remove Exercise"
-          onPress={() => alert('pushed it babes')}
+          onPress={() =>
+            alert(
+              'Add functionality to opto render the exercise to be removed from screen and API',
+            )
+          }
         />
         <CustomButton
           theme="startExercise"
@@ -73,6 +81,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   exerciseListContainer: {
-    flex: 3
-  }
+    flex: 3,
+  },
 });

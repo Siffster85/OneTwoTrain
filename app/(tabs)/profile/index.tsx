@@ -96,14 +96,7 @@ const Profile = () => {
       <View>
         {profileData.map(data => {
           return (
-            <View
-              key={'a' + data}
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                width: '100%',
-                paddingBottom: 5,
-              }}>
+            <View key={data[0]} style={styles.profileData}>
               <Text>{data[0]}</Text>
               <Text>{data[1]}</Text>
             </View>
@@ -135,6 +128,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  profileData: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingBottom: 5,
   },
 });
 

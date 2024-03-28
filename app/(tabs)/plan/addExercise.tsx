@@ -26,7 +26,7 @@ export default function AddExercise() {
     { label: 'Legs', value: 'Legs' },
     { label: 'Shoulders', value: 'Shoulders' },
     { label: 'Triceps', value: 'Triceps' },
-  ]
+  ];
 
   const metricItems = [
     {
@@ -37,7 +37,7 @@ export default function AddExercise() {
       label: 'Distance and Time',
       value: 'Distance and Time',
     },
-  ]
+  ];
 
   useEffect(() => {
     if (metrics === 'Weight and Reps') {

@@ -17,8 +17,6 @@ const ResistancePage = () => {
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
   const [data, setData] = useState<Excersie[]>([]);
-  let nextSetDataIndex = 0;
-
 
   interface Excersie {
     exerciseName: string | string[];
@@ -35,7 +33,6 @@ const ResistancePage = () => {
       reps,
     };
     setData(prevData => [...prevData, newSet]);
-    nextSetDataIndex++;
     setWeight('');
     setReps('');
   };
@@ -43,8 +40,8 @@ const ResistancePage = () => {
   const handleSubmit = async () => {
     try {
       //Add data to the API
-    } catch (error) {
-      console.log(error);
+    } catch {
+      alert('Something went wrong please try again');
     }
 
     router.replace('/(tabs)/plan/workout');
@@ -54,7 +51,6 @@ const ResistancePage = () => {
   const handleRemoveSet = () => {
     if (data.length > 0) {
       setData(prevData => prevData.slice(0, prevData.length - 1));
-      nextSetDataIndex--;
     }
   };
 

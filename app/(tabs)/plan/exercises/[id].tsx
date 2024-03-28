@@ -73,6 +73,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   exerciseListContainer: {
-    flex: 3
-  }
+    flex: 3,
+  },
 });

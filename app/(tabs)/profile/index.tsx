@@ -1,11 +1,11 @@
-import { View, Text } from '@/components/Themed';
-import { Stack } from 'expo-router';
-import * as ImagePicker from 'expo-image-picker';
-import { useState } from 'react';
-import CustomButton from '../../../components/CustomButton';
-import { signOut } from 'firebase/auth';
+import { Text, View } from '@/components/Themed';
 import { auth } from '@/firebaseConfig';
+import * as ImagePicker from 'expo-image-picker';
+import { Stack } from 'expo-router';
+import { signOut } from 'firebase/auth';
+import { useState } from 'react';
 import { Alert, Button } from 'react-native';
+import CustomButton from '../../../components/CustomButton';
 
 const Profile = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);

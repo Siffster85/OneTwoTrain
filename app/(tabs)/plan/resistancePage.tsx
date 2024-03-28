@@ -43,9 +43,7 @@ const ResistancePage = () => {
     } catch {
       alert('Something went wrong please try again');
     }
-
     router.replace('/(tabs)/plan/workout');
-    //Redirect user back to excerise page
   };
 
   const handleRemoveSet = () => {
@@ -118,7 +116,6 @@ const ResistancePage = () => {
           )}
         />
       </View>
-
       <View style={styles.submitButtonContainer}>
         <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
           <Text>Submit</Text>

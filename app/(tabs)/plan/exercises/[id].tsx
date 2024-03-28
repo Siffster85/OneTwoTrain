@@ -19,7 +19,12 @@ export default function CurrentExercise() {
         }}
       />
       <View style={styles.exerciseListContainer}>
-        <ExerciseList setQuantity={quantity} reps={reps} weight={weight} />
+        <ExerciseList
+          key={id.toString()}
+          setQuantity={quantity}
+          reps={reps}
+          weight={weight}
+        />
       </View>
       <View
         style={{
@@ -30,7 +35,11 @@ export default function CurrentExercise() {
         <CustomButton
           theme="deleteExercise"
           label="Remove Exercise"
-          onPress={() => alert('pushed it babes')}
+          onPress={() =>
+            alert(
+              'Add functionality to opto render the exercise to be removed from screen and API',
+            )
+          }
         />
         <CustomButton
           theme="startExercise"

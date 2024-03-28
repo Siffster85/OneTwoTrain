@@ -21,6 +21,42 @@ const Profile = () => {
       });
   };
 
+  interface userProfileTypes {
+    dateofbirth: string;
+    eMail: string;
+    weight: number;
+    height: number;
+    activityLevel: string;
+    caloriesGoal: number;
+    waterGoal: number;
+  }
+
+  const profileData = [
+    ['Date of Birth'],
+    ['E-Mail'],
+    ['Weight'],
+    ['Height'],
+    ['Activity Level'],
+    ['Water Goal'],
+    ['Calorie Goal'],
+  ];
+
+  const userProfile: userProfileTypes = {
+    dateofbirth: '29-10-1985',
+    eMail: 'abcdef@mail.com',
+    weight: 54,
+    height: 173,
+    activityLevel: 'Moderate',
+    caloriesGoal: 1800,
+    waterGoal: 2000,
+  };
+
+  const userProfileData = Object.values(userProfile);
+
+  for (let i = 0; i < userProfileData.length; i++) {
+    profileData[i].push(userProfileData[i]);
+  }
+
   async function pickImageAsync() {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -39,7 +75,7 @@ const Profile = () => {
   }
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.centralAlign}>
       <Stack.Screen
         options={{
           headerShown: true,
@@ -50,18 +86,36 @@ const Profile = () => {
           ),
         }}
       />
-      <CustomButton
-        theme="circular"
-        label="Add Profile Photo"
-        onPress={pickImageAsync}
-      />
-      <Text>Profile page of {user?.email}</Text>
-      <ProfileTable />
+      <View style={styles.centralAlign}>
+        <CustomButton
+          theme="circular"
+          label="Add Profile Photo"
+          onPress={pickImageAsync}
+        />
+        <Text>Profile page of {user?.email}</Text>
+      </View>
+      <View>
+        {profileData.map(data => {
+          return (
+            <View
+              key={'a' + data}
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                width: '100%',
+                paddingBottom: 5,
+              }}>
+              <Text>{data[0]}</Text>
+              <Text>{data[1]}</Text>
+            </View>
+          );
+        })}
+      </View>
       <Button
         title="Change Password"
         onPress={() =>
           router.push({
-            pathname: '/profile/ChangePassword',
+            pathname: '/profile/changePassword',
           })
         }
       />
@@ -69,7 +123,7 @@ const Profile = () => {
         label="Delete Account"
         onPress={() =>
           router.push({
-            pathname: '/profile/DeleteProfile',
+            pathname: '/profile/deleteProfile',
           })
         }
       />
@@ -77,95 +131,13 @@ const Profile = () => {
   );
 };
 
-function ProfileTable() {
-  return (
-    <View style={[styles.container]}>
-      <View style={styles.LCol}>
-        <Text style={styles.text}>Date of Birth</Text>
-      </View>
-      <View style={styles.RCol}>
-        <Text style={styles.text}>{userProfile.dateofbirth}</Text>
-      </View>
-      <View style={styles.LCol}>
-        <Text style={styles.text}>E-Mail</Text>
-      </View>
-      <View style={styles.RCol}>
-        <Text style={styles.text}>{userProfile.eMail}</Text>
-      </View>
-      <View style={styles.LCol}>
-        <Text style={styles.text}>Weight</Text>
-      </View>
-      <View style={styles.RCol}>
-        <Text style={styles.text}>{userProfile.weight} kg</Text>
-      </View>
-      <View style={styles.LCol}>
-        <Text style={styles.text}>Height</Text>
-      </View>
-      <View style={styles.RCol}>
-        <Text style={styles.text}>{userProfile.height} cm</Text>
-      </View>
-      <View style={styles.LCol}>
-        <Text style={styles.text}>Activity Level</Text>
-      </View>
-      <View style={styles.RCol}>
-        <Text style={styles.text}>{userProfile.activityLevel}</Text>
-      </View>
-      <View style={styles.LCol}>
-        <Text style={styles.text}>Water Goal</Text>
-      </View>
-      <View style={styles.RCol}>
-        <Text style={styles.text}>{userProfile.caloriesGoal} kcal</Text>
-      </View>
-      <View style={styles.LCol}>
-        <Text style={styles.text}>Calorie Goal</Text>
-      </View>
-      <View style={styles.RCol}>
-        <Text style={styles.text}>{userProfile.waterGoal} ml</Text>
-      </View>
-    </View>
-  );
-}
-
-interface userProfileTypes {
-  dateofbirth: string;
-  eMail: string;
-  weight: number;
-  height: number;
-  activityLevel: string;
-  caloriesGoal: number;
-  waterGoal: number;
-}
-
-const userProfile: userProfileTypes = {
-  dateofbirth: '10-04-2000',
-  eMail: 'abcdef@mail.com',
-  weight: 54,
-  height: 173,
-  activityLevel: 'Moderate',
-  caloriesGoal: 1800,
-  waterGoal: 2000,
-};
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 2,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-end',
-    fontSize: 55,
-  },
-  LCol: {
-    width: '50%',
-    padding: 10,
-  },
-  RCol: {
-    flexDirection: 'row-reverse',
-    width: '50%',
-    padding: 10,
-  },
-  text: {
-    fontSize: 18,
+  centralAlign: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
+
 
 export default Profile;

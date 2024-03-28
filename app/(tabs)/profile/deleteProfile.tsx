@@ -28,7 +28,7 @@ const DeleteProfile = () => {
       });
   };
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.centralAlign}>
       <Stack.Screen
         options={{
           headerShown: true,
@@ -58,6 +58,11 @@ const DeleteProfile = () => {
 };
 
 const styles = StyleSheet.create({
+  centralAlign: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   text: {
     fontSize: 25,
   },

@@ -26,7 +26,7 @@ export default function AddExercise() {
     { label: 'Legs', value: 'Legs' },
     { label: 'Shoulders', value: 'Shoulders' },
     { label: 'Triceps', value: 'Triceps' },
-  ]
+  ];
 
   const metricItems = [
     {
@@ -37,7 +37,7 @@ export default function AddExercise() {
       label: 'Distance and Time',
       value: 'Distance and Time',
     },
-  ]
+  ];
 
   useEffect(() => {
     if (metrics === 'Weight and Reps') {
@@ -52,6 +52,7 @@ export default function AddExercise() {
       <Stack.Screen
         options={{
           headerTitle: 'Create A Custom Exercise',
+          headerBackTitleVisible: false,
         }}
       />
       <View style={styles.input}>
@@ -85,7 +86,7 @@ export default function AddExercise() {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            isNextButtonNav
+            return isNextButtonNav
               ? router.push({
                   pathname: '/(tabs)/plan/resistancePage',
                   params: { exerciseName, category },

@@ -11,18 +11,25 @@ import {
   View,
 } from 'react-native';
 
-const resistancePage = () => {
+const ResistancePage = () => {
   const params = useLocalSearchParams();
   const { category, exerciseName } = params;
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
   const [data, setData] = useState([]);
 
+  console.log(data);
+  
+
   const handleAddSet = () => {
-    const newSet = { exerciseName, weight, reps };
+    const newSet = { exerciseName, category,  weight, reps };
     setData(prevData => [...prevData, newSet]);
     setWeight(0);
     setReps(0);
+  };
+
+  const handleSubmit = () => {
+
   };
 
   const Item = ({ exerciseName = 'lol', weight = 54, reps = 2 }) => {
@@ -49,7 +56,7 @@ const resistancePage = () => {
             enterKeyHint="done"
             inputMode="numeric"
             clearButtonMode="while-editing"
-            placeholder="Input Weight"
+            placeholder="Input Weight in KG"
             placeholderTextColor="black"
             value={weight}
             onChangeText={number => setWeight(number)}
@@ -90,7 +97,7 @@ const resistancePage = () => {
       </View>
 
       <View style={styles.submitButtonContainer}>
-        <TouchableOpacity style={styles.submitButton}>
+        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
           <Text>Submit</Text>
         </TouchableOpacity>
       </View>
@@ -98,7 +105,7 @@ const resistancePage = () => {
   );
 };
 
-export default resistancePage;
+export default ResistancePage;
 
 const styles = StyleSheet.create({
   pageContainer: {

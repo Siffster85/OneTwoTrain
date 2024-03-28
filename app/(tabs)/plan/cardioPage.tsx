@@ -1,7 +1,7 @@
 import { SafeAreaView } from 'react-native';
 
-const cardioPage = () => {
+const CardioPage = () => {
   return <SafeAreaView />;
 };
 
-export default cardioPage;
+export default CardioPage;

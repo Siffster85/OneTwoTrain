@@ -84,11 +84,11 @@ export default function AddExercise() {
             nextButtonNav
               ? router.push({
                   pathname: '/(tabs)/plan/resistancePage',
-                  params: { exerciseName, metrics, category },
+                  params: { exerciseName, category },
                 })
               : router.push({
                   pathname: '/(tabs)/plan/cardioPage',
-                  params: { exerciseName, metrics, category },
+                  params: { exerciseName, category },
                 });
           }}>
           <Text style={{ fontSize: 20 }}>Next</Text>

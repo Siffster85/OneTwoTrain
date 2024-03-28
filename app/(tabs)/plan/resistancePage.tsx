@@ -13,7 +13,7 @@ import {
 
 const resistancePage = () => {
   const params = useLocalSearchParams();
-  const { category, exerciseName, metrics } = params;
+  const { category, exerciseName } = params;
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
   const [data, setData] = useState([]);
@@ -27,11 +27,11 @@ const resistancePage = () => {
 
   const Item = ({ exerciseName = 'lol', weight = 54, reps = 2 }) => {
     return (
-      <SafeAreaView style={styles.setCard}>
+      <View style={styles.setCard}>
         <Text style={styles.cardInfo}>{exerciseName}</Text>
         <Text style={styles.cardInfo}>{weight}KG</Text>
         <Text style={styles.cardInfo}>{reps}</Text>
-      </SafeAreaView>
+      </View>
     );
   };
 
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   setContainer: {
-    flex: 2,
+    // flex: 2,
     backgroundColor: 'white',
   },
   submitButtonContainer: {
@@ -152,9 +152,12 @@ const styles = StyleSheet.create({
   setCard: {
     borderWidth: 2,
     borderRadius: 150,
-    padding: 15,
+    padding: 10,
+    textAlign: 'center',
+    alignContent: 'center',
   },
   cardInfo: {
     alignContent: 'center',
+    justifyContent: 'center',
   },
 });

@@ -20,7 +20,13 @@ const ResistancePage = () => {
 
   interface Excersie {
     exerciseName: string | string[];
-    category?: string | string[];
+    category: string | string[];
+    weight: string;
+    reps: string;
+  }
+
+  interface itemProps {
+    exerciseName: string | string[];
     weight: string;
     reps: string;
   }
@@ -52,7 +58,7 @@ const ResistancePage = () => {
     }
   };
 
-  const Item = ({ exerciseName, weight, reps }: Excersie) => {
+  const Item = ({ exerciseName, weight, reps }: itemProps) => {
     return (
       <View style={styles.setCard}>
         <Text style={styles.cardInfo}>Name: {exerciseName}</Text>

@@ -73,6 +73,7 @@ const ResistancePage = () => {
       <View style={styles.metricPickersContainer}>
         <View style={styles.pickerBox}>
           <TextInput
+            style={styles.textInput}
             enterKeyHint="done"
             inputMode="numeric"
             clearButtonMode="while-editing"
@@ -84,6 +85,7 @@ const ResistancePage = () => {
         </View>
         <View style={styles.pickerBox}>
           <TextInput
+            style={styles.textInput}
             enterKeyHint="done"
             inputMode="numeric"
             clearButtonMode="while-editing"
@@ -186,5 +188,10 @@ const styles = StyleSheet.create({
   },
   cardInfo: {
     marginLeft: 35,
+  },
+  textInput: {
+    flex: 1,
+    width: '50%',
+    textAlign: 'center',
   },
 });

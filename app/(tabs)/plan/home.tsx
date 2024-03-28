@@ -8,6 +8,9 @@ const plan = () => {
       <Link style={styles.item} href="/plan/workout">
         <Text style={styles.title}>Go To Workout</Text>
       </Link>
+      <Link style={styles.item} href="/plan/stopwatch">
+        <Text style={styles.title}>Stopwatch Placeholder</Text>
+      </Link>
     </SafeAreaView>
   );
 };

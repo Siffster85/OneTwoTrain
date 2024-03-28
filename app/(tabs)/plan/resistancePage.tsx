@@ -46,7 +46,7 @@ const ResistancePage = () => {
   const handleSubmit = async () => {
     try {
       //Add data to the API
-      router.replace('/(tabs)/plan/workout');
+      router.navigate('/(tabs)/plan/workout');
     } catch {
       alert('Something went wrong please try again');
     }

@@ -13,22 +13,57 @@ export default function CustomButton({
       <View
         style={[
           styles.buttonContainer,
-          {
-            borderWidth: 4,
-            padding: 35,
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 150,
-            height: 150,
-            borderColor: '#ffd33d',
-            borderRadius: 100,
-          },
+          styles.circular
         ]}>
         <Pressable
           style={[styles.button, { backgroundColor: '#fff' }]}
           onPress={onPress}>
           <FontAwesome
             name="picture-o"
+            size={18}
+            color="#25292e"
+            style={styles.buttonIcon}
+          />
+          <Text style={[styles.buttonLabel, { color: '#25292e' }]}>
+            {label}
+          </Text>
+        </Pressable>
+      </View>
+    );
+  } else if (theme === 'deleteExercise') {
+    return (
+      <View
+        style={[
+          styles.buttonContainer,
+          styles.deletedExercise
+        ]}>
+        <Pressable
+          style={[styles.button, { backgroundColor: '#fff' }]}
+          onPress={onPress}>
+          <FontAwesome
+            name="trash"
+            size={18}
+            color="#25292e"
+            style={styles.buttonIcon}
+          />
+          <Text style={[styles.buttonLabel, { color: '#25292e' }]}>
+            {label}
+          </Text>
+        </Pressable>
+      </View>
+    );
+  } else if (theme === 'startExercise') {
+    return (
+      <View
+        style={[
+          styles.buttonContainer,
+          styles.startExercise
+        ]}>
+        <Pressable
+          style={[styles.button, { backgroundColor: '#fff' }]}
+          onPress={onPress}>
+          <FontAwesome
+            name="play"
             size={18}
             color="#25292e"
             style={styles.buttonIcon}
@@ -74,6 +109,36 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 15,
+  },
+  circular: {
+      borderWidth: 4,
+      padding: 35,
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 150,
+      height: 150,
+      borderColor: '#ffd33d',
+      borderRadius: 100,
+  },
+  deletedExercise: {
+    borderWidth: 4,
+    padding: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 150,
+    height: 150,
+    borderColor: 'red',
+    borderRadius: 150,
+  },
+  startExercise:  {
+    borderWidth: 4,
+    padding: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 150,
+    height: 150,
+    borderColor: 'green',
+    borderRadius: 150,
   },
 });

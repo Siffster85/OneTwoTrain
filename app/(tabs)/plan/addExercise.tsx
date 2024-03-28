@@ -58,6 +58,13 @@ export default function AddExercise() {
       <View style={styles.input}>
         <Text>Please select a category below</Text>
         <RNPickerSelect
+          style={{
+            ...pickerSelectStyles,
+            iconContainer: {
+              top: 10,
+              right: 12,
+            },
+          }}
           value={category}
           onValueChange={value => setCategory(value)}
           items={categoryItems}
@@ -77,6 +84,13 @@ export default function AddExercise() {
       <View style={styles.input}>
         <Text>Please select measurement</Text>
         <RNPickerSelect
+          style={{
+            ...pickerSelectStyles,
+            iconContainer: {
+              top: 10,
+              right: 12,
+            },
+          }}
           value={metrics}
           onValueChange={value => setMetrics(value)}
           items={metricItems}
@@ -129,5 +143,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 150,
     backgroundColor: 'green',
+  },
+});
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: 'purple',
+    borderRadius: 8,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+  },
+  placeholder: {
+    color: 'gray',
   },
 });

@@ -5,7 +5,6 @@ import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 export default function CurrentExercise() {
   const { id, title } = useLocalSearchParams();
-
   const quantity = 3;
   const reps = 5;
   const weight = '50KG';

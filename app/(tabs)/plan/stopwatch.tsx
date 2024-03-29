@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { DisplayTime } from './stopwatchComponent/displayTime';
+import Result from './stopwatchComponent/result';
 
 const Stopwatch = () => {
   // State and refs to manage time and stopwatch status
   const [seconds, setSeconds] = useState(0);
   const [running, setRunning] = useState(false);
+  const [results, setResults] = useState([]);
   const intervalRef = useRef(null);
   const startTimeRef = useRef(0);
   // Function to start the stopwatch
@@ -27,25 +29,21 @@ const Stopwatch = () => {
     setSeconds(0);
     setRunning(false);
   };
+  const completeLap = () => {
+    setResults(previousResults => [seconds, ...previousResults]);
+    setSeconds(0);
+    clearInterval(intervalRef.current);
+  };
   // Function to log times
   const logTimes = () => {
-    console.log(DisplayTime(seconds));
+    console.log(results);
+    setResults([]);
+    //needs to push all laps to
   };
-  const completeLap = () => {
-    setRunning(false);
-    laps.push([laps.length + 1, seconds]);
-    clearInterval(intervalRef.current);
-    setSeconds(0);
-    setRunning(false);
-  };
-
-  const laps = [];
-  console.log(laps);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Track Your Workout</Text>
-      <Text style={styles.subHeader}>Cardio Exercise</Text>
+      <Text style={styles.header}>*Exercise*</Text>
       <Text style={styles.timeText}>{DisplayTime(seconds)}</Text>
       <View style={styles.buttonContainer}>
         {running ? (
@@ -54,11 +52,6 @@ const Stopwatch = () => {
               style={[styles.button, styles.pauseButton]}
               onPress={pauseStopwatch}>
               <Text style={styles.buttonText}>Pause</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.button, styles.resumeButton]}
-              onPress={completeLap}>
-              <Text style={styles.buttonText}>Complete Lap</Text>
             </TouchableOpacity>
           </View>
         ) : (
@@ -71,27 +64,26 @@ const Stopwatch = () => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              style={[styles.button, styles.resumeButton]}
+              onPress={completeLap}>
+              <Text style={styles.buttonText}>Complete Lap</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
               style={[styles.button, styles.resetButton]}
               onPress={resetStopwatch}>
               <Text style={styles.buttonText}>Reset</Text>
             </TouchableOpacity>
           </View>
         )}
-        <View>
-          {laps.map(lap => {
-            return (
-              <View key={lap[0]} style={styles.laps}>
-                <Text>{lap[0]}</Text>
-                <Text>{lap[1]}</Text>
-              </View>
-            );
-          })}
+      </View>
+      <Text style={styles.subHeader}>Laps</Text>
+      <View style={styles.laps}>
+        <Result results={results} />
         <TouchableOpacity
           style={[styles.button, styles.resumeButton]}
           onPress={logTimes}>
           <Text style={styles.buttonText}>Log Exercise</Text>
         </TouchableOpacity>
-        </View>
       </View>
     </View>
   );
@@ -111,6 +103,7 @@ const styles = StyleSheet.create({
   subHeader: {
     fontSize: 18,
     marginBottom: 10,
+    marginTop: 10,
     color: 'blue',
   },
   timeText: {
@@ -124,6 +117,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
+    margin: 5,
   },
   startButton: {
     backgroundColor: '#2ecc71',
@@ -143,11 +137,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
   },
-  laps: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingBottom: 5,
+  laps: { 
+    flex: 2 / 5,
   },
 });
 

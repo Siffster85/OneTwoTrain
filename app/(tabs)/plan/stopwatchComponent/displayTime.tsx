@@ -1,6 +1,6 @@
-const padToTwo = number => (number <= 9 ? `0${number}` : number);
+const padToTwo = (number: number) => (number <= 9 ? `0${number}` : number);
 
-export const DisplayTime = seconds => {
+export const DisplayTime = (seconds: number) => {
   let hours = 0;
   let minutes = 0;
   if (seconds < 0) {

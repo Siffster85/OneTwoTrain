@@ -4,13 +4,12 @@ import { DisplayTime } from './stopwatchComponent/displayTime';
 import Result from './stopwatchComponent/result';
 
 const Stopwatch = () => {
-  // State and refs to manage time and stopwatch status
   const [seconds, setSeconds] = useState(0);
   const [running, setRunning] = useState(false);
-  const [results, setResults] = useState([]);
-  const intervalRef = useRef(null);
+  const [results, setResults] = useState<number[]>([]);
+  const intervalRef: { current: number | NodeJS.Timeout | null } = useRef(null);
   const startTimeRef = useRef(0);
-  // Function to start the stopwatch
+
   const startStopwatch = () => {
     startTimeRef.current = Date.now() - seconds * 1000;
     intervalRef.current = setInterval(() => {
@@ -18,25 +17,24 @@ const Stopwatch = () => {
     }, 1000);
     setRunning(true);
   };
-  // Function to pause the stopwatch
+
   const pauseStopwatch = () => {
-    clearInterval(intervalRef.current);
+    clearInterval(intervalRef.current as NodeJS.Timeout);
     setRunning(false);
   };
-  // Function to reset the stopwatch
+
   const resetStopwatch = () => {
-    clearInterval(intervalRef.current);
+    clearInterval(intervalRef.current as NodeJS.Timeout);
     setSeconds(0);
     setRunning(false);
   };
   const completeLap = () => {
     setResults(previousResults => [seconds, ...previousResults]);
     setSeconds(0);
-    clearInterval(intervalRef.current);
+    clearInterval(intervalRef.current as NodeJS.Timeout);
   };
   // Function to log times
   const logTimes = () => {
-    console.log(results);
     setResults([]);
     //needs to push all laps to
   };

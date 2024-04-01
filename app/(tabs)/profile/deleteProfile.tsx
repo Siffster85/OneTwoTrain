@@ -5,15 +5,17 @@ import {
   EmailAuthProvider,
   deleteUser,
   reauthenticateWithCredential,
+  User,
 } from 'firebase/auth';
 import { useState } from 'react';
 import { Alert, Button, StyleSheet, TextInput } from 'react-native';
 
 const DeleteProfile = () => {
-  const user: any = auth.currentUser;
+  const user: User = auth.currentUser;
+
   const [password, setPassword] = useState('');
 
-  const credential: any = EmailAuthProvider.credential(user.email, password);
+  const credential = EmailAuthProvider.credential(user.email, password);
 
   const deleteAccount = () => {
     reauthenticateWithCredential(user, credential)

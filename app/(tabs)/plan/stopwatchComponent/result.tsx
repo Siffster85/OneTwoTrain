@@ -1,13 +1,12 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { DisplayTime } from './displayTime';
-// print the lap time
 
-function Result({ results }) {
+function Result({ results }: { results: number[] }) {
   return (
     <ScrollView>
       <View style={styles.resultItem} />
-      {results.map((item, index) => (
+      {results.map((item: number, index: number) => (
         <View key={index} style={styles.resultItem}>
           <Text style={styles.resultItemText}>
             Lap {results.length - index}

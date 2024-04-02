@@ -10,11 +10,7 @@ export default function CustomButton({
 }) {
   if (theme === 'circular') {
     return (
-      <View
-        style={[
-          styles.buttonContainer,
-          styles.circular
-        ]}>
+      <View style={[styles.buttonContainer, styles.circular]}>
         <Pressable
           style={[styles.button, { backgroundColor: '#fff' }]}
           onPress={onPress}>
@@ -32,11 +28,7 @@ export default function CustomButton({
     );
   } else if (theme === 'deleteExercise') {
     return (
-      <View
-        style={[
-          styles.buttonContainer,
-          styles.deletedExercise
-        ]}>
+      <View style={[styles.buttonContainer, styles.deletedExercise]}>
         <Pressable
           style={[styles.button, { backgroundColor: '#fff' }]}
           onPress={onPress}>
@@ -54,11 +46,7 @@ export default function CustomButton({
     );
   } else if (theme === 'startExercise') {
     return (
-      <View
-        style={[
-          styles.buttonContainer,
-          styles.startExercise
-        ]}>
+      <View style={[styles.buttonContainer, styles.startExercise]}>
         <Pressable
           style={[styles.button, { backgroundColor: '#fff' }]}
           onPress={onPress}>
@@ -112,14 +100,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   circular: {
-      borderWidth: 4,
-      padding: 35,
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: 150,
-      height: 150,
-      borderColor: '#ffd33d',
-      borderRadius: 100,
+    borderWidth: 4,
+    padding: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 150,
+    height: 150,
+    borderColor: '#ffd33d',
+    borderRadius: 100,
   },
   deletedExercise: {
     borderWidth: 4,
@@ -131,7 +119,7 @@ const styles = StyleSheet.create({
     borderColor: 'red',
     borderRadius: 150,
   },
-  startExercise:  {
+  startExercise: {
     borderWidth: 4,
     padding: 35,
     alignItems: 'center',

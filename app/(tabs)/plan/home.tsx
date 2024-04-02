@@ -1,16 +1,30 @@
 import { Text } from '@/components/Themed';
-import { Link } from 'expo-router';
-import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { router } from 'expo-router';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 
 const plan = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <Link style={styles.item} href="/plan/workout">
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => router.push('/plan/workout')}>
         <Text style={styles.title}>Go To Workout</Text>
-      </Link>
-      <Link style={styles.item} href="/plan/stopwatch">
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => router.push('/plan/stopwatch')}>
         <Text style={styles.title}>Stopwatch Placeholder</Text>
-      </Link>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => router.push('/(tabs)/plan/weigh-in-page')}>
+        <Text style={styles.title}>Go To Weigh In</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };

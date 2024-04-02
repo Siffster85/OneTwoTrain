@@ -4,9 +4,19 @@ import { Tabs } from 'expo-router';
 const TabsLayout = () => {
   const planIcon = <Feather name="layout" size={25} />;
   const profileIcon = <Feather name="user" size={25} />;
+  const calendarIcon = <Feather name="calendar" size={25} />;
 
   return (
     <Tabs screenOptions={{ headerShown: false }}>
+      <Tabs.Screen
+        name="calendar"
+        options={{
+          tabBarLabel: 'Calendar',
+          title: 'Calendar',
+          tabBarIcon: () => calendarIcon,
+          tabBarActiveTintColor: '#387C44',
+        }}
+      />
       <Tabs.Screen
         name="plan"
         options={{

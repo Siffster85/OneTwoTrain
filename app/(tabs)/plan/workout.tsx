@@ -44,6 +44,10 @@ const Item = ({ title, category }: ItemProps): any => {
 };
 
 const workout = () => {
+  const browsePrevWorkout = () => {
+    router.navigate('/(tabs)/plan/browseWorkout');
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen
@@ -76,7 +80,7 @@ const workout = () => {
           onPress={() => router.push('/(tabs)/plan/addExercise')}>
           <Text>Add An Exercise</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.item}>
+        <TouchableOpacity style={styles.item} onPress={() => browsePrevWorkout()}>
           <Text>Browse Previous Workouts</Text>
         </TouchableOpacity>
         <TouchableOpacity

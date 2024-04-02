@@ -107,17 +107,20 @@ export const getSingleDayWorkout = async (date: string | string[]) => {
     const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
 
-    const response = await instance.get(`/schedules/${date}/plan/workout/exercises`, {
-      headers: {
-        Authorization: `Bearer ${userAccessToken}`,
+    const response = await instance.get(
+      `/schedules/${date}/plan/workout/exercises`,
+      {
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+        },
       },
-    });
+    );
 
     return response.data.exercises;
   } catch (error) {
     throw error;
   }
-}
+};
 
 export const removeUser = async () => {
   try {
@@ -133,4 +136,4 @@ export const removeUser = async () => {
   } catch (error) {
     throw error;
   }
-}
+};

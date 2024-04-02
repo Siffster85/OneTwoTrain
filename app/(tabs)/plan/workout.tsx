@@ -13,29 +13,33 @@ const DATA = [
   {
     id: 1,
     title: 'Push Ups',
+    category: 'cardio',
   },
   {
     id: 2,
     title: 'Star jumps',
+    category: 'legs',
   },
   {
     id: 3,
     title: 'ELENA ELEVATIONS',
+    category: 'cardio',
   },
   {
     id: 4,
     title: 'KENNY KICKS',
+    category: 'back',
   },
 ];
 
-type ItemProps = { title: string };
+type ItemProps = { title: string; category: string };
 
-const Item = ({ title }: ItemProps): any => {
+const Item = ({ title, category }: ItemProps): any => {
   return (
-    <SafeAreaView style={styles.item}>
+    <View style={category === 'cardio' ? styles.item : styles.cardioItem}>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.exerciseQuantity}>Change to exercise quantity</Text>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -58,7 +62,7 @@ const workout = () => {
                 params: { id: item.id, title: item.title },
               })
             }>
-            <Item title={item.title} />
+            <Item title={item.title} category={item.category} />
           </Pressable>
         )}
       />
@@ -98,6 +102,15 @@ const styles = StyleSheet.create({
   },
   exerciseQuantity: {
     textAlign: 'center',
+  },
+  cardioItem: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#39E1CC',
+    padding: 20,
+    justifyContent: 'space-between',
+    marginVertical: 8,
+    marginHorizontal: 16,
   },
 });
 

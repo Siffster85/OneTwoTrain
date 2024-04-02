@@ -1,5 +1,5 @@
-import { postWeightExercise } from '@/api';
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { postExercise } from '@/api';
+import { Stack, router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import {
   FlatList,
@@ -48,12 +48,12 @@ const ResistancePage = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await postWeightExercise(dataToSend);
+      const response = await postExercise(dataToSend);
       return response;
     } catch {
       alert('Something went wrong please try again');
     } finally {
-      // router.navigate('/(tabs)/plan/workout');
+      router.navigate('/(tabs)/plan/workout');
     }
   };
 

@@ -10,6 +10,7 @@ const instance = axios.create({
 const currentDate = new Date();
 const todaysDate = formatDate(currentDate);
 
+
 type UserData = {
   name: string | string[];
   email: any;
@@ -51,16 +52,19 @@ export const getAllExercises = async () => {
   }
 };
 
-export const postWeightExercise = async (weightData: Excersie) => {
+export const getExerciseByDate
+
+export const postExercise = async (weightData: Excersie) => {
   try {
     const userAccessToken = await user?.getIdToken(true);
 
     const response = await axios.post(
-      `https://app-dy64z7slha-uc.a.run.app/api/schedules/${todaysDate}/plan/workout/exercises/weight`,
+      `https://app-dy64z7slha-uc.a.run.app/api/schedules/${todaysDate}/plan/workout/exercises`,
       weightData,
       {
         headers: {
           Authorization: `Bearer ${userAccessToken}`,
+          'Content-Type': 'application/json',
         },
       },
     );

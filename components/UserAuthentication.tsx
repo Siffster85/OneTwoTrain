@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 
 type UserData = {
-  userName: string | string[];
+  name: string | string[];
   dateOfBirth: string | string[];
   weight: string | string[];
   height: string | string[];
@@ -50,9 +50,8 @@ const UserAuthentication: React.FC<AuthProps> = ({
   const signUpWithEmail = () => {
     setLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
-        const userEmail = userCredential?.user?.email;
-        const userDataToPost = { ...userData, email: userEmail };
+      .then(() => {
+        const userDataToPost = { ...userData, email, profileImage: '' };
         postUserData(userDataToPost);
       })
       .then(() => {

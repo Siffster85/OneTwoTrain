@@ -44,6 +44,10 @@ const Item = ({ title, category }: ItemProps): any => {
 };
 
 const workout = () => {
+  const browsePrevWorkout = () => {
+    router.navigate('/(tabs)/plan/browseWorkout');
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen
@@ -59,7 +63,11 @@ const workout = () => {
             onPress={() =>
               router.push({
                 pathname: '/(tabs)/plan/exercises/[id]',
-                params: { id: item.id, title: item.title },
+                params: {
+                  id: item.id,
+                  title: item.title,
+                  category: item.category,
+                },
               })
             }>
             <Item title={item.title} category={item.category} />
@@ -72,10 +80,12 @@ const workout = () => {
           onPress={() => router.push('/(tabs)/plan/addExercise')}>
           <Text>Add An Exercise</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.item}>
+        <TouchableOpacity style={styles.item} onPress={() => browsePrevWorkout()}>
           <Text>Browse Previous Workouts</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.item}>
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => router.push('/(tabs)/plan/browseExercises')}>
           <Text>Browse Exercises</Text>
         </TouchableOpacity>
       </View>
@@ -94,8 +104,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#4BA663',
     padding: 20,
     justifyContent: 'space-between',
-    marginVertical: 8,
-    marginHorizontal: 16,
   },
   title: {
     fontSize: 25,
@@ -109,8 +117,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#39E1CC',
     padding: 20,
     justifyContent: 'space-between',
-    marginVertical: 8,
-    marginHorizontal: 16,
   },
 });
 

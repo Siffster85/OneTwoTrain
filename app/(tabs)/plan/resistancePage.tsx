@@ -1,3 +1,4 @@
+import { postExercise } from '@/api';
 import { Stack, router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import {
@@ -16,28 +17,30 @@ const ResistancePage = () => {
   const { category, exerciseName } = params;
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
-  const [data, setData] = useState<Excersie[]>([]);
+  const [data, setData] = useState<Set[]>([]);
+  const sets: Record<string, Set> = {};
 
-  interface Excersie {
-    exerciseName: string | string[];
-    category: string | string[];
-    weight: string;
-    reps: string;
-  }
+  data.forEach((item, index) => {
+    sets[`${index}`] = item;
+  });
 
-  interface itemProps {
-    exerciseName: string | string[];
+  const dataToSend = {
+    exerciseName,
+    category,
+    sets,
+  };
+
+  interface Set {
     weight: string;
     reps: string;
   }
 
   const handleAddSet = () => {
-    const newSet: Excersie = {
-      exerciseName,
-      category,
+    const newSet: Set = {
       weight,
       reps,
     };
+
     setData(prevData => [...prevData, newSet]);
     setWeight('');
     setReps('');
@@ -45,10 +48,12 @@ const ResistancePage = () => {
 
   const handleSubmit = async () => {
     try {
-      //Add data to the API
-      router.navigate('/(tabs)/plan/workout');
+      const response = await postExercise(dataToSend);
+      return response;
     } catch {
       alert('Something went wrong please try again');
+    } finally {
+      router.navigate('/(tabs)/plan/workout');
     }
   };
 
@@ -58,10 +63,9 @@ const ResistancePage = () => {
     }
   };
 
-  const Item = ({ exerciseName, weight, reps }: itemProps) => {
+  const Item = ({ weight, reps }: Set) => {
     return (
       <View style={styles.setCard}>
-        <Text style={styles.cardInfo}>Name: {exerciseName}</Text>
         <Text style={styles.cardInfo}>Weight: {weight}KG</Text>
         <Text style={styles.cardInfo}>Reps: {reps}</Text>
       </View>
@@ -116,11 +120,7 @@ const ResistancePage = () => {
         <FlatList
           data={data}
           renderItem={({ item }) => (
-            <Item
-              exerciseName={item.exerciseName}
-              weight={item.weight}
-              reps={item.reps}
-            />
+            <Item weight={item.weight} reps={item.reps} />
           )}
         />
       </View>

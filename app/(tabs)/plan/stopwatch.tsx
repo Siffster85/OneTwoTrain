@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
   },
-  laps: { 
+  laps: {
     flex: 2 / 5,
   },
 });

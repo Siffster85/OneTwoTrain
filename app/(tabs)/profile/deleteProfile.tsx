@@ -5,29 +5,29 @@ import {
   EmailAuthProvider,
   deleteUser,
   reauthenticateWithCredential,
-  User,
 } from 'firebase/auth';
 import { useState } from 'react';
 import { Alert, Button, StyleSheet, TextInput } from 'react-native';
 
 const DeleteProfile = () => {
-  const user: User = auth.currentUser;
-
+  const user = auth.currentUser;
+  const email = user?.email ?? '';
   const [password, setPassword] = useState('');
 
-  const credential = EmailAuthProvider.credential(user.email, password);
+  const credential = EmailAuthProvider.credential(email, password);
 
   const deleteAccount = () => {
-    reauthenticateWithCredential(user, credential)
-      .then(() => {
-        deleteUser(user);
-      })
-      .then(() => {
-        Alert.alert('Account Deleted');
-      })
-      .catch(error => {
-        Alert.alert('Error:', error.message);
-      });
+    if (user)
+      reauthenticateWithCredential(user, credential)
+        .then(() => {
+          deleteUser(user);
+        })
+        .then(() => {
+          Alert.alert('Account Deleted');
+        })
+        .catch(error => {
+          Alert.alert('Error:', error.message);
+        });
   };
   return (
     <View style={styles.centralAlign}>

@@ -4,7 +4,7 @@ import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 export default function CurrentExercise() {
-  const { id, title } = useLocalSearchParams();
+  const { id, title, category } = useLocalSearchParams();
   const quantity = 3;
   const reps = 5;
   const weight = '50KG';
@@ -43,17 +43,27 @@ export default function CurrentExercise() {
         <CustomButton
           theme="startExercise"
           label="Start"
-          onPress={() =>
-            router.push({
-              pathname: '/(tabs)/plan/timer',
-              params: {
-                quantity,
-                reps,
-                weight,
-                title,
-              },
-            })
-          }
+          onPress={() => {
+            return category !== 'cardio'
+              ? router.push({
+                  pathname: '/(tabs)/plan/stopwatch',
+                  params: {
+                    quantity,
+                    reps,
+                    weight,
+                    title,
+                  },
+                })
+              : router.push({
+                  pathname: '/(tabs)/plan/timer',
+                  params: {
+                    quantity,
+                    reps,
+                    weight,
+                    title,
+                  },
+                });
+          }}
         />
       </View>
     </SafeAreaView>

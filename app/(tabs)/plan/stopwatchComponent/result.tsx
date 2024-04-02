@@ -13,7 +13,7 @@ function Result({ results }: { results: number[] }) {
           </Text>
           <Text style={styles.resultItemText}>{DisplayTime(item)}</Text>
         </View>
-  ))}
+      ))}
     </ScrollView>
   );
 }

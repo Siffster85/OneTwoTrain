@@ -1,3 +1,4 @@
+import { postUserData } from '@/api';
 import { auth } from '@/firebaseConfig';
 import { Stack } from 'expo-router';
 import {
@@ -16,16 +17,24 @@ import {
   View,
 } from 'react-native';
 
+type UserData = {
+  userName: string | string[];
+  dateOfBirth: string | string[];
+  weight: string | string[];
+  height: string | string[];
+  dailyActivityLevel: string | string[];
+  waterGoal: number;
+  calorieGoal: number;
+};
+
 interface AuthProps {
   isUserRegistered: boolean;
-  userName: string;
-  caloriesPerDay: number;
+  userData?: UserData;
 }
 
 const UserAuthentication: React.FC<AuthProps> = ({
   isUserRegistered,
-  userName,
-  caloriesPerDay,
+  userData,
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -42,10 +51,12 @@ const UserAuthentication: React.FC<AuthProps> = ({
     setLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
-        const user = userCredential.user;
-        Alert.alert(
-          `Signed up as ${userName}\nEmail: ${user.email}\nCalories Per Day: ${caloriesPerDay}`,
-        );
+        const userEmail = userCredential?.user?.email;
+        const userDataToPost = { ...userData, email: userEmail };
+        postUserData(userDataToPost);
+      })
+      .then(() => {
+        Alert.alert(`Posted`);
       })
       .catch(error => {
         const errorCode = error.code;

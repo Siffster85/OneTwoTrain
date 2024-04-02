@@ -2,6 +2,8 @@ import axios from 'axios';
 import { auth } from './firebaseConfig';
 import { formatDate } from './utils';
 
+const user = auth.currentUser;
+
 const instance = axios.create({
   baseURL: 'https://app-dy64z7slha-uc.a.run.app/api',
 });

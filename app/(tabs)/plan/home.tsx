@@ -17,6 +17,11 @@ const plan = () => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.item}
+        onPress={() => router.push('/plan/stopwatch')}>
+        <Text style={styles.title}>Stopwatch Placeholder</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.item}
         onPress={() => router.push('/(tabs)/plan/weigh-in-page')}>
         <Text style={styles.title}>Go To Weigh In</Text>
       </TouchableOpacity>

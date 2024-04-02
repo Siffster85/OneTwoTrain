@@ -4,10 +4,9 @@ import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 export default function CurrentExercise() {
-  const { id, title, category } = useLocalSearchParams();
-  const quantity = 3;
-  const reps = 5;
-  const weight = '50KG';
+  const { id, title, category, sets } = useLocalSearchParams();
+  const parsedSets = JSON.parse(sets);
+  const setAmounts = Object.keys(parsedSets).length;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -20,9 +19,8 @@ export default function CurrentExercise() {
       <View style={styles.exerciseListContainer}>
         <ExerciseList
           key={id.toString()}
-          setQuantity={quantity}
-          reps={reps}
-          weight={weight}
+          setQuantity={setAmounts}
+          sets={parsedSets}
         />
       </View>
       <View
@@ -46,13 +44,12 @@ export default function CurrentExercise() {
           onPress={() => {
             return router.push({
               pathname:
-                category !== 'cardio'
+                category === 'cardio'
                   ? '/(tabs)/plan/stopwatch'
                   : '/(tabs)/plan/timer',
               params: {
-                quantity,
-                reps,
-                weight,
+                setAmounts,
+                sets: JSON.stringify(sets),
                 title,
               },
             });

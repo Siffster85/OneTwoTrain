@@ -3,6 +3,7 @@ import { Stack, router, useLocalSearchParams } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { useRef, useState } from 'react';
 import {
+  FlatList,
   Pressable,
   SafeAreaView,
   StyleSheet,
@@ -13,18 +14,22 @@ import {
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
 export default function Timer() {
-  const { reps, weight, setQuantity, title } = useLocalSearchParams();
+  const { reps, weight, setAmounts, title, sets } = useLocalSearchParams();
   const confettiRef = useRef<LottieView>(null);
   const [endCount, setEndCount] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [key, setKey] = useState(0);
+  const parsedSets = JSON.parse(sets);
 
   function triggerConfetti() {
     confettiRef.current?.play(0);
   }
 
+console.log(Object.values(parsedSets));
+
+
   function complete() {
-    if (endCount === Number(setQuantity)) {
+    if (endCount === Number(setAmounts)) {
       triggerConfetti();
       setTimeout(() => {
         router.back();
@@ -67,7 +72,15 @@ export default function Timer() {
       </View>
       <View style={styles.infoBox}>
         <Text>{title}</Text>
-        <Text>{weight}</Text>
+        <FlatList
+        data={parsedSets}
+        renderItem={({ item, index }) => (
+          <View>
+            <Text>{item.reps}</Text>
+          </View>
+         
+        )}
+      />
         <Text>{reps}</Text>
       </View>
       <View style={styles.buttons}>

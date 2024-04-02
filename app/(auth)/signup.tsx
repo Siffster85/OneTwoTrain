@@ -3,12 +3,12 @@ import { calculateCalories } from '@/utils';
 import { useLocalSearchParams } from 'expo-router';
 
 const Signup = () => {
-  const { userName, weight, height, age, selectedActivity, dateOfBirth } =
+  const { name, weight, height, age, selectedActivity, dateOfBirth } =
     useLocalSearchParams();
   const calorieGoal = calculateCalories(age, weight, height, selectedActivity);
 
   const userData = {
-    userName,
+    name,
     dateOfBirth,
     weight,
     height,

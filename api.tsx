@@ -1,32 +1,32 @@
 import axios from 'axios';
 import { auth } from './firebaseConfig';
 
-const user = auth.currentUser;
+const instance = axios.create({
+  baseURL: 'https://app-dy64z7slha-uc.a.run.app/api',
+});
 
 type UserData = {
-  userName: string | string[];
+  name: string | string[];
   email: any;
   dateOfBirth: string | string[];
-  weight: string | string[];
-  height: string | string[];
+  weight: number;
+  height: number;
   dailyActivityLevel: string | string[];
   waterGoal: number;
   calorieGoal: number;
+  profileImage: string;
 };
 
 export const postUserData = async (userData: UserData) => {
   try {
+    const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
-
-    const response = await axios.post(
-      'https://app-dy64z7slha-uc.a.run.app/api/users',
-      userData,
-      {
-        headers: {
-          Authorization: `Bearer ${userAccessToken}`,
-        },
+    const response = await instance.post('/users', userData, {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+        'Content-Type': 'application/json',
       },
-    );
+    });
 
     return response;
   } catch (error) {
@@ -36,16 +36,14 @@ export const postUserData = async (userData: UserData) => {
 
 export const getUserData = async () => {
   try {
+    const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
 
-    const response = await axios.get(
-      'https://app-dy64z7slha-uc.a.run.app/api/user/profile',
-      {
-        headers: {
-          Authorization: `Bearer ${userAccessToken}`,
-        },
+    const response = await instance.get('/profile', {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
       },
-    );
+    });
 
     return response;
   } catch (error) {

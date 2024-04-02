@@ -1,9 +1,9 @@
 import ActivityLevelInput from '@/components/ActivityLevelInput';
 import BirthDateInput from '@/components/BirthDateInput';
+import { calculateAge, formatDate } from '@/utils';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { calculateAge, formatDate } from '@/utils';
 
 const ActivityLevel = () => {
   const { userName, weight, height } = useLocalSearchParams();
@@ -14,9 +14,9 @@ const ActivityLevel = () => {
     router.push({
       pathname: '/(auth)/signup',
       params: {
-        userName,
-        weight,
-        height,
+        name: userName,
+        weight: Number(weight),
+        height: Number(height),
         age: calculateAge(date),
         selectedActivity,
         dateOfBirth: formatDate(date),

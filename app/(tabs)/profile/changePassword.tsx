@@ -8,27 +8,27 @@ import {
 } from 'firebase/auth';
 import { useState } from 'react';
 import { Alert, Button, StyleSheet, TextInput } from 'react-native';
-import FirebaseAuthTypes from '@firebase/auth';
 
 const ChangePassword = () => {
-  const user: FirebaseAuthTypes.User = auth.currentUser;
-  const email = user.email;
+  const user = auth.currentUser;
+  const email = user?.email ?? '';
   const [newPassword, setNewPassword] = useState('');
   const [oldPassword, setOldPassword] = useState('');
 
   const credential = EmailAuthProvider.credential(email, oldPassword);
 
   const changePassword = () => {
-    reauthenticateWithCredential(user, credential)
-      .then(() => {
-        updatePassword(user, newPassword);
-      })
-      .then(() => {
-        Alert.alert('Password Changed');
-      })
-      .catch(error => {
-        Alert.alert('Error:', error.message);
-      });
+    if (user)
+      reauthenticateWithCredential(user, credential)
+        .then(() => {
+          updatePassword(user, newPassword);
+        })
+        .then(() => {
+          Alert.alert('Password Changed');
+        })
+        .catch(error => {
+          Alert.alert('Error:', error.message);
+        });
   };
 
   return (

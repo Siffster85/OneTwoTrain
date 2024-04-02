@@ -1,14 +1,28 @@
+import { getUserProfile } from '@/api';
 import { Text, View } from '@/components/Themed';
 import { auth } from '@/firebaseConfig';
 import * as ImagePicker from 'expo-image-picker';
 import { Stack, router } from 'expo-router';
 import { signOut } from 'firebase/auth';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, Button, StyleSheet } from 'react-native';
 import CustomButton from '../../../components/CustomButton';
 
 const Profile = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [userProfile, setUserProfile] = useState({
+    user: {
+      calorieGoal: 0,
+      dailyActivityLevel: '',
+      dateOfBirth: '',
+      email: '',
+      height: '',
+      name: '',
+      profileImage: '',
+      waterGoal: 0,
+      weight: '',
+    },
+  });
   const user = auth.currentUser;
   const handleSignOut = () => {
     signOut(auth)
@@ -20,41 +34,28 @@ const Profile = () => {
       });
   };
 
-  interface userProfileTypes {
-    dateofbirth: string;
-    eMail: string;
-    weight: number;
-    height: number;
-    activityLevel: string;
-    caloriesGoal: number;
-    waterGoal: number;
-  }
+  useEffect(() => {
+    try {
+      const userData = async () => {
+        const data = await getUserProfile();
+        setUserProfile(data.data);
+      };
+      userData();
+    } catch (error) {
+      throw error;
+    }
+  }, []);
 
   const profileData = [
-    ['Date of Birth'],
-    ['E-Mail'],
-    ['Weight'],
-    ['Height'],
-    ['Activity Level'],
-    ['Water Goal'],
-    ['Calorie Goal'],
+    ['Name', userProfile.user.name],
+    ['Date of Birth', userProfile.user.dateOfBirth],
+    ['E-Mail', userProfile.user.email],
+    ['Weight', userProfile.user.weight],
+    ['Height', userProfile.user.height],
+    ['Activity Level', userProfile.user.dailyActivityLevel],
+    ['Water Goal', userProfile.user.waterGoal],
+    ['Calorie Goal', userProfile.user.calorieGoal],
   ];
-
-  const userProfile: userProfileTypes = {
-    dateofbirth: '29-10-1985',
-    eMail: 'abcdef@mail.com',
-    weight: 54,
-    height: 173,
-    activityLevel: 'Moderate',
-    caloriesGoal: 1800,
-    waterGoal: 2000,
-  };
-
-  const userProfileData = Object.values(userProfile);
-
-  for (let i = 0; i < userProfileData.length; i++) {
-    profileData[i].push(userProfileData[i]);
-  }
 
   async function pickImageAsync() {
     try {

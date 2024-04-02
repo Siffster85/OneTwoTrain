@@ -34,19 +34,34 @@ export const postUserData = async (userData: UserData) => {
   }
 };
 
-export const getUserData = async () => {
+export const getUserProfile = async () => {
   try {
     const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
 
-    const response = await instance.get('/profile', {
+    const response = await instance.get('/user/profile', {
       headers: {
         Authorization: `Bearer ${userAccessToken}`,
       },
     });
-
     return response;
   } catch (error) {
     throw error;
   }
 };
+
+export const removeUser = async () => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.delete('/users', {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}

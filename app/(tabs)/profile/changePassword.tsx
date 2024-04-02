@@ -2,24 +2,21 @@ import { View } from '@/components/Themed';
 import { auth } from '@/firebaseConfig';
 import { Stack } from 'expo-router';
 import {
-  EmailAuthCredential,
   EmailAuthProvider,
   reauthenticateWithCredential,
   updatePassword,
 } from 'firebase/auth';
 import { useState } from 'react';
 import { Alert, Button, StyleSheet, TextInput } from 'react-native';
+import FirebaseAuthTypes from '@firebase/auth';
 
 const ChangePassword = () => {
-  const user: any = auth.currentUser;
+  const user: FirebaseAuthTypes.User = auth.currentUser;
   const email = user.email;
   const [newPassword, setNewPassword] = useState('');
   const [oldPassword, setOldPassword] = useState('');
 
-  const credential: EmailAuthCredential = EmailAuthProvider.credential(
-    email,
-    oldPassword,
-  );
+  const credential = EmailAuthProvider.credential(email, oldPassword);
 
   const changePassword = () => {
     reauthenticateWithCredential(user, credential)

@@ -1,3 +1,5 @@
+import { router } from 'expo-router';
+import React from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 
 type DateData = {
@@ -15,8 +17,10 @@ const waterColor = '#8dc6ff';
 
 const CustomDayComponent = ({
   date,
+  isBrowseWorkout
 }: {
   date: (string & DateData) | undefined;
+  isBrowseWorkout: boolean
 }) => {
   const currentDate = new Date().toISOString().split('T')[0];
   const isToday = date?.dateString === currentDate;
@@ -27,11 +31,18 @@ const CustomDayComponent = ({
     water: false,
   };
 
+  const navigateToSingleDay = () => {
+    router.navigate({
+      pathname: '/(tabs)/plan/singleDayWorkout',
+      params: { selectedDate: date?.dateString }
+    })
+  }
+
   return (
     <Pressable
       style={[styles.dayContainer]}
       onPress={() => {
-        Alert.alert('Display workout for this day');
+        return isBrowseWorkout ? navigateToSingleDay() : Alert.alert('Display workout for this day');
       }}>
       <Text style={isToday ? styles.today : null}>{date?.day}</Text>
       <View style={styles.dotsContainer}>
@@ -92,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomDayComponent;
+export default React.memo(CustomDayComponent);

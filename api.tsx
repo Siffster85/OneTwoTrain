@@ -50,3 +50,20 @@ export const getUserData = async () => {
     throw error;
   }
 };
+
+export const getSingleDayWorkout = async (date: string | string[]) => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.get(`/schedules/${date}/plan/workout/exercises`, {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+      },
+    });
+
+    return response.data.exercises;
+  } catch (error) {
+    throw error;
+  }
+}

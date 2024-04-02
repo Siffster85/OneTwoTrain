@@ -7,7 +7,7 @@ const CalendarComponent = () => {
       pastScrollRange={12}
       showScrollIndicator
       futureScrollRange={12}
-      dayComponent={({ date }) => <CustomDayComponent date={date} />}
+      dayComponent={({ date }) => <CustomDayComponent date={date} isBrowseWorkout={false}/>}
     />
   );
 };

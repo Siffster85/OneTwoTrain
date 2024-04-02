@@ -3,23 +3,12 @@ import BirthDateInput from '@/components/BirthDateInput';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { calculateAge, formatDate } from '@/utils';
 
 const ActivityLevel = () => {
   const { userName, weight, height } = useLocalSearchParams();
   const [date, setDate] = useState<Date>(new Date());
   const [selectedActivity, setSelectedActivity] = useState('sedentary');
-
-  function calculateAge(birthDate: Date): number {
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const month = today.getMonth() - birthDate.getMonth();
-
-    if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-
-    return age;
-  }
 
   const handleSubmit = () => {
     router.push({
@@ -30,6 +19,7 @@ const ActivityLevel = () => {
         height,
         age: calculateAge(date),
         selectedActivity,
+        dateOfBirth: formatDate(date),
       },
     });
   };

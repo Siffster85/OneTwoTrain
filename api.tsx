@@ -4,7 +4,14 @@ import { auth } from './firebaseConfig';
 const user = auth.currentUser;
 
 type UserData = {
-  // define the type of userData here
+  userName: string | string[];
+  email: any;
+  dateOfBirth: string | string[];
+  weight: string | string[];
+  height: string | string[];
+  dailyActivityLevel: string | string[];
+  waterGoal: number;
+  calorieGoal: number;
 };
 
 export const postUserData = async (userData: UserData) => {
@@ -17,12 +24,30 @@ export const postUserData = async (userData: UserData) => {
       {
         headers: {
           Authorization: `Bearer ${userAccessToken}`,
-          'Content-Type': 'application/json',
         },
       },
     );
 
-    return response.data;
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getUserData = async () => {
+  try {
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await axios.get(
+      'https://app-dy64z7slha-uc.a.run.app/api/user/profile',
+      {
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+        },
+      },
+    );
+
+    return response;
   } catch (error) {
     throw error;
   }

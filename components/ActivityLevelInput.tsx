@@ -24,7 +24,9 @@ const ActivityLevelInput: React.FC<ActivityLevelProps> = ({
       <Text style={styles.label}>Physical Activity Level:</Text>
       <Picker
         selectedValue={selectedActivity}
-        onValueChange={itemValue => setSelectedActivity(itemValue)}
+        onValueChange={itemValue => {
+          setSelectedActivity(itemValue);
+        }}
         style={styles.picker}>
         {activityLevels.map(level => (
           <Picker.Item

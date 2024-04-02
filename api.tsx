@@ -10,7 +10,6 @@ const instance = axios.create({
 const currentDate = new Date();
 const todaysDate = formatDate(currentDate);
 
-
 type UserData = {
   name: string | string[];
   email: any;
@@ -38,28 +37,23 @@ export const getAllExercises = async () => {
   try {
     const userAccessToken = await user?.getIdToken(true);
 
-    const response = await axios.get(
-      'https://app-dy64z7slha-uc.a.run.app/api/custom-exercises',
-      {
-        headers: {
-          Authorization: `Bearer ${userAccessToken}`,
-        },
+    const response = await instance.get('/custom-exercises', {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
       },
-    );
+    });
     return response.data.publicExercises;
   } catch (error) {
     throw error;
   }
 };
 
-export const getExerciseByDate
-
 export const postExercise = async (weightData: Excersie) => {
   try {
     const userAccessToken = await user?.getIdToken(true);
 
-    const response = await axios.post(
-      `https://app-dy64z7slha-uc.a.run.app/api/schedules/${todaysDate}/plan/workout/exercises`,
+    const response = await instance.post(
+      `/schedules/${todaysDate}/plan/workout/exercises`,
       weightData,
       {
         headers: {

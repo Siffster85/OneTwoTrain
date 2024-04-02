@@ -44,25 +44,18 @@ export default function CurrentExercise() {
           theme="startExercise"
           label="Start"
           onPress={() => {
-            return category !== 'cardio'
-              ? router.push({
-                  pathname: '/(tabs)/plan/stopwatch',
-                  params: {
-                    quantity,
-                    reps,
-                    weight,
-                    title,
-                  },
-                })
-              : router.push({
-                  pathname: '/(tabs)/plan/timer',
-                  params: {
-                    quantity,
-                    reps,
-                    weight,
-                    title,
-                  },
-                });
+            return router.push({
+              pathname:
+                category !== 'cardio'
+                  ? '/(tabs)/plan/stopwatch'
+                  : '/(tabs)/plan/timer',
+              params: {
+                quantity,
+                reps,
+                weight,
+                title,
+              },
+            });
           }}
         />
       </View>

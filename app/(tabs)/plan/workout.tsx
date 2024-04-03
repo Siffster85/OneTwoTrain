@@ -42,7 +42,7 @@ interface renderItemProps {
 }
 
 const Workout = () => {
-  const [todaysExercises, setTodaysExercises] = useState<Excersie[]>([]);
+  const [todaysExercises, setTodaysExercises] = useState([]);
 
   const todaysDate = formatDate(new Date());
   useEffect(() => {

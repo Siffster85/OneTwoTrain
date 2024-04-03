@@ -1,12 +1,32 @@
+import { deleteExerciseByName, postExercise } from '@/api';
 import CustomButton from '@/components/CustomButton';
 import ExerciseList from '@/components/exerciseCard/ExerciseList';
-import { router, Stack, useLocalSearchParams } from 'expo-router';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { Stack, router, useLocalSearchParams } from 'expo-router';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 export default function CurrentExercise() {
-  const { id, title, category, sets } = useLocalSearchParams();
+  const { id, title, category, sets, fromBrowsePage } = useLocalSearchParams();
   const parsedSets = JSON.parse(sets);
   const setAmounts = Object.keys(parsedSets).length;
+
+  const dataToSend = {
+    exerciseName: title,
+    category,
+    sets: parsedSets,
+  };
+
+  function handleAddExercise() {
+    postExercise(dataToSend).then(() => {
+      alert('Exercise Added');
+      router.navigate('../workout');
+    });
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -23,39 +43,43 @@ export default function CurrentExercise() {
           sets={parsedSets}
         />
       </View>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}>
-        <CustomButton
-          theme="deleteExercise"
-          label="Remove Exercise"
-          onPress={() =>
-            alert(
-              'Add functionality to opto render the exercise to be removed from screen and API',
-            )
-          }
-        />
-        <CustomButton
-          theme="startExercise"
-          label="Start"
-          onPress={() => {
-            return router.push({
-              pathname:
-                category === 'cardio'
-                  ? '/(tabs)/plan/stopwatch'
-                  : '/(tabs)/plan/timer',
-              params: {
-                setAmounts,
-                sets: JSON.stringify(parsedSets),
-                title,
-              },
-            });
-          }}
-        />
-      </View>
+
+      {fromBrowsePage ? (
+        <View style={styles.bottomButtonContainer}>
+          <TouchableOpacity style={styles.button} onPress={handleAddExercise}>
+            <Text style={styles.title}>Add Exercise</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View style={styles.bottomButtonContainer}>
+          <CustomButton
+            theme="deleteExercise"
+            label="Remove Exercise"
+            onPress={() =>
+              deleteExerciseByName(`${title}`).then(() => {
+                router.back();
+              })
+            }
+          />
+          <CustomButton
+            theme="startExercise"
+            label="Start"
+            onPress={() => {
+              return router.push({
+                pathname:
+                  category === 'cardio'
+                    ? '/(tabs)/plan/stopwatch'
+                    : '/(tabs)/plan/timer',
+                params: {
+                  setAmounts,
+                  sets: JSON.stringify(parsedSets),
+                  title,
+                },
+              });
+            }}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -82,5 +106,20 @@ const styles = StyleSheet.create({
   },
   exerciseListContainer: {
     flex: 3,
+  },
+  bottomButtonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  button: {
+    borderWidth: 2,
+    borderColor: 'green',
+    padding: 35,
+    margin: 25,
+    width: 250,
+    alignItems: 'center',
+    borderRadius: 150,
+    backgroundColor: 'green',
   },
 });

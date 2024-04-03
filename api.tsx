@@ -40,6 +40,7 @@ export const getAllExercises = async () => {
     const response = await instance.get('/custom-exercises', {
       headers: {
         Authorization: `Bearer ${userAccessToken}`,
+        'Content-Type': 'application/json',
       },
     });
     return response.data.publicExercises;
@@ -189,6 +190,25 @@ export const patchUser = async (profileData: object) => {
         Authorization: `Bearer ${userAccessToken}`,
       },
     });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteExerciseByName = async (exerciseName: string) => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.delete(
+      `/schedules/${todaysDate}/plan/workout/exercises/${exerciseName}`,
+      {
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+        },
+      },
+    );
     return response;
   } catch (error) {
     throw error;

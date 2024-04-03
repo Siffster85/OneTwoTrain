@@ -4,11 +4,10 @@ import ExerciseCard from './ExerciseCard';
 
 interface props {
   setQuantity: number;
-  reps: number;
-  weight: string;
+  sets: any;
 }
 
-const ExerciseList = ({ setQuantity, reps, weight }: props) => {
+const ExerciseList = ({ setQuantity, sets }: props) => {
   const [exerciseCount, setExerciseCount] = useState(0);
 
   useEffect(() => {
@@ -23,7 +22,12 @@ const ExerciseList = ({ setQuantity, reps, weight }: props) => {
   return (
     <SafeAreaView>
       {titles.map((title, index) => (
-        <ExerciseCard key={index} title={title} weight={weight} reps={reps} />
+        <ExerciseCard
+          key={index}
+          title={title}
+          weight={sets[index].weight}
+          reps={sets[index].reps}
+        />
       ))}
     </SafeAreaView>
   );

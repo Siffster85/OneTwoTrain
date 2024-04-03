@@ -3,7 +3,6 @@ import { Stack } from 'expo-router';
 import { SafeAreaView, Text } from 'react-native';
 
 const browseExercises = () => {
-  const lol = getAllExercises();
 
   return (
     <SafeAreaView>

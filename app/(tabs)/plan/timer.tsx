@@ -3,7 +3,6 @@ import { Stack, router, useLocalSearchParams } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { useRef, useState } from 'react';
 import {
-  FlatList,
   Pressable,
   SafeAreaView,
   StyleSheet,
@@ -14,19 +13,17 @@ import {
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
 export default function Timer() {
-  const { reps, weight, setAmounts, title, sets } = useLocalSearchParams();
+  const { setAmounts, title, sets } = useLocalSearchParams();
   const confettiRef = useRef<LottieView>(null);
   const [endCount, setEndCount] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [key, setKey] = useState(0);
+  const [shownRepInfo, setShownRepInfo] = useState("")
   const parsedSets = JSON.parse(sets);
 
   function triggerConfetti() {
     confettiRef.current?.play(0);
   }
-
-console.log(Object.values(parsedSets));
-
 
   function complete() {
     if (endCount === Number(setAmounts)) {
@@ -38,6 +35,10 @@ console.log(Object.values(parsedSets));
     setEndCount(currentCount => currentCount + 1);
     setKey(prevKey => prevKey + 1);
     setIsPlaying(false);
+  }
+
+  function updateRepInfo() {
+    
   }
 
   return (
@@ -72,16 +73,8 @@ console.log(Object.values(parsedSets));
       </View>
       <View style={styles.infoBox}>
         <Text>{title}</Text>
-        <FlatList
-        data={parsedSets}
-        renderItem={({ item, index }) => (
-          <View>
-            <Text>{item.reps}</Text>
-          </View>
-         
-        )}
-      />
-        <Text>{reps}</Text>
+        <Text>{shownRepInfo}</Text>
+        <Text>{parsedSets[0].weight}</Text>
       </View>
       <View style={styles.buttons}>
         <TouchableOpacity

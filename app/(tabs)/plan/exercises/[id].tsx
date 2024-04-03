@@ -7,6 +7,9 @@ export default function CurrentExercise() {
   const { id, title, category, sets } = useLocalSearchParams();
   const parsedSets = JSON.parse(sets);
   const setAmounts = Object.keys(parsedSets).length;
+  
+
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -49,7 +52,7 @@ export default function CurrentExercise() {
                   : '/(tabs)/plan/timer',
               params: {
                 setAmounts,
-                sets: JSON.stringify(sets),
+                sets: JSON.stringify(parsedSets),
                 title,
               },
             });

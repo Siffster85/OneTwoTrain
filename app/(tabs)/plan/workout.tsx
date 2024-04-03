@@ -19,13 +19,13 @@ type Set = {
   reps?: string;
   distance?: string;
   time?: string;
-}
+};
 
 type Excersie = {
   exerciseName: string | string[];
   category: string | string[];
   sets: Record<string, Set>;
-}
+};
 
 const Item = ({ title, category, amountOfSets }: ItemProps): any => {
   return (
@@ -53,7 +53,7 @@ const Workout = () => {
     getSingleDayWorkout(todaysDate).then(result => {
       setTodaysExercises(result);
     });
-  }, [todaysExercises])
+  }, [todaysExercises]);
 
   const browsePrevWorkout = () => {
     router.navigate('/(tabs)/plan/browseWorkout');

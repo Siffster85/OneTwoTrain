@@ -25,7 +25,7 @@ type Set = {
   reps?: string;
   distance?: string;
   time?: string;
-}
+};
 
 interface Excersie {
   exerciseName: string | string[];

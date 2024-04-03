@@ -1,6 +1,6 @@
 import {
-  StyleSheet,
   FlatList,
+  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -32,9 +32,10 @@ const WorkoutList = ({ dayWorkout, handleCopyWorkout }: Props) => {
         data={dayWorkout}
         renderItem={({ item }) => (
           <View style={styles.listItem}>
-            <Text style={styles.name}>exerciseName: {item.exerciseName}</Text>
-            <Text style={styles.category}>category: {item.category}</Text>
-            <Text style={styles.text}>Sets:</Text>
+            <Text style={styles.name}>{item.exerciseName}</Text>
+            <View style={styles.categoryContainer}>
+              <Text style={styles.category}>{item.category}</Text>
+            </View>
             <FlatList
               data={Object.values(item.sets)}
               renderItem={({ item }) => (
@@ -74,22 +75,39 @@ const styles = StyleSheet.create({
   },
   list: {},
   listItem: {
-    backgroundColor: '#e0e0e0',
-    padding: 12,
+    backgroundColor: '#f1f1f1',
+    borderWidth: 2,
+    borderColor: '#737373',
+    borderRadius: 12,
+    padding: 10,
     marginBottom: 20,
   },
   name: {
     fontSize: 24,
     marginBottom: 8,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+  },
+  categoryContainer: {
+    backgroundColor: '#e0e0e0',
+    borderRadius: 8,
+    marginBottom: 8,
+    padding: 4,
   },
   category: {
+    textAlign: 'center',
     fontSize: 20,
-    marginBottom: 8,
   },
   text: {
     marginBottom: 8,
   },
   setItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 8,
+    borderWidth: 1,
+    borderColor: '#808080',
+    borderRadius: 8,
     marginBottom: 8,
   },
   button: {

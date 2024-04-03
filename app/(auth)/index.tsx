@@ -1,10 +1,11 @@
 import { Text, View } from '@/components/Themed';
 import { router } from 'expo-router';
 import { StyleSheet, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Welcome() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Hello!</Text>
         <Text style={styles.title}>Already have an account?</Text>
@@ -21,7 +22,7 @@ export default function Welcome() {
           <Text style={styles.answerText}>Yes, I have an account</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -32,7 +33,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleContainer: {
-    height: '30%',
     backgroundColor: 'transparent',
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
@@ -50,17 +50,17 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: 'transparent',
     justifyContent: 'flex-end',
-    marginBottom: 80,
   },
   answer: {
-    padding: 25,
+    padding: 20,
     fontSize: 20,
     backgroundColor: '#f22a39',
     marginBottom: 24,
-    borderRadius: 20,
+    borderRadius: 12,
   },
   answerText: {
     color: '#fff',
     textAlign: 'center',
-  }
+    fontSize: 16,
+  },
 });

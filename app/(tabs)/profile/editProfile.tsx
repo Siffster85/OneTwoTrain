@@ -61,7 +61,7 @@ const EditProfile = () => {
 
   async function handleSubmit() {
     try {
-      const patch = await patchUser(profileData);
+      await patchUser(profileData);
       updateUser();
     } catch (error) {
       throw error;

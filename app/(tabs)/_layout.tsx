@@ -2,9 +2,9 @@ import { Feather } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 
 const TabsLayout = () => {
-  const planIcon = <Feather name="layout" size={25} />;
-  const profileIcon = <Feather name="user" size={25} />;
-  const calendarIcon = <Feather name="calendar" size={25} />;
+  const generateIcon = (name: string, focused: boolean) => (
+    <Feather name={name} size={25} color={focused ? '#f22a39' : '#8e8e93'} />
+  );
 
   return (
     <Tabs screenOptions={{ headerShown: false }}>
@@ -13,8 +13,8 @@ const TabsLayout = () => {
         options={{
           tabBarLabel: 'Calendar',
           title: 'Calendar',
-          tabBarIcon: () => calendarIcon,
-          tabBarActiveTintColor: '#387C44',
+          tabBarIcon: ({ focused }) => generateIcon('calendar', focused),
+          tabBarActiveTintColor: '#f22a39',
         }}
       />
       <Tabs.Screen
@@ -22,8 +22,8 @@ const TabsLayout = () => {
         options={{
           tabBarLabel: 'Plan',
           title: 'Plan',
-          tabBarIcon: () => planIcon,
-          tabBarActiveTintColor: '#387C44',
+          tabBarIcon: ({ focused }) => generateIcon('layout', focused),
+          tabBarActiveTintColor: '#f22a39',
         }}
       />
       <Tabs.Screen
@@ -31,8 +31,8 @@ const TabsLayout = () => {
         options={{
           tabBarLabel: 'Profile',
           title: 'Profile',
-          tabBarIcon: () => profileIcon,
-          tabBarActiveTintColor: '#387C44',
+          tabBarIcon: ({ focused }) => generateIcon('user', focused),
+          tabBarActiveTintColor: '#f22a39',
         }}
       />
     </Tabs>

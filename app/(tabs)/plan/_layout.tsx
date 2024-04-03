@@ -2,16 +2,7 @@ import { Stack } from 'expo-router';
 
 const PlanLayout = () => {
   return (
-    <Stack
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: '#FFF',
-        },
-        headerTintColor: '#000',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-      }}>
+    <Stack>
       <Stack.Screen
         name="home"
         options={{

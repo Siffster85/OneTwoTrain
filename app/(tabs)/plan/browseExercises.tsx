@@ -28,10 +28,6 @@ interface renderItemProps {
 
 type ItemProps = { title: string; category: string; amountOfSets: number };
 
-interface Excersie {
-  exerciseName: string;
-}
-
 const Item = ({ title, category, amountOfSets }: ItemProps): any => {
   return (
     <View style={category !== 'cardio' ? styles.item : styles.cardioItem}>

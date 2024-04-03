@@ -85,9 +85,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#eef1f4',
     padding: 20,
+    paddingTop: 40,
   },
   titleContainer: {
-    height: '30%',
     backgroundColor: 'transparent',
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
@@ -96,10 +96,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    marginBottom: 20,
+    marginBottom: 16,
   },
   subtitle: {
-    fontSize: 20,
+    fontSize: 18,
+    marginBottom: 20,
   },
   text: {
     textAlign: 'center',
@@ -119,14 +120,19 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   buttonText: {
+    fontSize: 16,
     color: '#fff',
     textAlign: 'center',
   },
   input: {
     backgroundColor: '#fff',
+    borderWidth: 2,
+    borderRadius: 12,
+    borderColor: '#ececec',
     minHeight: 40,
     color: '#000',
     marginBottom: 12,
     padding: 12,
+    fontSize: 16,
   },
 });

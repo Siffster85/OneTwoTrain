@@ -1,5 +1,7 @@
 import CalendarComponent from '@/components/CalendarComponent';
+import { View } from '@/components/Themed';
 import { router } from 'expo-router';
+import { StyleSheet } from 'react-native';
 
 type DateData = {
   dateString: string;
@@ -18,7 +20,18 @@ const Calendar = () => {
       },
     });
   };
-  return <CalendarComponent handleDayPress={handleDayPress} />;
+  return (
+    <View style={styles.container}>
+      <CalendarComponent handleDayPress={handleDayPress} />
+    </View>
+  );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    borderTopColor: '#ececec',
+    borderTopWidth: 1,
+  },
+});
 
 export default Calendar;

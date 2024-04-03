@@ -1,5 +1,5 @@
-import { StyleSheet, View, Pressable, Text } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 export default function CustomButton({
   label,
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 150,
     height: 150,
-    borderColor: '#ffd33d',
+    borderColor: '#f22a39',
     borderRadius: 100,
   },
   deletedExercise: {

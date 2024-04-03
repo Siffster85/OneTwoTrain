@@ -21,15 +21,13 @@ type Set = {
   time?: string;
 };
 
-type Excersie = {
-  exerciseName: string | string[];
-  category: string | string[];
-  sets: Record<string, Set>;
-};
-
 const Item = ({ title, category, amountOfSets }: ItemProps): any => {
   return (
-    <View style={[styles.exItem, (category === 'cardio' ? styles.cardioItem : styles.weightItem)]}>
+    <View
+      style={[
+        styles.exItem,
+        category === 'cardio' ? styles.cardioItem : styles.weightItem,
+      ]}>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.itemExtras}>
         <Text style={styles.exerciseDetails}>X{amountOfSets}</Text>
@@ -155,7 +153,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     borderColor: '#d6d6d6',
     borderBottomWidth: 1,
-  }
+  },
 });
 
 export default Workout;

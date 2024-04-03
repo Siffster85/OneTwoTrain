@@ -49,8 +49,8 @@ const CalendarComponent = ({ handleDayPress }: Props) => {
     newMarkedDates[todayDate] = {
       ...newMarkedDates[todayDate],
       selected: true,
-      selectedColor: '#f0ece2',
-      selectedTextColor: '#ff9f68',
+      selectedColor: '#ececec',
+      selectedTextColor: '#f22a39',
     };
     setMarkedDates(newMarkedDates);
   }, [workoutDates]);

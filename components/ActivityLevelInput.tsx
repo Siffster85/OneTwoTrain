@@ -13,15 +13,15 @@ const ActivityLevelInput: React.FC<ActivityLevelProps> = ({
 }) => {
   const activityLevels = [
     { label: 'little or no exercise', value: 'sedentary' },
-    { label: 'light exercise 1-3 days/week', value: 'lightly_active' },
-    { label: 'moderate exercise 3-5 days/week', value: 'moderately_active' },
-    { label: 'hard exercise 6-7 days a week', value: 'very_active' },
-    { label: 'extra active: sports & physical job', value: 'extra_active' },
+    { label: '1-3 days a week', value: 'lightly_active' },
+    { label: '3-5 days a week', value: 'moderately_active' },
+    { label: '6-7 days a week', value: 'very_active' },
+    { label: 'extra active', value: 'extra_active' },
   ];
 
   return (
-    <View>
-      <Text style={styles.label}>Physical Activity Level:</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>Specify Your Physical Activity Level</Text>
       <Picker
         selectedValue={selectedActivity}
         onValueChange={itemValue => {
@@ -41,16 +41,25 @@ const ActivityLevelInput: React.FC<ActivityLevelProps> = ({
 };
 
 const styles = StyleSheet.create({
-  label: {
+  container: {
+    padding: 16,
+    borderWidth: 2,
+    borderRadius: 12,
+    borderColor: '#ececec',
+    backgroundColor: '#fff',
+  },
+  text: {
     color: '#171717',
-    marginBottom: 20,
-    fontSize: 16,
+    marginBottom: 12,
+    fontSize: 20,
+    textAlign: 'center',
   },
   picker: {
-    height: 220,
+    height: 200,
     width: '100%',
     backgroundColor: '#fff',
     borderRadius: 12,
+    fontSize: 16,
   },
 });
 

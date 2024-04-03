@@ -27,6 +27,8 @@ const ExerciseList = ({ setQuantity, sets }: props) => {
           title={title}
           weight={sets[index].weight}
           reps={sets[index].reps}
+          distance={sets[index].distance}
+          time={sets[index].time}
         />
       ))}
     </SafeAreaView>

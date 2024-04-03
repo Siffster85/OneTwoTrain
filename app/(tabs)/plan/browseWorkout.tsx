@@ -1,10 +1,23 @@
-import CustomDayComponent from '@/components/CustomDayComponent';
+import CalendarComponent from '@/components/CalendarComponent';
 import { View } from '@/components/Themed';
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import React from 'react';
-import { CalendarList } from 'react-native-calendars';
+
+type DateData = {
+  dateString: string;
+  day: number;
+  month: number;
+  timestamp: number;
+  year: number;
+};
 
 const BrowseWorkout = () => {
+  const handleDayPress = (date: DateData) => {
+    router.navigate({
+      pathname: '/(tabs)/plan/singleDayWorkout',
+      params: { selectedDate: date?.dateString },
+    });
+  };
   return (
     <View>
       <Stack.Screen
@@ -13,14 +26,7 @@ const BrowseWorkout = () => {
           headerBackTitleVisible: false,
         }}
       />
-      <CalendarList
-        pastScrollRange={12}
-        showScrollIndicator
-        futureScrollRange={0}
-        dayComponent={({ date }) => (
-          <CustomDayComponent date={date} isBrowseWorkout />
-        )}
-      />
+      <CalendarComponent handleDayPress={handleDayPress} />
     </View>
   );
 };

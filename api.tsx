@@ -70,7 +70,7 @@ export const postExercise = async (weightData: Excersie) => {
   }
 };
 
-export const postExercises = async (weightData: Excersie[]) => {
+export const postWorkout = async (weightData: Excersie[]) => {
   try {
     const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
@@ -155,6 +155,22 @@ export const removeUser = async () => {
       },
     });
     return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getSchedule = async () => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.get('/schedules', {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+      },
+    });
+    return response.data.schedules;
   } catch (error) {
     throw error;
   }

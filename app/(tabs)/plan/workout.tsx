@@ -89,7 +89,7 @@ const Workout = () => {
           </Pressable>
         )}
       />
-      <View style={styles.container}>
+      <View>
         <TouchableOpacity
           style={styles.button}
           onPress={() => router.push('/(tabs)/plan/addExercise')}>

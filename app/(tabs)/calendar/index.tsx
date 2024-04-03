@@ -1,17 +1,24 @@
-import { CalendarList } from 'react-native-calendars';
-import CustomDayComponent from '@/components/CustomDayComponent';
+import CalendarComponent from '@/components/CalendarComponent';
+import { router } from 'expo-router';
 
-const CalendarComponent = () => {
-  return (
-    <CalendarList
-      pastScrollRange={12}
-      showScrollIndicator
-      futureScrollRange={12}
-      dayComponent={({ date }) => (
-        <CustomDayComponent date={date} isBrowseWorkout={false} />
-      )}
-    />
-  );
+type DateData = {
+  dateString: string;
+  day: number;
+  month: number;
+  timestamp: number;
+  year: number;
 };
 
-export default CalendarComponent;
+const Calendar = () => {
+  const handleDayPress = (date: DateData) => {
+    router.navigate({
+      pathname: '/(tabs)/calendar/dayActivity',
+      params: {
+        date: date.dateString,
+      },
+    });
+  };
+  return <CalendarComponent handleDayPress={handleDayPress} />;
+};
+
+export default Calendar;

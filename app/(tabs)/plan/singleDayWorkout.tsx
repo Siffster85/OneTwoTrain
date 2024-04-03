@@ -1,14 +1,8 @@
-import { getSingleDayWorkout, postExercises } from '@/api';
+import { getSingleDayWorkout, postWorkout } from '@/api';
+import WorkoutList from '@/components/WorkoutList';
 import { Stack, router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import {
-  Alert,
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 
 type Set = {
   weight?: string;
@@ -30,8 +24,7 @@ const SingleDayWorkout = () => {
 
   const copyWorkout = async () => {
     try {
-      const response = await postExercises(dayWorkout);
-      return response;
+      await postWorkout(dayWorkout);
     } catch {
       alert('Something went wrong please try again');
     } finally {
@@ -63,41 +56,7 @@ const SingleDayWorkout = () => {
       ) : !dayWorkout.length ? (
         <Text style={styles.title}>No workouts for this day</Text>
       ) : (
-        <View>
-          <FlatList
-            style={styles.list}
-            data={dayWorkout}
-            renderItem={({ item }) => (
-              <View style={styles.listItem}>
-                <Text style={styles.name}>
-                  exerciseName: {item.exerciseName}
-                </Text>
-                <Text style={styles.category}>category: {item.category}</Text>
-                <Text style={styles.text}>Sets:</Text>
-                <FlatList
-                  data={Object.values(item.sets)}
-                  renderItem={({ item }) => (
-                    <View style={styles.setItem}>
-                      <Text>
-                        {item.weight
-                          ? `weight: ${item.weight}`
-                          : `distance: ${item.distance}`}
-                      </Text>
-                      <Text>
-                        {item.reps
-                          ? `reps: ${item.reps}`
-                          : `time: ${item.time}`}
-                      </Text>
-                    </View>
-                  )}
-                />
-              </View>
-            )}
-          />
-          <TouchableOpacity onPress={copyWorkout} style={styles.button}>
-            <Text>Add this workout</Text>
-          </TouchableOpacity>
-        </View>
+        <WorkoutList dayWorkout={dayWorkout} handleCopyWorkout={copyWorkout} />
       )}
     </View>
   );

@@ -13,18 +13,23 @@ import {
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
 export default function Timer() {
-  const { reps, weight, setQuantity, title } = useLocalSearchParams();
+  const { setAmounts, title, sets } = useLocalSearchParams();
   const confettiRef = useRef<LottieView>(null);
   const [endCount, setEndCount] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [key, setKey] = useState(0);
+  const parsedSets = JSON.parse(sets);
+  const [shownRepInfo, setShownRepInfo] = useState(parsedSets[0].reps);
+  const [repIndex, setRepIndex] = useState(1);
+  const [shownWeightInfo, setShownWeightInfo] = useState(parsedSets[0].weight);
+  const [weightIndex, setWeightInsex] = useState(1);
 
   function triggerConfetti() {
     confettiRef.current?.play(0);
   }
 
   function complete() {
-    if (endCount === Number(setQuantity)) {
+    if (endCount === Number(setAmounts)) {
       triggerConfetti();
       setTimeout(() => {
         router.back();
@@ -33,6 +38,24 @@ export default function Timer() {
     setEndCount(currentCount => currentCount + 1);
     setKey(prevKey => prevKey + 1);
     setIsPlaying(false);
+    updateMetricInfo();
+  }
+
+  function updateMetricInfo() {
+    const repLength = Object.keys(parsedSets).length;
+    const repsArray = [];
+    const weightArray = [];
+    if (repLength === repIndex) {
+      return null;
+    }
+    for (const key in parsedSets) {
+      repsArray.push(parsedSets[key].reps);
+      weightArray.push(parsedSets[key].weight);
+    }
+    setRepIndex(prevIndex => prevIndex + 1);
+    setShownRepInfo(repsArray[repIndex]);
+    setWeightInsex(prevIndex => prevIndex + 1);
+    setShownWeightInfo(weightArray[weightIndex]);
   }
 
   return (
@@ -54,7 +77,7 @@ export default function Timer() {
         <CountdownCircleTimer
           key={key}
           isPlaying={isPlaying}
-          duration={90}
+          duration={2}
           colors={['#004777', '#F7B801', '#A30000', '#A30000']}
           colorsTime={[90, 60, 30, 10]}
           onComplete={complete}
@@ -67,8 +90,8 @@ export default function Timer() {
       </View>
       <View style={styles.infoBox}>
         <Text>{title}</Text>
-        <Text>{weight}</Text>
-        <Text>{reps}</Text>
+        <Text>REPS: {shownRepInfo}</Text>
+        <Text>WEIGHT: {shownWeightInfo}KG</Text>
       </View>
       <View style={styles.buttons}>
         <TouchableOpacity

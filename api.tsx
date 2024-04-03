@@ -2,8 +2,6 @@ import axios from 'axios';
 import { auth } from './firebaseConfig';
 import { formatDate } from './utils';
 
-const user = auth.currentUser;
-
 const instance = axios.create({
   baseURL: 'https://app-dy64z7slha-uc.a.run.app/api',
 });
@@ -35,8 +33,8 @@ interface Excersie {
 
 export const getAllExercises = async () => {
   try {
+    const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
-
     const response = await instance.get('/custom-exercises', {
       headers: {
         Authorization: `Bearer ${userAccessToken}`,
@@ -50,8 +48,8 @@ export const getAllExercises = async () => {
 
 export const postExercise = async (weightData: Excersie) => {
   try {
+    const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
-
     const response = await instance.post(
       `/schedules/${todaysDate}/plan/workout/exercises`,
       weightData,

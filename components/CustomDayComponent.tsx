@@ -17,10 +17,10 @@ const waterColor = '#8dc6ff';
 
 const CustomDayComponent = ({
   date,
-  isBrowseWorkout
+  isBrowseWorkout,
 }: {
   date: (string & DateData) | undefined;
-  isBrowseWorkout: boolean
+  isBrowseWorkout: boolean;
 }) => {
   const currentDate = new Date().toISOString().split('T')[0];
   const isToday = date?.dateString === currentDate;
@@ -34,15 +34,17 @@ const CustomDayComponent = ({
   const navigateToSingleDay = () => {
     router.navigate({
       pathname: '/(tabs)/plan/singleDayWorkout',
-      params: { selectedDate: date?.dateString }
-    })
-  }
+      params: { selectedDate: date?.dateString },
+    });
+  };
 
   return (
     <Pressable
       style={[styles.dayContainer]}
       onPress={() => {
-        return isBrowseWorkout ? navigateToSingleDay() : Alert.alert('Display workout for this day');
+        return isBrowseWorkout
+          ? navigateToSingleDay()
+          : Alert.alert('Display workout for this day');
       }}>
       <Text style={isToday ? styles.today : null}>{date?.day}</Text>
       <View style={styles.dotsContainer}>

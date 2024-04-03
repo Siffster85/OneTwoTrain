@@ -1,5 +1,8 @@
+import { getSingleDayWorkout } from '@/api';
 import { Text, View } from '@/components/Themed';
+import { formatDate } from '@/utils';
 import { Stack, router } from 'expo-router';
+import { useEffect, useState } from 'react';
 import {
   FlatList,
   Pressable,
@@ -9,47 +12,51 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const DATA = [
-  {
-    id: 1,
-    title: 'Push Ups',
-    category: 'cardio',
-  },
-  {
-    id: 2,
-    title: 'Star jumps',
-    category: 'legs',
-  },
-  {
-    id: 3,
-    title: 'ELENA ELEVATIONS',
-    category: 'cardio',
-  },
-  {
-    id: 4,
-    title: 'KENNY KICKS',
-    category: 'back',
-  },
-];
+type ItemProps = { title: string; category: string; amountOfSets: number };
 
-type ItemProps = { title: string; category: string };
+type Set = {
+  weight?: string;
+  reps?: string;
+  distance?: string;
+  time?: string;
+};
 
-const Item = ({ title, category }: ItemProps): any => {
+type Excersie = {
+  exerciseName: string | string[];
+  category: string | string[];
+  sets: Record<string, Set>;
+};
+
+const Item = ({ title, category, amountOfSets }: ItemProps): any => {
   return (
     <View style={[styles.exItem, (category === 'cardio' ? styles.cardioItem : styles.weightItem)]}>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.itemExtras}>
-        <Text style={styles.exerciseDetails}>#qty</Text>
+        <Text style={styles.exerciseDetails}>X{amountOfSets}</Text>
         <Text style={styles.exerciseDetails}>{category}</Text>
       </View>
     </View>
   );
 };
 
-const workout = () => {
+interface renderItemProps {
+  item: { exerciseName: string; category: string; sets: Set };
+  index: number;
+}
+
+const Workout = () => {
+  const [todaysExercises, setTodaysExercises] = useState([]);
+
+  const todaysDate = formatDate(new Date());
+  useEffect(() => {
+    getSingleDayWorkout(todaysDate).then(result => {
+      setTodaysExercises(result);
+    });
+  }, [todaysExercises]);
+
   const browsePrevWorkout = () => {
     router.navigate('/(tabs)/plan/browseWorkout');
-  }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -59,21 +66,26 @@ const workout = () => {
         }}
       />
       <FlatList
-        data={DATA}
-        renderItem={({ item }) => (
+        data={todaysExercises}
+        renderItem={({ item, index }: renderItemProps) => (
           <Pressable
-            key={item.id}
+            key={index}
             onPress={() =>
               router.push({
                 pathname: '/(tabs)/plan/exercises/[id]',
                 params: {
-                  id: item.id,
-                  title: item.title,
+                  id: index,
+                  title: item.exerciseName,
                   category: item.category,
+                  sets: JSON.stringify(item.sets),
                 },
               })
             }>
-            <Item title={item.title} category={item.category} />
+            <Item
+              title={item.exerciseName}
+              category={item.category}
+              amountOfSets={Object.keys(item.sets).length}
+            />
           </Pressable>
         )}
       />
@@ -83,7 +95,9 @@ const workout = () => {
           onPress={() => router.push('/(tabs)/plan/addExercise')}>
           <Text style={styles.buttonText}>Add An Exercise</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => browsePrevWorkout()}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => browsePrevWorkout()}>
           <Text style={styles.buttonText}>Browse Previous Workouts</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -144,4 +158,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default workout;
+export default Workout;

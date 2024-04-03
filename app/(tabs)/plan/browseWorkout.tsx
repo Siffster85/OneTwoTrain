@@ -9,7 +9,7 @@ const BrowseWorkout = () => {
     <View>
       <Stack.Screen
         options={{
-          headerTitle: "Browse From Calendar",
+          headerTitle: 'Browse From Calendar',
           headerBackTitleVisible: false,
         }}
       />
@@ -17,10 +17,12 @@ const BrowseWorkout = () => {
         pastScrollRange={12}
         showScrollIndicator
         futureScrollRange={0}
-        dayComponent={({ date }) => <CustomDayComponent date={date} isBrowseWorkout={true} />}
+        dayComponent={({ date }) => (
+          <CustomDayComponent date={date} isBrowseWorkout />
+        )}
       />
     </View>
-  )
-}
+  );
+};
 
 export default React.memo(BrowseWorkout);

@@ -2,8 +2,6 @@ import axios from 'axios';
 import { auth } from './firebaseConfig';
 import { formatDate } from './utils';
 
-const user = auth.currentUser;
-
 const instance = axios.create({
   baseURL: 'https://app-dy64z7slha-uc.a.run.app/api',
 });
@@ -22,10 +20,12 @@ type UserData = {
   profileImage: string;
 };
 
-interface Set {
-  weight: string;
-  reps: string;
-}
+type Set = {
+  weight?: string;
+  reps?: string;
+  distance?: string;
+  time?: string;
+};
 
 interface Excersie {
   exerciseName: string | string[];
@@ -35,11 +35,12 @@ interface Excersie {
 
 export const getAllExercises = async () => {
   try {
+    const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
-
     const response = await instance.get('/custom-exercises', {
       headers: {
         Authorization: `Bearer ${userAccessToken}`,
+        'Content-Type': 'application/json',
       },
     });
     return response.data.publicExercises;
@@ -50,10 +51,31 @@ export const getAllExercises = async () => {
 
 export const postExercise = async (weightData: Excersie) => {
   try {
+    const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
-
     const response = await instance.post(
       `/schedules/${todaysDate}/plan/workout/exercises`,
+      weightData,
+      {
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const postExercises = async (weightData: Excersie[]) => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+    const response = await instance.post(
+      `/schedules/${todaysDate}/plan/workout/exercises/copy`,
       weightData,
       {
         headers: {
@@ -86,17 +108,16 @@ export const postUserData = async (userData: UserData) => {
   }
 };
 
-export const getUserData = async () => {
+export const getUserProfile = async () => {
   try {
     const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
 
-    const response = await instance.get('/profile', {
+    const response = await instance.get('/user/profile', {
       headers: {
         Authorization: `Bearer ${userAccessToken}`,
       },
     });
-
     return response;
   } catch (error) {
     throw error;
@@ -108,14 +129,88 @@ export const getSingleDayWorkout = async (date: string | string[]) => {
     const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
 
-    const response = await instance.get(`/schedules/${date}/plan/workout/exercises`, {
-      headers: {
-        Authorization: `Bearer ${userAccessToken}`,
+    const response = await instance.get(
+      `/schedules/${date}/plan/workout/exercises`,
+      {
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+        },
       },
-    });
+    );
 
     return response.data.exercises;
   } catch (error) {
     throw error;
   }
-}
+};
+
+export const removeUser = async () => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.delete('/users', {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const postWeight = async (date: string, weight: number) => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.post(
+      `/schedules/${date}/plan/weight`,
+      { weight },
+      {
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+        },
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const patchUser = async (profileData: object) => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.patch('/user/profile', profileData, {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteExerciseByName = async (exerciseName: string) => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.delete(
+      `/schedules/${todaysDate}/plan/workout/exercises/${exerciseName}`,
+      {
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+        },
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

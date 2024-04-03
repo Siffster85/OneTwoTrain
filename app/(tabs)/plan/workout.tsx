@@ -29,7 +29,7 @@ type Excersie = {
 
 const Item = ({ title, category, amountOfSets }: ItemProps): any => {
   return (
-    <View style={category !== 'cardio' ? styles.item : styles.cardioItem}>
+    <View style={category !== 'Cardio' ? styles.item : styles.cardioItem}>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.exerciseQuantity}>X{amountOfSets}</Text>
     </View>
@@ -42,7 +42,7 @@ interface renderItemProps {
 }
 
 const Workout = () => {
-  const [todaysExercises, setTodaysExercises] = useState<Excersie[]>([]);
+  const [todaysExercises, setTodaysExercises] = useState([]);
 
   const todaysDate = formatDate(new Date());
   useEffect(() => {
@@ -86,7 +86,7 @@ const Workout = () => {
           </Pressable>
         )}
       />
-      <View style={styles.container}>
+      <View>
         <TouchableOpacity
           style={styles.item}
           onPress={() => router.push('/(tabs)/plan/addExercise')}>
@@ -111,9 +111,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight ?? 0,
+    justifyContent: 'space-between',
   },
   item: {
-    flex: 1,
     flexDirection: 'row',
     backgroundColor: '#4BA663',
     padding: 20,
@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   cardioItem: {
-    flex: 1,
     flexDirection: 'row',
     backgroundColor: '#39E1CC',
     padding: 20,

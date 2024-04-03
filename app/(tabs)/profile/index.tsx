@@ -35,15 +35,13 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    try {
-      const userData = async () => {
-        const data = await getUserProfile();
+    getUserProfile()
+      .then(data => {
         setUserProfile(data.data);
-      };
-      userData();
-    } catch (error) {
-      throw error;
-    }
+      })
+      .catch(err => {
+        throw err;
+      });
   }, []);
 
   const profileData = [
@@ -92,7 +90,7 @@ const Profile = () => {
           label="Add Profile Photo"
           onPress={pickImageAsync}
         />
-        <Text>Profile page of {user?.email}</Text>
+        <Text>Profile page of {userProfile.user.name}</Text>
       </View>
       <View>
         {profileData.map(data => {
@@ -104,6 +102,14 @@ const Profile = () => {
           );
         })}
       </View>
+      <Button
+        title="Edit Profile"
+        onPress={() =>
+          router.push({
+            pathname: '/profile/editProfile',
+          })
+        }
+      />
       <Button
         title="Change Password"
         onPress={() =>

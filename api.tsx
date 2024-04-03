@@ -40,6 +40,7 @@ export const getAllExercises = async () => {
     const response = await instance.get('/custom-exercises', {
       headers: {
         Authorization: `Bearer ${userAccessToken}`,
+        'Content-Type': 'application/json',
       },
     });
     return response.data.publicExercises;
@@ -170,6 +171,61 @@ export const getSchedule = async () => {
       },
     });
     return response.data.schedules;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const postWeight = async (date: string, weight: number) => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.post(
+      `/schedules/${date}/plan/weight`,
+      { weight },
+      {
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+        },
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const patchUser = async (profileData: object) => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.patch('/user/profile', profileData, {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteExerciseByName = async (exerciseName: string) => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.delete(
+      `/schedules/${todaysDate}/plan/workout/exercises/${exerciseName}`,
+      {
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+        },
+      },
+    );
+    return response;
   } catch (error) {
     throw error;
   }

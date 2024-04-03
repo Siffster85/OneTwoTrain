@@ -35,10 +35,6 @@ const Item = ({ title, category, amountOfSets }: ItemProps): any => {
     </View>
   );
 };
-interface Set {
-  weight: string;
-  reps: string;
-}
 
 interface renderItemProps {
   item: { exerciseName: string; category: string; sets: Set };

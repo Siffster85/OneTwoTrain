@@ -46,7 +46,6 @@ const ResistancePage = () => {
     setReps('');
   };
 
-
   const handleSubmit = async () => {
     try {
       const response = await postExercise(dataToSend);

@@ -39,10 +39,10 @@ const SingleDayWorkout = () => {
         setIsLoading(false)
         console.log(Object.values(exercises[0].sets));
       })
-      .catch((err) => {
-        Alert.alert(err)
-      })
-  }, [])
+      .catch(err => {
+        Alert.alert(err);
+      });
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -83,8 +83,8 @@ const SingleDayWorkout = () => {
           </View>
       }
     </View>
-  )
-}
+  );
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -122,5 +122,4 @@ const styles = StyleSheet.create({
   }
 });
 
-
-export default SingleDayWorkout
+export default SingleDayWorkout;

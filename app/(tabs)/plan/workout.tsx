@@ -29,9 +29,12 @@ type Excersie = {
 
 const Item = ({ title, category, amountOfSets }: ItemProps): any => {
   return (
-    <View style={category !== 'Cardio' ? styles.item : styles.cardioItem}>
+    <View style={[styles.exItem, (category === 'cardio' ? styles.cardioItem : styles.weightItem)]}>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.exerciseQuantity}>X{amountOfSets}</Text>
+      <View style={styles.itemExtras}>
+        <Text style={styles.exerciseDetails}>X{amountOfSets}</Text>
+        <Text style={styles.exerciseDetails}>{category}</Text>
+      </View>
     </View>
   );
 };
@@ -88,19 +91,19 @@ const Workout = () => {
       />
       <View>
         <TouchableOpacity
-          style={styles.item}
+          style={styles.button}
           onPress={() => router.push('/(tabs)/plan/addExercise')}>
-          <Text>Add An Exercise</Text>
+          <Text style={styles.buttonText}>Add An Exercise</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.item}
+          style={styles.button}
           onPress={() => browsePrevWorkout()}>
-          <Text>Browse Previous Workouts</Text>
+          <Text style={styles.buttonText}>Browse Previous Workouts</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.item}
+          style={styles.button}
           onPress={() => router.push('/(tabs)/plan/browseExercises')}>
-          <Text>Browse Exercises</Text>
+          <Text style={styles.buttonText}>Browse Exercises</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -109,28 +112,50 @@ const Workout = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight ?? 0,
-    justifyContent: 'space-between',
+    marginTop: StatusBar.currentHeight ?? 24,
+    backgroundColor: '#ececec',
   },
-  item: {
-    flexDirection: 'row',
-    backgroundColor: '#4BA663',
+  itemExtras: {
+    flex: 1,
+  },
+  button: {
+    backgroundColor: '#f32b3a',
     padding: 20,
     justifyContent: 'space-between',
+    borderRadius: 20,
+    width: '70%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginVertical: 5,
   },
   title: {
     fontSize: 25,
   },
-  exerciseQuantity: {
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
     textAlign: 'center',
   },
-  cardioItem: {
-    flexDirection: 'row',
-    backgroundColor: '#39E1CC',
-    padding: 20,
-    justifyContent: 'space-between',
+  exerciseDetails: {
+    textAlign: 'right',
+    color: '#737373',
   },
+  cardioItem: {
+    // additional styles for cardio items go here
+  },
+  weightItem: {
+    // additional styles for weight items go here
+  },
+  exItem: {
+    flex: 1,
+    flexDirection: 'row',
+    padding: 20,
+    width: '100%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderColor: '#d6d6d6',
+    borderBottomWidth: 1,
+  }
 });
 
 export default Workout;

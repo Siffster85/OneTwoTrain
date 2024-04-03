@@ -110,7 +110,7 @@ export default function AddExercise() {
                   params: { exerciseName, category },
                 });
           }}>
-          <Text style={{ fontSize: 20 }}>Next</Text>
+          <Text style={{ fontSize: 20, color: '#fff' }}>Next</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -137,12 +137,12 @@ const styles = StyleSheet.create({
   },
   button: {
     borderWidth: 2,
-    borderColor: 'green',
+    borderColor: '#f22b39',
     padding: 25,
     width: 250,
     alignItems: 'center',
     borderRadius: 150,
-    backgroundColor: 'green',
+    backgroundColor: '#f32b3a',
   },
 });
 

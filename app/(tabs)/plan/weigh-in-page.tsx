@@ -42,16 +42,16 @@ const WeighIn = () => {
           enterKeyHint="done"
           inputMode="decimal"
           clearButtonMode="while-editing"
-          placeholder="Input weight here"
-          placeholderTextColor="#808080"
+          placeholder="weight"
+          placeholderTextColor="#d6d6d6"
           value={weight}
           onChangeText={text => setWeight(text)}
         />
-        <Text style={styles.KG}>KG</Text>
+        <Text style={styles.KG}>kg</Text>
       </View>
       <View style={styles.subContainer}>
         <TouchableOpacity style={styles.button} onPress={handleSave}>
-          <Text>Save</Text>
+          <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -69,18 +69,26 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: '80%',
   },
   title: {
-    fontSize: 25,
+    fontSize: 32,
+    textAlign: 'center',
   },
   button: {
     borderWidth: 2,
-    borderColor: 'green',
+    borderColor: '#f22b39',
     padding: 25,
     width: 250,
     alignItems: 'center',
     borderRadius: 150,
-    backgroundColor: 'green',
+    backgroundColor: '#f22a39',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 28,
   },
   inputContainer: {
     flex: 1,
@@ -90,11 +98,14 @@ const styles = StyleSheet.create({
   },
   KG: {
     marginLeft: 10,
+    fontSize: 22,
   },
   inputBox: {
     textAlign: 'center',
     padding: 40,
-    fontSize: 20,
+    fontSize: 48,
     minWidth: 200,
+    borderBottomColor: '#d6d6d6',
+    borderBottomWidth: 1,
   },
 });

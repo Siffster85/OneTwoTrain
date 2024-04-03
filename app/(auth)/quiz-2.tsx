@@ -41,7 +41,7 @@ const ActivityLevel = () => {
         setSelectedActivity={setSelectedActivity}
       />
       <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-        <Text style={styles.text}>Proceed</Text>
+        <Text style={styles.buttonText}>Proceed</Text>
       </TouchableOpacity>
     </View>
   );
@@ -52,7 +52,7 @@ export default ActivityLevel;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
+    backgroundColor: '#eef1f4',
     padding: 20,
   },
   titleContainer: {
@@ -69,17 +69,21 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 20,
+    color: '#171717',
   },
   text: {
-    color: '#fff',
+    color: '#171717',
     textAlign: 'center',
   },
   button: {
     fontSize: 20,
-    backgroundColor: '#464C55',
+    backgroundColor: '#f22a39',
     borderRadius: 12,
-    padding: 12,
-    color: '#fff',
+    padding: 20,
     marginTop: 12,
   },
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
+  }
 });

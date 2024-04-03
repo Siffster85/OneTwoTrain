@@ -13,12 +13,12 @@ export default function Welcome() {
         <TouchableOpacity
           onPress={() => router.push('/(auth)/quiz-1')}
           style={styles.answer}>
-          <Text>Not yet</Text>
+          <Text style={styles.answerText}>Not yet</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => router.push('/(auth)/signin')}
           style={styles.answer}>
-          <Text>Yes, I have an account</Text>
+          <Text style={styles.answerText}>Yes, I have an account</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -28,7 +28,7 @@ export default function Welcome() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
+    backgroundColor: '#eef1f4',
     alignItems: 'center',
   },
   titleContainer: {
@@ -40,8 +40,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    color: '#fff',
+    color: '#171717',
     fontSize: 32,
+    textAlign: 'center',
   },
   answerContainer: {
     flexGrow: 1,
@@ -52,9 +53,14 @@ const styles = StyleSheet.create({
     marginBottom: 80,
   },
   answer: {
-    padding: 12,
+    padding: 25,
     fontSize: 20,
-    backgroundColor: '#464C55',
+    backgroundColor: '#f22a39',
     marginBottom: 24,
+    borderRadius: 20,
   },
+  answerText: {
+    color: '#fff',
+    textAlign: 'center',
+  }
 });

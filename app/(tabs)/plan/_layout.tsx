@@ -5,9 +5,9 @@ const PlanLayout = () => {
     <Stack
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#387C44',
+          backgroundColor: '#FFF',
         },
-        headerTintColor: '#fff',
+        headerTintColor: '#000',
         headerTitleStyle: {
           fontWeight: 'bold',
         },

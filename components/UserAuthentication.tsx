@@ -127,7 +127,7 @@ const UserAuthentication: React.FC<AuthProps> = ({
           onPress={() =>
             isUserRegistered ? signInWithEmail() : signUpWithEmail()
           }>
-          <Text style={styles.text}>{btnTitle}</Text>
+          <Text style={styles.buttonText}>{btnTitle}</Text>
         </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>
@@ -139,7 +139,7 @@ export default UserAuthentication;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
+    backgroundColor: '#eef1f4',
     padding: 20,
     paddingTop: 60,
   },
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     marginBottom: 48,
   },
   text: {
-    color: '#fff',
+    color: '#171717',
     textAlign: 'center',
   },
   verticallySpaced: {
@@ -170,10 +170,13 @@ const styles = StyleSheet.create({
   },
   button: {
     fontSize: 20,
-    backgroundColor: '#464C55',
-    borderRadius: 12,
-    padding: 12,
+    backgroundColor: '#f22a39',
+    borderRadius: 20,
+    padding: 20,
+  },
+  buttonText: {
     color: '#fff',
+    textAlign: 'center',
   },
   input: {
     backgroundColor: '#fff',

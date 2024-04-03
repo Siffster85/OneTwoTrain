@@ -8,6 +8,7 @@ import {
 } from 'firebase/auth';
 import { useState } from 'react';
 import { Alert, Button, StyleSheet, TextInput } from 'react-native';
+import { removeUser } from '@/api';
 
 const DeleteProfile = () => {
   const user = auth.currentUser;
@@ -21,6 +22,7 @@ const DeleteProfile = () => {
       reauthenticateWithCredential(user, credential)
         .then(() => {
           deleteUser(user);
+          removeUser();
         })
         .then(() => {
           Alert.alert('Account Deleted');

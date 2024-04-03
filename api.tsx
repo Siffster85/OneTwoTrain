@@ -2,8 +2,6 @@ import axios from 'axios';
 import { auth } from './firebaseConfig';
 import { formatDate } from './utils';
 
-const user = auth.currentUser;
-
 const instance = axios.create({
   baseURL: 'https://app-dy64z7slha-uc.a.run.app/api',
 });
@@ -36,6 +34,7 @@ interface Excersie {
 export const getAllExercises = async () => {
   try {
     const user = auth.currentUser;
+    const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
     const response = await instance.get('/custom-exercises', {
       headers: {
@@ -51,8 +50,8 @@ export const getAllExercises = async () => {
 
 export const postExercise = async (weightData: Excersie) => {
   try {
+    const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
-
     const response = await instance.post(
       `/schedules/${todaysDate}/plan/workout/exercises`,
       weightData,
@@ -87,17 +86,16 @@ export const postUserData = async (userData: UserData) => {
   }
 };
 
-export const getUserData = async () => {
+export const getUserProfile = async () => {
   try {
     const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
 
-    const response = await instance.get('/profile', {
+    const response = await instance.get('/user/profile', {
       headers: {
         Authorization: `Bearer ${userAccessToken}`,
       },
     });
-
     return response;
   } catch (error) {
     throw error;
@@ -119,6 +117,22 @@ export const getSingleDayWorkout = async (date: string | string[]) => {
     );
 
     return response.data.exercises;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const removeUser = async () => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.delete('/users', {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+      },
+    });
+    return response;
   } catch (error) {
     throw error;
   }

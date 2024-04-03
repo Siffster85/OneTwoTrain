@@ -1,9 +1,14 @@
 import { getAllExercises } from '@/api';
 import { Stack } from 'expo-router';
+import { useState } from 'react';
 import { SafeAreaView, Text } from 'react-native';
 
-const browseExercises = () => {
-  const lol = getAllExercises();
+const BrowseExercises = () => {
+  const [allExercise, setAllExercise] = useState([]);
+
+  getAllExercises().then(result => {
+    setAllExercise(result);
+  });
 
   return (
     <SafeAreaView>
@@ -17,4 +22,4 @@ const browseExercises = () => {
   );
 };
 
-export default browseExercises;
+export default BrowseExercises;

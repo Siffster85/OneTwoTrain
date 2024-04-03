@@ -35,11 +35,12 @@ interface Excersie {
 
 export const getAllExercises = async () => {
   try {
+    const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
-
     const response = await instance.get('/custom-exercises', {
       headers: {
         Authorization: `Bearer ${userAccessToken}`,
+        'Content-Type': 'application/json',
       },
     });
     return response.data.publicExercises;
@@ -108,14 +109,17 @@ export const getSingleDayWorkout = async (date: string | string[]) => {
     const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
 
-    const response = await instance.get(`/schedules/${date}/plan/workout/exercises`, {
-      headers: {
-        Authorization: `Bearer ${userAccessToken}`,
+    const response = await instance.get(
+      `/schedules/${date}/plan/workout/exercises`,
+      {
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+        },
       },
-    });
+    );
 
     return response.data.exercises;
   } catch (error) {
     throw error;
   }
-}
+};

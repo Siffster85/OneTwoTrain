@@ -1,3 +1,5 @@
+import { postWeight } from '@/api';
+import { formatDate } from '@/utils';
 import { Stack, router } from 'expo-router';
 import { useState } from 'react';
 import {
@@ -12,12 +14,14 @@ import {
 
 const WeighIn = () => {
   const [weight, setWeight] = useState('');
-
+  const patchWeight = Number(weight);
+  const currentDate = formatDate(new Date());
   async function handleSave() {
     try {
+      const post = await postWeight(currentDate, patchWeight);
+    } catch (error) {
+    } finally {
       router.navigate('./home');
-    } catch {
-      alert('Something has gone wrong, please try again.');
     }
   }
 

@@ -137,3 +137,39 @@ export const removeUser = async () => {
     throw error;
   }
 };
+
+export const postWeight = async (date: string, weight: number) => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.post(
+      `/schedules/${date}/plan/weight`,
+      { weight },
+      {
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+        },
+      },
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const patchUser = async (profileData: object) => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.patch('/user/profile', profileData, {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

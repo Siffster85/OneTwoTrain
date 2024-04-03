@@ -18,8 +18,11 @@ export default function Timer() {
   const [endCount, setEndCount] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [key, setKey] = useState(0);
-  const [shownRepInfo, setShownRepInfo] = useState("")
   const parsedSets = JSON.parse(sets);
+  const [shownRepInfo, setShownRepInfo] = useState(parsedSets[0].reps);
+  const [repIndex, setRepIndex] = useState(1);
+  const [shownWeightInfo, setShownWeightInfo] = useState(parsedSets[0].weight);
+  const [weightIndex, setWeightInsex] = useState(1);
 
   function triggerConfetti() {
     confettiRef.current?.play(0);
@@ -35,10 +38,24 @@ export default function Timer() {
     setEndCount(currentCount => currentCount + 1);
     setKey(prevKey => prevKey + 1);
     setIsPlaying(false);
+    updateMetricInfo();
   }
 
-  function updateRepInfo() {
-    
+  function updateMetricInfo() {
+    const repLength = Object.keys(parsedSets).length;
+    const repsArray = [];
+    const weightArray = [];
+    if (repLength === repIndex) {
+      return null;
+    }
+    for (const key in parsedSets) {
+      repsArray.push(parsedSets[key].reps);
+      weightArray.push(parsedSets[key].weight);
+    }
+    setRepIndex(prevIndex => prevIndex + 1);
+    setShownRepInfo(repsArray[repIndex]);
+    setWeightInsex(prevIndex => prevIndex + 1);
+    setShownWeightInfo(weightArray[weightIndex]);
   }
 
   return (
@@ -60,7 +77,7 @@ export default function Timer() {
         <CountdownCircleTimer
           key={key}
           isPlaying={isPlaying}
-          duration={90}
+          duration={2}
           colors={['#004777', '#F7B801', '#A30000', '#A30000']}
           colorsTime={[90, 60, 30, 10]}
           onComplete={complete}
@@ -73,8 +90,8 @@ export default function Timer() {
       </View>
       <View style={styles.infoBox}>
         <Text>{title}</Text>
-        <Text>{shownRepInfo}</Text>
-        <Text>{parsedSets[0].weight}</Text>
+        <Text>REPS: {shownRepInfo}</Text>
+        <Text>WEIGHT: {shownWeightInfo}KG</Text>
       </View>
       <View style={styles.buttons}>
         <TouchableOpacity

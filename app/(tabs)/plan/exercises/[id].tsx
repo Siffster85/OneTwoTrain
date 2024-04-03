@@ -3,13 +3,12 @@ import ExerciseList from '@/components/exerciseCard/ExerciseList';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 
+
+
 export default function CurrentExercise() {
   const { id, title, category, sets } = useLocalSearchParams();
-  const parsedSets = JSON.parse(sets);
+  const parsedSets = JSON.parse(sets) 
   const setAmounts = Object.keys(parsedSets).length;
-  
-
-
 
   return (
     <SafeAreaView style={styles.container}>

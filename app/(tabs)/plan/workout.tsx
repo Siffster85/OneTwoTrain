@@ -22,6 +22,15 @@ const Item = ({ title, category, amountOfSets }: ItemProps): any => {
     </View>
   );
 };
+interface Set {
+  weight: string;
+  reps: string;
+}
+
+interface renderItemProps {
+  item: { exerciseName: string; category: string; sets: Set };
+  index: number;
+}
 
 const Workout = () => {
   const [todaysExercises, setTodaysExercises] = useState([]);
@@ -44,7 +53,7 @@ const Workout = () => {
       />
       <FlatList
         data={todaysExercises}
-        renderItem={({ item, index }) => (
+        renderItem={({ item, index }: renderItemProps) => (
           <Pressable
             key={index}
             onPress={() =>

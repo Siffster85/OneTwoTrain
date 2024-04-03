@@ -175,7 +175,7 @@ export const postWeight = async (date: string, weight: number) => {
     );
     return response;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 

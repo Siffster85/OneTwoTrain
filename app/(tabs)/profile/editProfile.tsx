@@ -1,8 +1,15 @@
 import { getUserProfile, patchUser } from '@/api';
 import ActivityLevelInput from '@/components/ActivityLevelInput';
+import { auth } from '@/firebaseConfig';
 import { Stack, router } from 'expo-router';
+import {
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  updateEmail,
+} from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import {
+  Alert,
   Keyboard,
   StyleSheet,
   Text,
@@ -26,39 +33,58 @@ const EditProfile = () => {
       weight: '',
     },
   });
+  const user = auth.currentUser;
+  const authEmail = user?.email ?? '';
+  const [password, setPassword] = useState('');
+  const credential = EmailAuthProvider.credential(authEmail, password);
+
   const [formError, setFormError] = useState('');
   const [userName, setUserName] = useState(userProfile.user.name);
   const [email, setEmail] = useState(userProfile.user.email);
-  const [weight, setWeight] = useState(userProfile.user.weight);
   const [selectedActivity, setSelectedActivity] = useState('sedentary');
 
   useEffect(() => {
-    try {
-      const userData = async () => {
-        const data = await getUserProfile();
+    getUserProfile()
+      .then(data => {
         setUserProfile(data.data);
-      };
-      userData();
-    } catch (error) {
-      throw error;
-    }
+      })
+      .catch(err => {
+        throw err;
+      });
   }, []);
 
   const profileData = {
     name: userName || userProfile.user.name,
     dailyActivityLevel: selectedActivity || userProfile.user.dailyActivityLevel,
     email: email || userProfile.user.email,
-    weight: weight || userProfile.user.weight,
   };
 
   async function handleSubmit() {
     try {
       const patch = await patchUser(profileData);
+      updateUser();
     } catch (error) {
+      throw error;
     } finally {
       router.push('/(tabs)/profile/');
     }
   }
+
+  const updateUser = () => {
+    if (user)
+      reauthenticateWithCredential(user, credential)
+        .then(() => {
+          if (email) {
+            updateEmail(user, email);
+          }
+        })
+        .then(() => {
+          Alert.alert('E-mail Updated');
+        })
+        .catch(error => {
+          Alert.alert('Error:', error.message);
+        });
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -89,17 +115,16 @@ const EditProfile = () => {
         />
         <TextInput
           style={styles.input}
-          value={weight}
-          onChangeText={setWeight}
-          onFocus={() => setFormError('')}
-          keyboardType="numeric"
-          placeholder={`${userProfile.user.weight} kg`}
+          onChangeText={text => setPassword(text)}
+          value={password}
+          secureTextEntry
+          placeholder="Please Enter Password to Change Email"
           placeholderTextColor="#808080"
         />
         <ActivityLevelInput
-        selectedActivity={selectedActivity}
-        setSelectedActivity={setSelectedActivity}
-      />
+          selectedActivity={selectedActivity}
+          setSelectedActivity={setSelectedActivity}
+        />
         {formError ? <Text style={styles.error}>{formError}</Text> : null}
         <TouchableOpacity onPress={handleSubmit} style={styles.button}>
           <Text style={styles.text}>Proceed</Text>

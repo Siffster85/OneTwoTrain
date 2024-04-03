@@ -35,15 +35,13 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    try {
-      const userData = async () => {
-        const data = await getUserProfile();
+    getUserProfile()
+      .then(data => {
         setUserProfile(data.data);
-      };
-      userData();
-    } catch (error) {
-      throw error;
-    }
+      })
+      .catch(err => {
+        throw err;
+      });
   }, []);
 
   const profileData = [

@@ -1,9 +1,7 @@
-import { getAllExercises } from '@/api';
 import { Stack } from 'expo-router';
 import { SafeAreaView, Text } from 'react-native';
 
 const browseExercises = () => {
-
   return (
     <SafeAreaView>
       <Stack.Screen

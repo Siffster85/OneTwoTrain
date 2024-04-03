@@ -72,7 +72,7 @@ const SignupQuiz = () => {
         />
         {formError ? <Text style={styles.error}>{formError}</Text> : null}
         <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-          <Text style={styles.text}>Proceed</Text>
+          <Text style={styles.buttonText}>Proceed</Text>
         </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>
@@ -83,7 +83,7 @@ export default SignupQuiz;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
+    backgroundColor: '#eef1f4',
     padding: 20,
   },
   titleContainer: {
@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   text: {
-    color: '#fff',
     textAlign: 'center',
+    color: '#171717',
   },
   error: {
     color: 'red',
@@ -112,11 +112,15 @@ const styles = StyleSheet.create({
   },
   button: {
     fontSize: 20,
-    backgroundColor: '#464C55',
+    backgroundColor: '#f22a39',
     borderRadius: 12,
-    padding: 12,
+    padding: 20,
     color: '#fff',
     marginTop: 12,
+  },
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
   },
   input: {
     backgroundColor: '#fff',

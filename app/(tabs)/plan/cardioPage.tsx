@@ -83,8 +83,8 @@ const CardioPage = () => {
             enterKeyHint="done"
             inputMode="numeric"
             clearButtonMode="while-editing"
-            placeholder="input distance in meters"
-            placeholderTextColor="black"
+            placeholder="Input Distance In Meters"
+            placeholderTextColor="#737373"
             value={distance}
             onChangeText={number => setDistance(number)}
           />
@@ -95,8 +95,8 @@ const CardioPage = () => {
             enterKeyHint="done"
             inputMode="numeric"
             clearButtonMode="while-editing"
-            placeholder="Input time in seconds"
-            placeholderTextColor="black"
+            placeholder="Input Time In Seconds"
+            placeholderTextColor="#737373"
             value={time}
             onChangeText={number => setTime(number)}
           />
@@ -104,12 +104,12 @@ const CardioPage = () => {
       </View>
       <View style={styles.upperButtonsContainer}>
         <TouchableOpacity style={styles.upperButtonLeft} onPress={handleAddSet}>
-          <Text>Add Set</Text>
+          <Text style={{ color: '#fff' }}>Add Set</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.upperButtonRight}
           onPress={handleRemoveSet}>
-          <Text>Remove Set</Text>
+          <Text style={{ color: '#fff' }}>Remove Set</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.setContainer}>
@@ -126,7 +126,7 @@ const CardioPage = () => {
       </View>
       <View style={styles.submitButtonContainer}>
         <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-          <Text>Submit</Text>
+          <Text style={{ color: '#fff' }}>Submit</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -161,30 +161,29 @@ const styles = StyleSheet.create({
   pickerBox: {
     flex: 0.5,
     borderWidth: 2,
-    margin: 5,
+    borderColor: '#737373',
+    margin: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'green',
+    backgroundColor: '#f7f7f7',
+    borderRadius: 15,
   },
   upperButtonRight: {
     marginRight: 60,
-    borderWidth: 2,
     borderRadius: 150,
-    padding: 15,
-    backgroundColor: 'red',
+    padding: 20,
+    backgroundColor: '#f22a39',
   },
   upperButtonLeft: {
     marginLeft: 60,
-    borderWidth: 2,
     borderRadius: 150,
-    padding: 15,
-    backgroundColor: 'green',
+    padding: 20,
+    backgroundColor: '#f22a39',
   },
   submitButton: {
-    borderWidth: 2,
     borderRadius: 150,
-    padding: 15,
-    backgroundColor: 'green',
+    padding: 20,
+    backgroundColor: '#f22a39',
   },
   setCard: {
     flexDirection: 'row',

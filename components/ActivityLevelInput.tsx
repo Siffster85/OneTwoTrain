@@ -42,7 +42,7 @@ const ActivityLevelInput: React.FC<ActivityLevelProps> = ({
 
 const styles = StyleSheet.create({
   label: {
-    color: '#fff',
+    color: '#171717',
     marginBottom: 20,
     fontSize: 16,
   },

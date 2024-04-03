@@ -43,6 +43,6 @@ const styles = StyleSheet.create({
     minHeight: 40,
     fontSize: 16,
     paddingVertical: 12,
-    color: '#fff',
+    color: '#171717',
   },
 });

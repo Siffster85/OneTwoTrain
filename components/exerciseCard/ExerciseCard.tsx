@@ -22,17 +22,20 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#387C44',
-    padding: 20,
+    backgroundColor: '#f32b3a',
+    padding: 23,
     justifyContent: 'space-between',
     marginVertical: 8,
     marginHorizontal: 16,
+    borderRadius: 10,
   },
   title: {
     fontSize: 25,
+    color: '#fff',
   },
   infoText: {
     fontSize: 15,
+    color: '#fff',
   },
 });
 

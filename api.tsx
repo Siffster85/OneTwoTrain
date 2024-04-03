@@ -20,10 +20,12 @@ type UserData = {
   profileImage: string;
 };
 
-interface Set {
-  weight: string;
-  reps: string;
-}
+type Set = {
+  weight?: string;
+  reps?: string;
+  distance?: string;
+  time?: string;
+};
 
 interface Excersie {
   exerciseName: string | string[];
@@ -52,6 +54,27 @@ export const postExercise = async (weightData: Excersie) => {
     const userAccessToken = await user?.getIdToken(true);
     const response = await instance.post(
       `/schedules/${todaysDate}/plan/workout/exercises`,
+      weightData,
+      {
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const postExercises = async (weightData: Excersie[]) => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+    const response = await instance.post(
+      `/schedules/${todaysDate}/plan/workout/exercises/copy`,
       weightData,
       {
         headers: {

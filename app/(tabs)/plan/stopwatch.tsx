@@ -34,6 +34,7 @@ const Stopwatch = () => {
     clearInterval(intervalRef.current as NodeJS.Timeout);
   };
   // Function to log times
+
   const logTimes = () => {
     setResults([]);
     //needs to push all laps to

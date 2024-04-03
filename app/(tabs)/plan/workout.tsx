@@ -2,7 +2,7 @@ import { getSingleDayWorkout } from '@/api';
 import { Text, View } from '@/components/Themed';
 import { formatDate } from '@/utils';
 import { Stack, router } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   FlatList,
   Pressable,
@@ -14,6 +14,19 @@ import {
 
 type ItemProps = { title: string; category: string; amountOfSets: number };
 
+type Set = {
+  weight?: string;
+  reps?: string;
+  distance?: string;
+  time?: string;
+};
+
+type Excersie = {
+  exerciseName: string | string[];
+  category: string | string[];
+  sets: Record<string, Set>;
+};
+
 const Item = ({ title, category, amountOfSets }: ItemProps): any => {
   return (
     <View style={category !== 'cardio' ? styles.item : styles.cardioItem}>
@@ -22,10 +35,6 @@ const Item = ({ title, category, amountOfSets }: ItemProps): any => {
     </View>
   );
 };
-interface Set {
-  weight: string;
-  reps: string;
-}
 
 interface renderItemProps {
   item: { exerciseName: string; category: string; sets: Set };
@@ -33,12 +42,14 @@ interface renderItemProps {
 }
 
 const Workout = () => {
-  const [todaysExercises, setTodaysExercises] = useState([]);
+  const [todaysExercises, setTodaysExercises] = useState<Excersie[]>([]);
 
   const todaysDate = formatDate(new Date());
-  getSingleDayWorkout(todaysDate).then(result => {
-    setTodaysExercises(result);
-  });
+  useEffect(() => {
+    getSingleDayWorkout(todaysDate).then(result => {
+      setTodaysExercises(result);
+    });
+  }, [todaysExercises]);
 
   const browsePrevWorkout = () => {
     router.navigate('/(tabs)/plan/browseWorkout');

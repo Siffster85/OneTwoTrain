@@ -92,7 +92,7 @@ const Profile = () => {
           label="Add Profile Photo"
           onPress={pickImageAsync}
         />
-        <Text>Profile page of {user?.email}</Text>
+        <Text>Profile page of {userProfile.user.name}</Text>
       </View>
       <View>
         {profileData.map(data => {
@@ -104,6 +104,14 @@ const Profile = () => {
           );
         })}
       </View>
+      <Button
+        title="Edit Profile"
+        onPress={() =>
+          router.push({
+            pathname: '/profile/editProfile',
+          })
+        }
+      />
       <Button
         title="Change Password"
         onPress={() =>

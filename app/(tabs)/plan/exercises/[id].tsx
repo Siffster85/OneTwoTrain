@@ -67,7 +67,7 @@ export default function CurrentExercise() {
             onPress={() => {
               return router.push({
                 pathname:
-                  category === 'cardio'
+                  category === 'Cardio'
                     ? '/(tabs)/plan/stopwatch'
                     : '/(tabs)/plan/timer',
                 params: {

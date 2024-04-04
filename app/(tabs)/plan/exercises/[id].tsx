@@ -45,7 +45,7 @@ export default function CurrentExercise() {
       </View>
 
       {fromBrowsePage ? (
-        <View style={styles.bottomButtonContainer}>
+        <View style={[styles.bottomButtonContainer, {justifyContent: "center"}]}>
           <TouchableOpacity style={styles.button} onPress={handleAddExercise}>
             <Text style={styles.title}>Add Exercise</Text>
           </TouchableOpacity>

@@ -32,19 +32,21 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f32b3a',
-    padding: 23,
     justifyContent: 'space-between',
     marginVertical: 8,
-    borderRadius: 10,
+    backgroundColor: '#f1f1f1',
+    borderBottomWidth: 2,
+    borderColor: '#737373',
+    borderRadius: 12,
+    padding: 16,
   },
   title: {
     fontSize: 25,
-    color: '#fff',
+    color: '#737373',
   },
   infoText: {
-    fontSize: 15,
-    color: '#fff',
+    fontSize: 16,
+    color: '#737373',
   },
 });
 

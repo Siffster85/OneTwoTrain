@@ -1,14 +1,12 @@
-import { Entypo } from '@expo/vector-icons';
 import { Stack, router, useLocalSearchParams } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { useRef, useState } from 'react';
 import {
-  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
@@ -62,23 +60,15 @@ export default function Timer() {
     <SafeAreaView style={styles.container}>
       <Stack.Screen
         options={{
-          headerShown: false,
+          headerShown: true,
+          headerTitle: ""
         }}
       />
-      <Pressable onPress={() => router.back()}>
-        <Entypo
-          name="circle-with-cross"
-          size={24}
-          color="#FF8787"
-          style={styles.buttonIcon}
-        />
-      </Pressable>
-      <Text style={styles.title}>PRESS START TO TRACK THE BREAK TIME</Text>
-      <Text style={[styles.text, styles.exerTitle]}>{title}</Text>
-      <Text style={[styles.text, styles.subtitle]}>Set {repIndex} of {setAmounts}</Text>
+      <Text style={[styles.text, styles.setsTitle]}>Set {repIndex} of {setAmounts}</Text>
+      <Text style={[styles.text, styles.title]}>{title}</Text>
       <View style={styles.infoBox}>
-        <Text style={styles.text}>reps: {shownRepInfo}</Text>
-        <Text style={styles.text}>weight: {shownWeightInfo}KG</Text>
+        <Text style={styles.text}>Reps: {shownRepInfo}</Text>
+        <Text style={styles.text}>Weight: {shownWeightInfo}KG</Text>
       </View>
       <View style={styles.timer}>
         <CountdownCircleTimer
@@ -99,12 +89,12 @@ export default function Timer() {
         <TouchableOpacity
           style={styles.pauseButton}
           onPress={() => setIsPlaying(false)}>
-          <Text style={styles.buttonText}>Pause</Text>
+          <Text style={styles.buttonText}>Pause Break</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.startButton}
           onPress={() => setIsPlaying(true)}>
-          <Text style={styles.buttonText}>Start</Text>
+          <Text style={styles.buttonText}>Start Break</Text>
         </TouchableOpacity>
       </View>
       <LottieView
@@ -126,26 +116,18 @@ const styles = StyleSheet.create({
   },
   buttons: {
     flex: 1,
-    justifyContent: 'space-evenly',
+    justifyContent: "space-between",
     alignItems: 'center',
     flexDirection: 'row',
   },
-  title: {
-    fontSize: 20,
-    textAlign: "center",
-    marginTop: 12,
-    color: "#333",
+  setsTitle: {
     padding: 8,
-    backgroundColor: "#bbb",
-  },
-  exerTitle: {
-    padding: 8,
-    marginTop: 12,
+    marginTop: 8,
     textAlign: "center",
     textTransform: "uppercase",
     backgroundColor: "#CCC",
   },
-  subtitle: {
+  title: {
     textAlign: "center",
     padding: 8,
     fontSize: 20,
@@ -161,7 +143,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   text: {
-    fontSize: 20,
+    fontSize: 16,
     color: "#333"
   },
   timer: {
@@ -171,15 +153,17 @@ const styles = StyleSheet.create({
   },
   startButton: {
     borderWidth: 4,
-    padding: 50,
-    borderRadius: 40,
+    paddingHorizontal: 20,
+    paddingVertical: 40,
+    borderRadius: 20,
     borderColor: '#6096B4',
     backgroundColor: '#BDCDD6',
   },
   pauseButton: {
     borderWidth: 4,
-    padding: 50,
-    borderRadius: 40,
+    paddingHorizontal: 20,
+    paddingVertical: 40,
+    borderRadius: 20,
     borderColor: '#f22b39',
     backgroundColor: '#FF8787',
   },
@@ -188,7 +172,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 18,
     textTransform: "uppercase",
     color: "#333",
   },

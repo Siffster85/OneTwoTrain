@@ -1,5 +1,4 @@
 import { getUserProfile, patchUser } from '@/api';
-import ActivityLevelInput from '@/components/ActivityLevelInput';
 import { auth } from '@/firebaseConfig';
 import { Stack, router } from 'expo-router';
 import {
@@ -18,7 +17,6 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View,
 } from 'react-native';
 
 const EditProfile = () => {
@@ -42,8 +40,7 @@ const EditProfile = () => {
 
   const [formError, setFormError] = useState('');
   const [userName, setUserName] = useState(userProfile.user.name);
-  const [email, setEmail] = useState(userProfile.user.email);
-  const [selectedActivity, setSelectedActivity] = useState('sedentary');
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
     getUserProfile()
@@ -57,36 +54,22 @@ const EditProfile = () => {
 
   const profileData = {
     name: userName || userProfile.user.name,
-    dailyActivityLevel: selectedActivity || userProfile.user.dailyActivityLevel,
     email: email || userProfile.user.email,
   };
 
   async function handleSubmit() {
     try {
       await patchUser(profileData);
-      updateUser();
+      if (user) {
+        reauthenticateWithCredential(user, credential);
+        updateEmail(user, email);
+      }
     } catch (error) {
       throw error;
     } finally {
       router.push('/(tabs)/profile/');
     }
   }
-
-  const updateUser = () => {
-    if (user)
-      reauthenticateWithCredential(user, credential)
-        .then(() => {
-          if (email !== userProfile.user.email) {
-            updateEmail(user, email);
-          }
-        })
-        .then(() => {
-          Alert.alert('E-mail Updated');
-        })
-        .catch(error => {
-          Alert.alert('Error:', error.message);
-        });
-  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -124,12 +107,6 @@ const EditProfile = () => {
             placeholder="Enter Password to Confirm"
             placeholderTextColor="#808080"
           />
-          <View style={styles.inputContainer}>
-            <ActivityLevelInput
-              selectedActivity={selectedActivity}
-              setSelectedActivity={setSelectedActivity}
-            />
-          </View>
           {formError ? <Text style={styles.error}>{formError}</Text> : null}
           <TouchableOpacity onPress={handleSubmit} style={styles.button}>
             <Text style={styles.buttonText}>Proceed</Text>

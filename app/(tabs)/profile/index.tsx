@@ -15,7 +15,6 @@ import {
 } from 'react-native';
 
 const Profile = () => {
-  const [selectedImage, setSelectedImage] = useState<string | null>();
   const [userProfile, setUserProfile] = useState({
     user: {
       calorieGoal: 0,
@@ -29,7 +28,10 @@ const Profile = () => {
       weight: '',
     },
   });
+  const [selectedImage, setSelectedImage] = useState<string | null>();
+  const [isLoading, setIsLoading] = useState(true);
 
+  const loadingImage = 'https://i.gifer.com/ZKZg.gif';
   const defaultImage =
     'https://images.pexels.com/photos/416726/pexels-photo-416726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
   const profileData = [
@@ -59,6 +61,10 @@ const Profile = () => {
     getUserProfile()
       .then(data => {
         setUserProfile(data.data);
+        setSelectedImage(data.data.user.profileImage);
+      })
+      .then(() => {
+        setIsLoading(false);
       })
       .catch(err => {
         throw err;
@@ -97,10 +103,14 @@ const Profile = () => {
       />
       <View style={styles.profileImage}>
         <Pressable onPress={pickImageAsync} style={styles.imageContainer}>
-          <Image
-            source={{ uri: selectedImage ? selectedImage : defaultImage }}
-            style={styles.image}
-          />
+          {isLoading ? (
+            <Image source={{ uri: loadingImage }} style={styles.image} />
+          ) : (
+            <Image
+              source={{ uri: selectedImage ? selectedImage : defaultImage }}
+              style={styles.image}
+            />
+          )}
         </Pressable>
         <Text style={styles.userName}>{userProfile.user.name}</Text>
       </View>

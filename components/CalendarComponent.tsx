@@ -21,10 +21,10 @@ type Props = {
 };
 
 const CalendarComponent = ({ handleDayPress }: Props) => {
-  const dotOne = { key: 'workout', color: '#f8b595' };
-  const dotTwo = { key: 'weight', color: '#f67280' };
-  const dotThree = { key: 'calories', color: '#c06c84' };
-  const dotFour = { key: 'water', color: '#6c5b7c' };
+  const dotOne = { key: 'dotOne', color: '#94b9bc' };
+  const dotTwo = { key: 'dotTwo', color: '#71929c' };
+  const dotThree = { key: 'dotThree', color: '#577882' };
+  const dotFour = { key: 'dotFour', color: '#46606f' };
   const todayDate = formatDate(new Date());
   const [workoutDates, setWorkoutDates] = useState<Workout[]>([]);
   const [markedDates, setMarkedDates] = useState({});
@@ -50,7 +50,7 @@ const CalendarComponent = ({ handleDayPress }: Props) => {
       ...newMarkedDates[todayDate],
       selected: true,
       selectedColor: '#ececec',
-      selectedTextColor: '#f22a39',
+      selectedTextColor: '#577882',
     };
     setMarkedDates(newMarkedDates);
   }, [workoutDates]);

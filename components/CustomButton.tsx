@@ -10,17 +10,16 @@ export default function CustomButton({
 }) {
   if (theme === 'circular') {
     return (
-      <View style={[styles.buttonContainer, styles.circular]}>
+      <View style={[styles.buttonContainer]}>
         <Pressable
-          style={[styles.button, { backgroundColor: '#fff' }]}
+          style={[styles.button]}
           onPress={onPress}>
           <FontAwesome
             name="picture-o"
-            size={18}
+            size={32}
             color="#25292e"
-            style={styles.buttonIcon}
           />
-          <Text style={[styles.buttonLabel, { color: '#25292e' }]}>
+          <Text style={[styles.buttonLabel]}>
             {label}
           </Text>
         </Pressable>
@@ -30,15 +29,14 @@ export default function CustomButton({
     return (
       <View style={[styles.buttonContainer, styles.deletedExercise]}>
         <Pressable
-          style={[styles.button, { backgroundColor: '#fff' }]}
+          style={[styles.button]}
           onPress={onPress}>
           <FontAwesome
             name="trash"
-            size={18}
-            color="#25292e"
-            style={styles.buttonIcon}
+            size={32}
+            color="#fff"
           />
-          <Text style={[styles.buttonLabel, { color: '#25292e' }]}>
+          <Text style={[styles.buttonLabel]}>
             {label}
           </Text>
         </Pressable>
@@ -48,15 +46,14 @@ export default function CustomButton({
     return (
       <View style={[styles.buttonContainer, styles.startExercise]}>
         <Pressable
-          style={[styles.button, { backgroundColor: '#fff' }]}
+          style={[styles.button]}
           onPress={onPress}>
           <FontAwesome
             name="play"
-            size={18}
-            color="#25292e"
-            style={styles.buttonIcon}
+            size={32}
+            color="#fff"
           />
-          <Text style={[styles.buttonLabel, { color: '#25292e' }]}>
+          <Text style={[styles.buttonLabel]}>
             {label}
           </Text>
         </Pressable>
@@ -77,56 +74,43 @@ export default function CustomButton({
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    width: 320,
-    height: 68,
-    marginHorizontal: 20,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "space-between",
     padding: 3,
+    borderWidth: 4,
+    // padding: 35,
+    borderColor: '#f22a39',
   },
   button: {
+    width: 50,
+    height: 50,
     borderRadius: 10,
-    width: '100%',
-    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
   },
-  buttonIcon: {
-    paddingRight: 8,
-  },
   buttonLabel: {
-    color: '#fff',
-    fontSize: 15,
-  },
-  circular: {
-    borderWidth: 4,
-    padding: 35,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 150,
-    height: 150,
-    borderColor: '#f22a39',
-    borderRadius: 100,
+    fontSize: 20,
+    textAlign: "center",
+    color: "#fff",
+    textTransform: "uppercase",
   },
   deletedExercise: {
     borderWidth: 4,
-    padding: 35,
+    padding: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 150,
-    height: 150,
-    borderColor: 'red',
-    borderRadius: 150,
+    borderColor: '#f22b39',
+    borderRadius: 12,
+    backgroundColor: '#f22b39',
   },
   startExercise: {
     borderWidth: 4,
-    padding: 35,
+    padding: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 150,
-    height: 150,
-    borderColor: 'green',
-    borderRadius: 150,
+    backgroundColor: "#71929c",
+    borderColor: '#71929c',
+    borderRadius: 12,
   },
 });

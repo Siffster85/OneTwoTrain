@@ -1,14 +1,12 @@
-import { Entypo } from '@expo/vector-icons';
 import { Stack, router, useLocalSearchParams } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { useRef, useState } from 'react';
 import {
-  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
@@ -62,47 +60,41 @@ export default function Timer() {
     <SafeAreaView style={styles.container}>
       <Stack.Screen
         options={{
-          headerShown: false,
+          headerShown: true,
+          headerTitle: ""
         }}
       />
-      <Pressable onPress={() => router.back()}>
-        <Entypo
-          name="circle-with-cross"
-          size={24}
-          color="#25292e"
-          style={styles.buttonIcon}
-        />
-      </Pressable>
+      <Text style={[styles.text, styles.setsTitle]}>Set {repIndex} of {setAmounts}</Text>
+      <Text style={[styles.text, styles.title]}>{title}</Text>
+      <View style={styles.infoBox}>
+        <Text style={styles.text}>Reps: {shownRepInfo}</Text>
+        <Text style={styles.text}>Weight: {shownWeightInfo}KG</Text>
+      </View>
       <View style={styles.timer}>
         <CountdownCircleTimer
           key={key}
           isPlaying={isPlaying}
-          duration={2}
-          colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+          duration={90}
+          colors={['#6096B4', '#93BFCF', '#F55050', '#f22b39']}
           colorsTime={[90, 60, 30, 10]}
           onComplete={complete}
           size={250}
           updateInterval={1}>
           {({ remainingTime, color }) => (
-            <Text style={{ color, fontSize: 40 }}>{remainingTime}</Text>
+            <Text style={{ color, fontSize: 40 }}>{remainingTime}s</Text>
           )}
         </CountdownCircleTimer>
       </View>
-      <View style={styles.infoBox}>
-        <Text>{title}</Text>
-        <Text>REPS: {shownRepInfo}</Text>
-        <Text>WEIGHT: {shownWeightInfo}KG</Text>
-      </View>
       <View style={styles.buttons}>
-        <TouchableOpacity
-          style={styles.startButton}
-          onPress={() => setIsPlaying(true)}>
-          <Text>Start Break</Text>
-        </TouchableOpacity>
         <TouchableOpacity
           style={styles.pauseButton}
           onPress={() => setIsPlaying(false)}>
-          <Text>Pause Timer</Text>
+          <Text style={styles.buttonText}>Pause Break</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.startButton}
+          onPress={() => setIsPlaying(true)}>
+          <Text style={styles.buttonText}>Start Break</Text>
         </TouchableOpacity>
       </View>
       <LottieView
@@ -120,14 +112,39 @@ export default function Timer() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ecf0f1',
-    padding: 8,
+    margin: 20,
   },
   buttons: {
     flex: 1,
-    justifyContent: 'space-evenly',
+    justifyContent: "space-between",
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  setsTitle: {
+    padding: 8,
+    marginTop: 8,
+    textAlign: "center",
+    textTransform: "uppercase",
+    backgroundColor: "#CCC",
+  },
+  title: {
+    textAlign: "center",
+    padding: 8,
+    fontSize: 20,
+    marginVertical: 8,
+    backgroundColor: "#DDD",
+  },
+  infoBox: {
+    justifyContent: "space-between",
+    alignItems: 'center',
+    flexDirection: "row",
+    backgroundColor: "#ECECEC",
+    padding: 8,
+    marginBottom: 20,
+  },
+  text: {
+    fontSize: 16,
+    color: "#333"
   },
   timer: {
     flex: 2,
@@ -136,26 +153,28 @@ const styles = StyleSheet.create({
   },
   startButton: {
     borderWidth: 4,
-    padding: 50,
-    borderRadius: 150,
-    borderColor: '#006839',
-    backgroundColor: 'green',
+    paddingHorizontal: 20,
+    paddingVertical: 40,
+    borderRadius: 20,
+    borderColor: '#6096B4',
+    backgroundColor: '#BDCDD6',
   },
   pauseButton: {
     borderWidth: 4,
-    padding: 50,
-    borderRadius: 150,
-    borderColor: '#AF0000',
-    backgroundColor: 'red',
-  },
-  infoBox: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 40,
+    borderRadius: 20,
+    borderColor: '#f22b39',
+    backgroundColor: '#FF8787',
   },
   buttonIcon: {
     paddingRight: 8,
     textAlign: 'right',
+  },
+  buttonText: {
+    fontSize: 18,
+    textTransform: "uppercase",
+    color: "#333",
   },
   lottie: {
     position: 'absolute',

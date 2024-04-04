@@ -1,14 +1,53 @@
+import { router, useLocalSearchParams } from 'expo-router';
+import LottieView from 'lottie-react-native';
 import React, { useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { DisplayTime } from './stopwatchComponent/displayTime';
-import Result from './stopwatchComponent/result';
 
 const Stopwatch = () => {
+  const confettiRef = useRef<LottieView>(null);
+
+  const { setAmounts, sets, title } = useLocalSearchParams()
   const [seconds, setSeconds] = useState(0);
   const [running, setRunning] = useState(false);
-  const [results, setResults] = useState<number[]>([]);
+  const parsedSets = JSON.parse(sets);
+  const [index, setIndex] = useState(1);
+  const [shownTimeInfo, setShownTimeInfo] = useState(parsedSets[0].time);
+  const [shownDistanceInfo, setShownDistanceInfo] = useState(parsedSets[0].distance);
   const intervalRef: { current: number | NodeJS.Timeout | null } = useRef(null);
   const startTimeRef = useRef(0);
+  const setsLength = Object.keys(parsedSets).length;
+
+  function updateMetricInfo() {
+    const timeArray = [];
+    const distanceArray = [];
+    if (setsLength === index) {
+      return null;
+    }
+    for (const key in parsedSets) {
+      timeArray.push(parsedSets[key].reps);
+      distanceArray.push(parsedSets[key].weight);
+    }
+    setIndex(prevIndex => prevIndex + 1);
+    setShownTimeInfo(timeArray[index]);
+    setShownDistanceInfo(distanceArray[index]);
+  }
+
+  function triggerConfetti() {
+    confettiRef.current?.play(0);
+  }
+
+  function complete() {
+    if (setsLength === index) {
+      triggerConfetti();
+      setTimeout(() => {
+        router.back();
+      }, 3000);
+    }
+    setSeconds(0);
+    clearInterval(intervalRef.current as NodeJS.Timeout);
+    updateMetricInfo();
+  }
 
   const startStopwatch = () => {
     startTimeRef.current = Date.now() - seconds * 1000;
@@ -28,22 +67,18 @@ const Stopwatch = () => {
     setSeconds(0);
     setRunning(false);
   };
-  const completeLap = () => {
-    setResults(previousResults => [seconds, ...previousResults]);
-    setSeconds(0);
-    clearInterval(intervalRef.current as NodeJS.Timeout);
-  };
-  // Function to log times
-
-  const logTimes = () => {
-    setResults([]);
-    //needs to push all laps to
-  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>*Exercise*</Text>
-      <Text style={styles.timeText}>{DisplayTime(seconds)}</Text>
+      <Text style={[styles.text, styles.setsTitle]}>Set {index} of {setAmounts}</Text>
+      <Text style={[styles.text, styles.title]}>{title}</Text>
+      <View style={styles.infoBox}>
+        <Text style={styles.text}>Goal time: {shownTimeInfo}s</Text>
+        <Text style={styles.text}>Distance: {shownDistanceInfo}m</Text>
+      </View>
+      <View style={styles.timeTextContainer}>
+        <Text style={styles.timeText}>{DisplayTime(seconds)}</Text>
+      </View>
       <View style={styles.buttonContainer}>
         {running ? (
           <View>
@@ -63,8 +98,8 @@ const Stopwatch = () => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.button, styles.resumeButton]}
-              onPress={completeLap}>
+              style={[styles.button, styles.completeButton]}
+              onPress={complete}>
               <Text style={styles.buttonText}>Complete Lap</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -75,15 +110,14 @@ const Stopwatch = () => {
           </View>
         )}
       </View>
-      <Text style={styles.subHeader}>Laps</Text>
-      <View style={styles.laps}>
-        <Result results={results} />
-        <TouchableOpacity
-          style={[styles.button, styles.resumeButton]}
-          onPress={logTimes}>
-          <Text style={styles.buttonText}>Log Exercise</Text>
-        </TouchableOpacity>
-      </View>
+      <LottieView
+        ref={confettiRef}
+        source={require('../../../assets/animations/confetti.json')}
+        autoPlay={false}
+        loop={false}
+        style={styles.lottie}
+        resizeMode="cover"
+      />
     </View>
   );
 };
@@ -91,53 +125,96 @@ const Stopwatch = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    padding: 20,
+  },
+  title: {
+    textAlign: "center",
+    padding: 8,
+    fontSize: 20,
+    marginVertical: 8,
+    backgroundColor: "#DDD",
+  },
+  infoBox: {
+    justifyContent: "space-between",
     alignItems: 'center',
+    flexDirection: "row",
+    backgroundColor: "#ECECEC",
+    padding: 8,
+    marginBottom: 20,
   },
-  header: {
-    fontSize: 30,
-    color: 'green',
-    marginBottom: 10,
+  text: {
+    fontSize: 16,
+    color: "#333"
   },
-  subHeader: {
-    fontSize: 18,
-    marginBottom: 10,
-    marginTop: 10,
-    color: 'blue',
+  timeTextContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  setsTitle: {
+    padding: 8,
+    marginTop: 8,
+    textAlign: "center",
+    textTransform: "uppercase",
+    backgroundColor: "#CCC",
   },
   timeText: {
     fontSize: 48,
+    textAlign: "center",
   },
   buttonContainer: {
-    flexDirection: 'row',
+    justifyContent: "center",
     marginTop: 20,
   },
   button: {
+    width: "100%",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
     margin: 5,
   },
   startButton: {
-    backgroundColor: '#2ecc71',
-    marginRight: 10,
+    borderWidth: 4,
+    paddingVertical: 20,
+    borderRadius: 20,
+    borderColor: '#46606f',
+    backgroundColor: '#94b9bc',
   },
   resetButton: {
-    backgroundColor: '#e74c3c',
-    marginRight: 10,
+    borderColor: '#f22b39',
+    backgroundColor: '#FF8787',
+    borderWidth: 4,
+    paddingVertical: 20,
+    borderRadius: 20,
   },
   pauseButton: {
-    backgroundColor: '#f39c12',
+    borderColor: '#f22b39',
+    backgroundColor: '#FF8787',
+    borderWidth: 4,
+    paddingVertical: 20,
+    borderRadius: 20,
   },
-  resumeButton: {
-    backgroundColor: '#3498db',
+  completeButton: {
+    borderWidth: 4,
+    paddingVertical: 20,
+    borderRadius: 20,
+    borderColor: '#6096B4',
+    backgroundColor: '#BDCDD6',
   },
   buttonText: {
-    color: 'white',
-    fontSize: 16,
+    textAlign: "center",
+    color: "#333",
+    fontSize: 18,
+    textTransform: "uppercase",
   },
-  laps: {
-    flex: 2 / 5,
+  lottie: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1000,
+    pointerEvents: 'none',
   },
 });
 

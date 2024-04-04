@@ -18,8 +18,9 @@ const WeighIn = () => {
   const currentDate = formatDate(new Date());
   async function handleSave() {
     try {
-      const post = await postWeight(currentDate, patchWeight);
+      await postWeight(currentDate, patchWeight);
     } catch (error) {
+      alert(error);
     } finally {
       router.navigate('./home');
     }

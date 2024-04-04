@@ -1,3 +1,4 @@
+import { removeUser } from '@/api';
 import { Text, View } from '@/components/Themed';
 import { auth } from '@/firebaseConfig';
 import { Stack } from 'expo-router';
@@ -7,8 +8,7 @@ import {
   reauthenticateWithCredential,
 } from 'firebase/auth';
 import { useState } from 'react';
-import { Alert, Button, StyleSheet, TextInput } from 'react-native';
-import { removeUser } from '@/api';
+import { Alert, Pressable, StyleSheet, TextInput } from 'react-native';
 
 const DeleteProfile = () => {
   const user = auth.currentUser;
@@ -32,7 +32,7 @@ const DeleteProfile = () => {
         });
   };
   return (
-    <View style={styles.centralAlign}>
+    <View style={styles.container}>
       <Stack.Screen
         options={{
           headerShown: true,
@@ -40,45 +40,77 @@ const DeleteProfile = () => {
           headerTitleAlign: 'center',
         }}
       />
-      <Text style={styles.text}>
-        Are you sure you wish to delete your account?
-      </Text>
+      <View style={styles.message}>
+        <Text style={[styles.text, styles.title]}>
+          Delete Account
+        </Text>
+        <Text style={styles.text}>
+          Are you sure you wish to delete your account?
+        </Text>
+        <Text style={styles.text}>
+          This will delete all your data from our server.
+        </Text>
+      </View>
       <TextInput
         style={styles.input}
         onChangeText={text => setPassword(text)}
         value={password}
         secureTextEntry
-        placeholder="Please Enter Password to Delete"
+        placeholder="Enter Password"
         placeholderTextColor="#808080"
       />
-      <View style={styles.deleteButton}>
-        <Button title="Delete Account" onPress={() => deleteAccount()} />
-      </View>
-      <Text style={styles.text}>
-        This will delete all your data from our server.
-      </Text>
+      <Pressable style={styles.button} onPress={() => deleteAccount()}>
+        <Text style={[styles.text, styles.buttonText]}>Delete Account</Text>
+      </Pressable>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  centralAlign: {
+  container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#ececec",
+    padding: 20,
+    paddingTop: 60,
+  },
+  message: {
+    backgroundColor: "#ececec",
+    marginBottom: 20,
   },
   text: {
-    fontSize: 25,
+    fontSize: 16,
+    color: "#000",
+    textAlign: "center",
+    marginBottom: 4,
   },
-  deleteButton: {
-    padding: 10,
+  title: {
+    fontSize: 24,
+    marginBottom: 12,
   },
   input: {
+    width: "100%",
     backgroundColor: '#fff',
+    borderWidth: 2,
+    borderRadius: 12,
+    borderColor: '#ececec',
     minHeight: 40,
     color: '#000',
-    marginBottom: 12,
+    marginVertical: 12,
     padding: 12,
+    fontSize: 16,
+  },
+  button: {
+    fontSize: 20,
+    backgroundColor: '#f22a39',
+    borderRadius: 12,
+    padding: 20,
+    color: '#fff',
+    marginTop: 12,
+  },
+  buttonText: {
+    fontSize: 16,
+    color: '#fff',
+    textAlign: 'center',
   },
 });
 

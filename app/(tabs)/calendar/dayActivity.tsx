@@ -1,9 +1,8 @@
 import { getSingleDayWorkout } from '@/api';
-import { Text, View } from '@/components/Themed';
 import WorkoutList from '@/components/WorkoutList';
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Alert } from 'react-native';
+import { Text, View, Alert, ScrollView, StyleSheet } from 'react-native';
 
 type Set = {
   weight?: string;
@@ -34,13 +33,25 @@ const DayActivityPage = () => {
   }, []);
 
   return (
-    <View>
-      <Text>Workout</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Your Workout</Text>
       <WorkoutList dayWorkout={dayWorkout} handleCopyWorkout={null} />
-      <Text>Weight</Text>
-      <Text>Water</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    margin: 20,
+  },
+  title: {
+    fontSize: 24,
+    color: '#000',
+    textAlign: 'center',
+    textTransform: 'capitalize',
+    marginBottom: 20,
+  },
+});
 
 export default DayActivityPage;

@@ -57,7 +57,7 @@ const Workout = () => {
   };
 
   const renderFooter = () => (
-    <View>
+    <View style={styles.buttonContainer}>
       <TouchableOpacity
         style={styles.button}
         onPress={() => router.push('/(tabs)/plan/addExercise')}>

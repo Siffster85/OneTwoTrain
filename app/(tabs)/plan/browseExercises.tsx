@@ -62,6 +62,7 @@ const BrowseExercises = () => {
         }}
       />
       <FlatList
+      style={{marginTop: 10}}
         data={allExercise}
         renderItem={({ item, index }: renderItemProps) => (
           <Pressable
@@ -100,16 +101,19 @@ const styles = StyleSheet.create({
   item: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#4BA663',
+    backgroundColor: '#f32b3a',
     padding: 20,
     justifyContent: 'space-between',
-    margin: 5,
+    margin: 10,
+    borderRadius: 15,
   },
   title: {
     fontSize: 25,
+    color: '#fff',
   },
   exerciseQuantity: {
-    textAlign: 'center',
+    textAlign: 'right',
+    color: '#fff',
   },
   cardioItem: {
     flex: 1,

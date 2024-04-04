@@ -65,17 +65,6 @@ const Profile = () => {
       });
   }, []);
 
-  const profileData = [
-    ['Name', userProfile.user.name],
-    ['Date of Birth', userProfile.user.dateOfBirth],
-    ['E-Mail', userProfile.user.email],
-    ['Weight', userProfile.user.weight],
-    ['Height', userProfile.user.height],
-    ['Activity Level', userProfile.user.dailyActivityLevel],
-    ['Water Goal', userProfile.user.waterGoal],
-    ['Calorie Goal', userProfile.user.calorieGoal],
-  ];
-
   async function pickImageAsync() {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -86,7 +75,7 @@ const Profile = () => {
       if (!result.canceled) {
         setSelectedImage(result.assets[0].uri);
         const profileImage = { profileImage: result.assets[0].uri };
-        const updateImage = await patchUser(profileImage);
+        await patchUser(profileImage);
       } else {
         alert('You did not select any image.');
       }
@@ -94,13 +83,6 @@ const Profile = () => {
       Alert.alert(error);
     }
   }
-
-  function ImageViewer({ selectedImage }) {
-    const imageSource = { uri: selectedImage };
-    return <Image source={imageSource} style={styles.image} />;
-  }
-
-  //make the image a Pressable with a default and then have it replaced by the same image route in the profile data.
 
   return (
     <ScrollView style={styles.container}>
@@ -224,16 +206,6 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     borderRadius: 150,
-  },
-  image: {
-    borderWidth: 4,
-    padding: 35,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 150,
-    height: 150,
-    borderColor: '#ffd33d',
-    borderRadius: 100,
   },
 });
 

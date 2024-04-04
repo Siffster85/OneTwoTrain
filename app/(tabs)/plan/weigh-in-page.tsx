@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   inputBox: {
     textAlign: 'center',
     padding: 40,
-    fontSize: 48,
+    fontSize: 42,
     minWidth: 200,
     borderBottomColor: '#d6d6d6',
     borderBottomWidth: 1,

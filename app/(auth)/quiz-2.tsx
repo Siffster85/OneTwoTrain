@@ -35,13 +35,15 @@ const ActivityLevel = () => {
           perfect fitness plan.
         </Text>
       </View>
-      <BirthDateInput date={date} setDate={setDate} />
-      <ActivityLevelInput
-        selectedActivity={selectedActivity}
-        setSelectedActivity={setSelectedActivity}
-      />
+      <View style={styles.inputContainer}>
+        <BirthDateInput date={date} setDate={setDate} />
+        <ActivityLevelInput
+          selectedActivity={selectedActivity}
+          setSelectedActivity={setSelectedActivity}
+        />
+      </View>
       <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-        <Text style={styles.text}>Proceed</Text>
+        <Text style={styles.buttonText}>Proceed</Text>
       </TouchableOpacity>
     </View>
   );
@@ -52,11 +54,11 @@ export default ActivityLevel;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
-    padding: 20,
+    backgroundColor: '#eef1f4',
+    paddingHorizontal: 20,
+    paddingVertical: 40,
   },
   titleContainer: {
-    height: '30%',
     backgroundColor: 'transparent',
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
@@ -65,21 +67,28 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    marginBottom: 20,
+    marginBottom: 16,
   },
   subtitle: {
-    fontSize: 20,
+    fontSize: 18,
+    color: '#171717',
   },
   text: {
-    color: '#fff',
+    color: '#171717',
     textAlign: 'center',
   },
   button: {
-    fontSize: 20,
-    backgroundColor: '#464C55',
+    backgroundColor: '#f22a39',
     borderRadius: 12,
-    padding: 12,
-    color: '#fff',
+    padding: 20,
     marginTop: 12,
+  },
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  inputContainer: {
+    marginBottom: 20,
   },
 });

@@ -21,17 +21,18 @@ type Set = {
   time?: string;
 };
 
-type Excersie = {
-  exerciseName: string | string[];
-  category: string | string[];
-  sets: Record<string, Set>;
-};
-
 const Item = ({ title, category, amountOfSets }: ItemProps): any => {
   return (
-    <View style={category !== 'cardio' ? styles.item : styles.cardioItem}>
+    <View
+      style={[
+        styles.exItem,
+        category === 'cardio' ? styles.cardioItem : styles.weightItem,
+      ]}>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.exerciseQuantity}>X{amountOfSets}</Text>
+      <View style={styles.itemExtras}>
+        <Text style={styles.exerciseDetails}>X{amountOfSets}</Text>
+        <Text style={styles.exerciseDetails}>{category}</Text>
+      </View>
     </View>
   );
 };
@@ -42,7 +43,7 @@ interface renderItemProps {
 }
 
 const Workout = () => {
-  const [todaysExercises, setTodaysExercises] = useState<Excersie[]>([]);
+  const [todaysExercises, setTodaysExercises] = useState([]);
 
   const todaysDate = formatDate(new Date());
   useEffect(() => {
@@ -86,21 +87,21 @@ const Workout = () => {
           </Pressable>
         )}
       />
-      <View style={styles.container}>
+      <View>
         <TouchableOpacity
-          style={styles.item}
+          style={styles.button}
           onPress={() => router.push('/(tabs)/plan/addExercise')}>
-          <Text>Add An Exercise</Text>
+          <Text style={styles.buttonText}>Create New Exercise</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.item}
+          style={styles.button}
           onPress={() => browsePrevWorkout()}>
-          <Text>Browse Previous Workouts</Text>
+          <Text style={styles.buttonText}>Browse Previous Workouts</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.item}
+          style={styles.button}
           onPress={() => router.push('/(tabs)/plan/browseExercises')}>
-          <Text>Browse Exercises</Text>
+          <Text style={styles.buttonText}>Browse Exercises</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -109,28 +110,49 @@ const Workout = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight ?? 0,
+    marginTop: StatusBar.currentHeight ?? 24,
+    backgroundColor: '#ececec',
   },
-  item: {
+  itemExtras: {
     flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#4BA663',
+  },
+  button: {
+    backgroundColor: '#f32b3a',
     padding: 20,
     justifyContent: 'space-between',
+    borderRadius: 20,
+    width: '70%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginVertical: 5,
   },
   title: {
     fontSize: 25,
   },
-  exerciseQuantity: {
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
     textAlign: 'center',
   },
+  exerciseDetails: {
+    textAlign: 'right',
+    color: '#737373',
+  },
   cardioItem: {
+    // additional styles for cardio items go here
+  },
+  weightItem: {
+    // additional styles for weight items go here
+  },
+  exItem: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#39E1CC',
     padding: 20,
-    justifyContent: 'space-between',
+    width: '100%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderColor: '#d6d6d6',
+    borderBottomWidth: 1,
   },
 });
 

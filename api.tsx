@@ -40,6 +40,7 @@ export const getAllExercises = async () => {
     const response = await instance.get('/custom-exercises', {
       headers: {
         Authorization: `Bearer ${userAccessToken}`,
+        'Content-Type': 'application/json',
       },
     });
     return response.data.publicExercises;
@@ -69,7 +70,7 @@ export const postExercise = async (weightData: Excersie) => {
   }
 };
 
-export const postExercises = async (weightData: Excersie[]) => {
+export const postWorkout = async (weightData: Excersie[]) => {
   try {
     const user = auth.currentUser;
     const userAccessToken = await user?.getIdToken(true);
@@ -159,6 +160,22 @@ export const removeUser = async () => {
   }
 };
 
+export const getSchedule = async () => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.get('/schedules', {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+      },
+    });
+    return response.data.schedules;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const postWeight = async (date: string, weight: number) => {
   try {
     const user = auth.currentUser;
@@ -189,6 +206,25 @@ export const patchUser = async (profileData: object) => {
         Authorization: `Bearer ${userAccessToken}`,
       },
     });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteExerciseByName = async (exerciseName: string) => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.delete(
+      `/schedules/${todaysDate}/plan/workout/exercises/${exerciseName}`,
+      {
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+        },
+      },
+    );
     return response;
   } catch (error) {
     throw error;

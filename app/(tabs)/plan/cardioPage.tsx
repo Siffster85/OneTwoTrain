@@ -1,3 +1,4 @@
+import { postExercise } from '@/api';
 import { Stack, router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import {
@@ -16,25 +17,26 @@ const CardioPage = () => {
   const { category, exerciseName } = params;
   const [distance, setDistance] = useState('');
   const [time, setTime] = useState('');
-  const [data, setData] = useState<Excersie[]>([]);
+  const [data, setData] = useState<Set[]>([]);
+  const sets: Record<string, Set> = {};
 
-  interface Excersie {
-    exerciseName: string | string[];
-    category: string | string[];
+  data.forEach((item, index) => {
+    sets[`${index}`] = item;
+  });
+
+  interface Set {
     distance: string;
     time: string;
   }
 
-  interface itemProps {
-    exerciseName: string | string[];
-    distance: string;
-    time: string;
-  }
+  const dataToSend = {
+    exerciseName,
+    category,
+    sets,
+  };
 
   const handleAddSet = () => {
-    const newSet: Excersie = {
-      exerciseName,
-      category,
+    const newSet: Set = {
       distance,
       time,
     };
@@ -45,10 +47,12 @@ const CardioPage = () => {
 
   const handleSubmit = async () => {
     try {
-      //Add data to the API
-      router.navigate('/(tabs)/plan/workout');
+      const response = await postExercise(dataToSend);
+      return response;
     } catch {
       alert('Something went wrong please try again');
+    } finally {
+      router.navigate('/(tabs)/plan/workout');
     }
   };
 
@@ -58,11 +62,10 @@ const CardioPage = () => {
     }
   };
 
-  const Item = ({ exerciseName, distance, time }: itemProps) => {
+  const Item = ({ distance, time }: Set) => {
     return (
       <View style={styles.setCard}>
-        <Text style={styles.cardInfo}>Name: {exerciseName}</Text>
-        <Text style={styles.cardInfo}>distance: {distance}KG</Text>
+        <Text style={styles.cardInfo}>distance: {distance}M</Text>
         <Text style={styles.cardInfo}>time: {time}</Text>
       </View>
     );
@@ -83,8 +86,8 @@ const CardioPage = () => {
             enterKeyHint="done"
             inputMode="numeric"
             clearButtonMode="while-editing"
-            placeholder="input distance in meters"
-            placeholderTextColor="black"
+            placeholder="Input Distance In Meters"
+            placeholderTextColor="#737373"
             value={distance}
             onChangeText={number => setDistance(number)}
           />
@@ -95,8 +98,8 @@ const CardioPage = () => {
             enterKeyHint="done"
             inputMode="numeric"
             clearButtonMode="while-editing"
-            placeholder="Input time in seconds"
-            placeholderTextColor="black"
+            placeholder="Input Time In Seconds"
+            placeholderTextColor="#737373"
             value={time}
             onChangeText={number => setTime(number)}
           />
@@ -104,29 +107,25 @@ const CardioPage = () => {
       </View>
       <View style={styles.upperButtonsContainer}>
         <TouchableOpacity style={styles.upperButtonLeft} onPress={handleAddSet}>
-          <Text>Add Set</Text>
+          <Text style={{ color: '#fff' }}>Add Set</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.upperButtonRight}
           onPress={handleRemoveSet}>
-          <Text>Remove Set</Text>
+          <Text style={{ color: '#fff' }}>Remove Set</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.setContainer}>
         <FlatList
           data={data}
           renderItem={({ item }) => (
-            <Item
-              exerciseName={item.exerciseName}
-              distance={item.distance}
-              time={item.time}
-            />
+            <Item distance={item.distance} time={item.time} />
           )}
         />
       </View>
       <View style={styles.submitButtonContainer}>
         <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-          <Text>Submit</Text>
+          <Text style={{ color: '#fff' }}>Submit</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -161,30 +160,29 @@ const styles = StyleSheet.create({
   pickerBox: {
     flex: 0.5,
     borderWidth: 2,
-    margin: 5,
+    borderColor: '#737373',
+    margin: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'green',
+    backgroundColor: '#f7f7f7',
+    borderRadius: 15,
   },
   upperButtonRight: {
     marginRight: 60,
-    borderWidth: 2,
     borderRadius: 150,
-    padding: 15,
-    backgroundColor: 'red',
+    padding: 20,
+    backgroundColor: '#f22a39',
   },
   upperButtonLeft: {
     marginLeft: 60,
-    borderWidth: 2,
     borderRadius: 150,
-    padding: 15,
-    backgroundColor: 'green',
+    padding: 20,
+    backgroundColor: '#f22a39',
   },
   submitButton: {
-    borderWidth: 2,
     borderRadius: 150,
-    padding: 15,
-    backgroundColor: 'green',
+    padding: 20,
+    backgroundColor: '#f22a39',
   },
   setCard: {
     flexDirection: 'row',

@@ -42,7 +42,7 @@ const UserAuthentication: React.FC<AuthProps> = ({
   const btnTitle = isUserRegistered ? 'Sign in' : 'Sign up';
   const pageTitle = isUserRegistered
     ? 'Welcome Back to Your Fitness Journey'
-    : 'Last Step:\nSecure Your Path';
+    : 'Last Step!\nSecure Your Path';
   const pageSubtitle = isUserRegistered
     ? 'Sign In to Continue Transforming'
     : 'This step ensures you have exclusive access to your fitness roadmap, progress tracking, and motivational insights.';
@@ -53,9 +53,6 @@ const UserAuthentication: React.FC<AuthProps> = ({
       .then(() => {
         const userDataToPost = { ...userData, email, profileImage: '' };
         postUserData(userDataToPost);
-      })
-      .then(() => {
-        Alert.alert(`Posted`);
       })
       .catch(error => {
         const errorCode = error.code;
@@ -75,10 +72,6 @@ const UserAuthentication: React.FC<AuthProps> = ({
   const signInWithEmail = () => {
     setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
-        const user = userCredential.user;
-        Alert.alert(`Logged in ${user.email}`);
-      })
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -110,8 +103,6 @@ const UserAuthentication: React.FC<AuthProps> = ({
             placeholder="Email"
             placeholderTextColor="#808080"
           />
-        </View>
-        <View style={styles.verticallySpaced}>
           <TextInput
             style={styles.input}
             onChangeText={text => setPassword(text)}
@@ -127,7 +118,7 @@ const UserAuthentication: React.FC<AuthProps> = ({
           onPress={() =>
             isUserRegistered ? signInWithEmail() : signUpWithEmail()
           }>
-          <Text style={styles.text}>{btnTitle}</Text>
+          <Text style={styles.buttonText}>{btnTitle}</Text>
         </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>
@@ -139,12 +130,11 @@ export default UserAuthentication;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
+    backgroundColor: '#eef1f4',
     padding: 20,
-    paddingTop: 60,
+    paddingTop: 40,
   },
   titleContainer: {
-    height: '30%',
     backgroundColor: 'transparent',
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
@@ -153,33 +143,42 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    marginBottom: 20,
+    marginBottom: 16,
   },
   subtitle: {
-    fontSize: 20,
-    marginBottom: 48,
+    fontSize: 18,
+    marginBottom: 16,
   },
   text: {
-    color: '#fff',
+    color: '#171717',
     textAlign: 'center',
   },
   verticallySpaced: {
     paddingTop: 4,
     paddingBottom: 4,
     alignSelf: 'stretch',
+    marginBottom: 20,
   },
   button: {
     fontSize: 20,
-    backgroundColor: '#464C55',
+    backgroundColor: '#f22a39',
     borderRadius: 12,
-    padding: 12,
+    padding: 20,
+  },
+  buttonText: {
+    fontSize: 16,
     color: '#fff',
+    textAlign: 'center',
   },
   input: {
     backgroundColor: '#fff',
     minHeight: 40,
     color: '#000',
-    marginBottom: 12,
+    marginBottom: 8,
     padding: 12,
+    borderWidth: 2,
+    borderRadius: 12,
+    borderColor: '#ececec',
+    fontSize: 16,
   },
 });

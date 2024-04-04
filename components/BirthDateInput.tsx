@@ -16,15 +16,15 @@ const BirthDateInput: React.FC<BirthDateProps> = ({ date, setDate }) => {
   };
   return (
     <View style={styles.dateContainer}>
-      <Text style={styles.dateText}>Select your date of birth:</Text>
+      <Text style={styles.dateText}>Select your date of birth</Text>
       <DateTimePicker
         testID="dateTimePicker"
         value={date}
         mode="date"
-        is24Hour
         display="default"
         onChange={onChange}
         maximumDate={new Date()}
+        themeVariant="light"
       />
     </View>
   );
@@ -34,15 +34,18 @@ export default BirthDateInput;
 
 const styles = StyleSheet.create({
   dateContainer: {
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 12,
+    padding: 16,
+    borderWidth: 2,
+    borderRadius: 12,
+    borderColor: '#ececec',
+    backgroundColor: '#fff',
+    marginBottom: 20,
   },
   dateText: {
-    minHeight: 40,
-    fontSize: 16,
-    paddingVertical: 12,
-    color: '#fff',
+    fontSize: 20,
+    color: '#171717',
+    marginBottom: 28,
   },
 });

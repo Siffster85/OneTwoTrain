@@ -72,7 +72,7 @@ const SignupQuiz = () => {
         />
         {formError ? <Text style={styles.error}>{formError}</Text> : null}
         <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-          <Text style={styles.text}>Proceed</Text>
+          <Text style={styles.buttonText}>Proceed</Text>
         </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>
@@ -83,11 +83,11 @@ export default SignupQuiz;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
+    backgroundColor: '#eef1f4',
     padding: 20,
+    paddingTop: 40,
   },
   titleContainer: {
-    height: '30%',
     backgroundColor: 'transparent',
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
@@ -96,14 +96,15 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    marginBottom: 20,
+    marginBottom: 16,
   },
   subtitle: {
-    fontSize: 20,
+    fontSize: 18,
+    marginBottom: 20,
   },
   text: {
-    color: '#fff',
     textAlign: 'center',
+    color: '#171717',
   },
   error: {
     color: 'red',
@@ -112,17 +113,26 @@ const styles = StyleSheet.create({
   },
   button: {
     fontSize: 20,
-    backgroundColor: '#464C55',
+    backgroundColor: '#f22a39',
     borderRadius: 12,
-    padding: 12,
+    padding: 20,
     color: '#fff',
     marginTop: 12,
   },
+  buttonText: {
+    fontSize: 16,
+    color: '#fff',
+    textAlign: 'center',
+  },
   input: {
     backgroundColor: '#fff',
+    borderWidth: 2,
+    borderRadius: 12,
+    borderColor: '#ececec',
     minHeight: 40,
     color: '#000',
     marginBottom: 12,
     padding: 12,
+    fontSize: 16,
   },
 });

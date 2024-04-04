@@ -1,5 +1,4 @@
 import { getUserProfile, patchUser } from '@/api';
-import ActivityLevelInput from '@/components/ActivityLevelInput';
 import { auth } from '@/firebaseConfig';
 import { Stack, router } from 'expo-router';
 import {
@@ -11,12 +10,13 @@ import { useEffect, useState } from 'react';
 import {
   Alert,
   Keyboard,
+  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View,
 } from 'react-native';
 
 const EditProfile = () => {
@@ -40,8 +40,7 @@ const EditProfile = () => {
 
   const [formError, setFormError] = useState('');
   const [userName, setUserName] = useState(userProfile.user.name);
-  const [email, setEmail] = useState(userProfile.user.email);
-  const [selectedActivity, setSelectedActivity] = useState('sedentary');
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
     getUserProfile()
@@ -55,14 +54,16 @@ const EditProfile = () => {
 
   const profileData = {
     name: userName || userProfile.user.name,
-    dailyActivityLevel: selectedActivity || userProfile.user.dailyActivityLevel,
     email: email || userProfile.user.email,
   };
 
   async function handleSubmit() {
     try {
       await patchUser(profileData);
-      updateUser();
+      if (user) {
+        reauthenticateWithCredential(user, credential);
+        updateEmail(user, email);
+      }
     } catch (error) {
       throw error;
     } finally {
@@ -70,66 +71,48 @@ const EditProfile = () => {
     }
   }
 
-  const updateUser = () => {
-    if (user)
-      reauthenticateWithCredential(user, credential)
-        .then(() => {
-          if (email) {
-            updateEmail(user, email);
-          }
-        })
-        .then(() => {
-          Alert.alert('E-mail Updated');
-        })
-        .catch(error => {
-          Alert.alert('Error:', error.message);
-        });
-  };
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.container}>
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            title: 'Update Profile',
-            headerTitleAlign: 'center',
-          }}
-        />
-        <Text style={[styles.title, styles.text]}>Update Your Profile.</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={text => setUserName(text)}
-          onFocus={() => setFormError('')}
-          value={userName}
-          placeholder={userProfile.user.name}
-          placeholderTextColor="#808080"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={text => setEmail(text)}
-          onFocus={() => setFormError('')}
-          value={email}
-          placeholder={userProfile.user.email}
-          placeholderTextColor="#808080"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={text => setPassword(text)}
-          value={password}
-          secureTextEntry
-          placeholder="Please Enter Password to Change Email"
-          placeholderTextColor="#808080"
-        />
-        <ActivityLevelInput
-          selectedActivity={selectedActivity}
-          setSelectedActivity={setSelectedActivity}
-        />
-        {formError ? <Text style={styles.error}>{formError}</Text> : null}
-        <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-          <Text style={styles.text}>Proceed</Text>
-        </TouchableOpacity>
-      </View>
+      <SafeAreaView style={styles.container}>
+        <ScrollView>
+          <Stack.Screen
+            options={{
+              headerShown: true,
+              title: 'Update Profile',
+              headerTitleAlign: 'center',
+            }}
+          />
+          <Text style={[styles.title, styles.text]}>Update Your Profile.</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setUserName(text)}
+            onFocus={() => setFormError('')}
+            value={userName}
+            placeholder={userProfile.user.name}
+            placeholderTextColor="#808080"
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setEmail(text)}
+            onFocus={() => setFormError('')}
+            value={email}
+            placeholder={userProfile.user.email}
+            placeholderTextColor="#808080"
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setPassword(text)}
+            value={password}
+            secureTextEntry
+            placeholder="Enter Password to Confirm"
+            placeholderTextColor="#808080"
+          />
+          {formError ? <Text style={styles.error}>{formError}</Text> : null}
+          <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+            <Text style={styles.buttonText}>Proceed</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </SafeAreaView>
     </TouchableWithoutFeedback>
   );
 };
@@ -137,11 +120,11 @@ const EditProfile = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
-    padding: 20,
+    backgroundColor: '#eef1f4',
+    paddingHorizontal: 10,
+    paddingVertical: 40,
   },
   titleContainer: {
-    height: '30%',
     backgroundColor: 'transparent',
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
@@ -150,13 +133,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    marginBottom: 20,
+    marginBottom: 16,
   },
   subtitle: {
-    fontSize: 20,
+    fontSize: 18,
+    color: '#171717',
   },
   text: {
-    color: '#fff',
+    color: '#171717',
     textAlign: 'center',
   },
   error: {
@@ -165,11 +149,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    fontSize: 20,
-    backgroundColor: '#464C55',
+    backgroundColor: '#f22a39',
     borderRadius: 12,
-    padding: 12,
-    color: '#fff',
+    padding: 20,
     marginTop: 12,
   },
   input: {
@@ -178,6 +160,14 @@ const styles = StyleSheet.create({
     color: '#000',
     marginBottom: 12,
     padding: 12,
+  },
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  inputContainer: {
+    marginBottom: 20,
   },
 });
 

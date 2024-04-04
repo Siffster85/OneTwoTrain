@@ -6,7 +6,7 @@ const AuthLayout = () => {
       <Stack.Screen
         name="index"
         options={{
-          headerTitle: 'OneTwoTrain',
+          headerShown: false,
         }}
       />
       <Stack.Screen

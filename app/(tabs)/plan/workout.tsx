@@ -117,7 +117,11 @@ const Workout = () => {
 const styles = StyleSheet.create({
   container: {
     marginTop: StatusBar.currentHeight ?? 24,
-    backgroundColor: '#ececec',
+    backgroundColor: '#eef1f4',
+  },
+  buttonContainer: {
+    backgroundColor: '#eef1f4',
+    marginTop: 36,
   },
   itemExtras: {
     flex: 1,

@@ -1,14 +1,19 @@
 import { Text, View } from '@/components/Themed';
 import { router } from 'expo-router';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+const logo = require('../../assets/images/12train-logo-f.png');
 
 export default function Welcome() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Hello!</Text>
-        <Text style={styles.title}>Already have an account?</Text>
+        <Text style={styles.upperTitle}>Welcome to</Text>
+        <Text style={styles.title}>One Two Train!</Text>
+        <Text style={styles.lowertitle}>Already have an account?</Text>
+      </View>
+      <View style={styles.imageContainer}>
+        <Image source={logo} style={styles.image} resizeMode="contain" />
       </View>
       <View style={styles.answerContainer}>
         <TouchableOpacity
@@ -37,10 +42,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     justifyContent: 'center',
   },
-  title: {
+  upperTitle: {
     color: '#171717',
     fontSize: 32,
     textAlign: 'center',
+    marginBottom: 10,
+  },
+  title: {
+    color: '#171717',
+    fontSize: 40,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontFamily: '',
+  },
+  lowertitle: {
+    color: '#171717',
+    fontSize: 30,
+    textAlign: 'center',
+    marginTop: 20,
   },
   answerContainer: {
     flexGrow: 1,
@@ -60,5 +79,14 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     fontSize: 16,
+  },
+  imageContainer: {
+    backgroundColor: 'transparent',
+    marginVertical: 50,
+  },
+  image: {
+    width: 200,
+    height: 200,
+    backgroundColor: 'transparent',
   },
 });

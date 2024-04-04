@@ -30,21 +30,19 @@ const CalendarComponent = ({ handleDayPress }: Props) => {
   const [markedDates, setMarkedDates] = useState({});
 
   useEffect(() => {
-    getSchedule().then(result => {
-      setWorkoutDates(result);
-    });
-  }, []);
-
-  useEffect(() => {
     const newMarkedDates = workoutDates.reduce((acc: any, currWorkout) => {
       const exercisesCount =
-        currWorkout.workoutExerciseCount + 1 > 4
+        currWorkout.workoutExerciseCount > 4
           ? 4
-          : currWorkout.workoutExerciseCount + 1;
+          : currWorkout.workoutExerciseCount;
       const dots = [dotOne, dotTwo, dotThree, dotFour].slice(0, exercisesCount);
       acc[currWorkout.date] = { dots };
       return acc;
     }, {});
+
+    getSchedule().then(result => {
+      setWorkoutDates(result);
+    });
 
     newMarkedDates[todayDate] = {
       ...newMarkedDates[todayDate],

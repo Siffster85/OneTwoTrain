@@ -14,11 +14,12 @@ type Excersie = {
 };
 
 type Props = {
+  isLoading: boolean,
   dayWorkout: Excersie[];
   handleCopyWorkout: (() => void) | null;
 };
 
-const WorkoutList = ({ dayWorkout, handleCopyWorkout }: Props) => {
+const WorkoutList = ({ isLoading, dayWorkout, handleCopyWorkout }: Props) => {
   const renderWorkoutItem = ({ item }) => (
     <View style={styles.listItem}>
       <Text style={styles.name}>{item.exerciseName}</Text>
@@ -50,13 +51,16 @@ const WorkoutList = ({ dayWorkout, handleCopyWorkout }: Props) => {
     )
   );
 
-  return (
+  return (isLoading ? 
+    <Text style={styles.subtitle}>Loading...</Text>
+    : dayWorkout.length ? 
     <FlatList
       data={dayWorkout}
       renderItem={renderWorkoutItem}
       keyExtractor={(item, index) => `workout-${index}`}
       ListFooterComponent={renderFooter}
     />
+    : <Text style={styles.subtitle}>No exercises recorded on this day</Text>
   );
 };
 
@@ -69,6 +73,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     marginBottom: 20,
+  },
+  subtitle: {
+    fontSize: 16,
+    padding: 20,
+    backgroundColor: "#ececec",
+    textAlign: "center",
   },
   listItem: {
     backgroundColor: '#f1f1f1',

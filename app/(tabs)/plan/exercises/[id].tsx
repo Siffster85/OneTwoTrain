@@ -54,7 +54,6 @@ export default function CurrentExercise() {
         <View style={styles.bottomButtonContainer}>
           <CustomButton
             theme="deleteExercise"
-            label="Remove Exercise"
             onPress={() =>
               deleteExerciseByName(`${title}`).then(() => {
                 router.back();
@@ -63,7 +62,6 @@ export default function CurrentExercise() {
           />
           <CustomButton
             theme="startExercise"
-            label="Start"
             onPress={() => {
               return router.push({
                 pathname:
@@ -87,7 +85,7 @@ export default function CurrentExercise() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    margin: 20,
   },
   card: {
     flexDirection: 'row',
@@ -108,9 +106,8 @@ const styles = StyleSheet.create({
     flex: 3,
   },
   bottomButtonContainer: {
-    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: "space-between",
   },
   button: {
     borderWidth: 2,

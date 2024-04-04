@@ -69,40 +69,42 @@ export default function Timer() {
         <Entypo
           name="circle-with-cross"
           size={24}
-          color="#25292e"
+          color="#FF8787"
           style={styles.buttonIcon}
         />
       </Pressable>
+      <Text style={styles.title}>PRESS START TO TRACK THE BREAK TIME</Text>
+      <Text style={[styles.text, styles.exerTitle]}>{title}</Text>
+      <Text style={[styles.text, styles.subtitle]}>Set {repIndex} of {setAmounts}</Text>
+      <View style={styles.infoBox}>
+        <Text style={styles.text}>reps: {shownRepInfo}</Text>
+        <Text style={styles.text}>weight: {shownWeightInfo}KG</Text>
+      </View>
       <View style={styles.timer}>
         <CountdownCircleTimer
           key={key}
           isPlaying={isPlaying}
-          duration={2}
-          colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+          duration={90}
+          colors={['#6096B4', '#93BFCF', '#F55050', '#f22b39']}
           colorsTime={[90, 60, 30, 10]}
           onComplete={complete}
           size={250}
           updateInterval={1}>
           {({ remainingTime, color }) => (
-            <Text style={{ color, fontSize: 40 }}>{remainingTime}</Text>
+            <Text style={{ color, fontSize: 40 }}>{remainingTime}s</Text>
           )}
         </CountdownCircleTimer>
       </View>
-      <View style={styles.infoBox}>
-        <Text>{title}</Text>
-        <Text>REPS: {shownRepInfo}</Text>
-        <Text>WEIGHT: {shownWeightInfo}KG</Text>
-      </View>
       <View style={styles.buttons}>
-        <TouchableOpacity
-          style={styles.startButton}
-          onPress={() => setIsPlaying(true)}>
-          <Text>Start Break</Text>
-        </TouchableOpacity>
         <TouchableOpacity
           style={styles.pauseButton}
           onPress={() => setIsPlaying(false)}>
-          <Text>Pause Timer</Text>
+          <Text style={styles.buttonText}>Pause</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.startButton}
+          onPress={() => setIsPlaying(true)}>
+          <Text style={styles.buttonText}>Start</Text>
         </TouchableOpacity>
       </View>
       <LottieView
@@ -120,14 +122,47 @@ export default function Timer() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ecf0f1',
-    padding: 8,
+    margin: 20,
   },
   buttons: {
     flex: 1,
     justifyContent: 'space-evenly',
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  title: {
+    fontSize: 20,
+    textAlign: "center",
+    marginTop: 12,
+    color: "#333",
+    padding: 8,
+    backgroundColor: "#bbb",
+  },
+  exerTitle: {
+    padding: 8,
+    marginTop: 12,
+    textAlign: "center",
+    textTransform: "uppercase",
+    backgroundColor: "#CCC",
+  },
+  subtitle: {
+    textAlign: "center",
+    padding: 8,
+    fontSize: 20,
+    marginVertical: 8,
+    backgroundColor: "#DDD",
+  },
+  infoBox: {
+    justifyContent: "space-between",
+    alignItems: 'center',
+    flexDirection: "row",
+    backgroundColor: "#ECECEC",
+    padding: 8,
+    marginBottom: 20,
+  },
+  text: {
+    fontSize: 20,
+    color: "#333"
   },
   timer: {
     flex: 2,
@@ -137,25 +172,25 @@ const styles = StyleSheet.create({
   startButton: {
     borderWidth: 4,
     padding: 50,
-    borderRadius: 150,
-    borderColor: '#006839',
-    backgroundColor: 'green',
+    borderRadius: 40,
+    borderColor: '#6096B4',
+    backgroundColor: '#BDCDD6',
   },
   pauseButton: {
     borderWidth: 4,
     padding: 50,
-    borderRadius: 150,
-    borderColor: '#AF0000',
-    backgroundColor: 'red',
-  },
-  infoBox: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderRadius: 40,
+    borderColor: '#f22b39',
+    backgroundColor: '#FF8787',
   },
   buttonIcon: {
     paddingRight: 8,
     textAlign: 'right',
+  },
+  buttonText: {
+    fontSize: 16,
+    textTransform: "uppercase",
+    color: "#333",
   },
   lottie: {
     position: 'absolute',

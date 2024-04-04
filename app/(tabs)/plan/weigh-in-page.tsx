@@ -42,7 +42,6 @@ const WeighIn = () => {
           style={styles.inputBox}
           enterKeyHint="done"
           inputMode="decimal"
-          clearButtonMode="while-editing"
           placeholder="weight"
           placeholderTextColor="#d6d6d6"
           value={weight}

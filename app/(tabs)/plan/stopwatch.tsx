@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { DisplayTime } from './stopwatchComponent/displayTime';
 import Result from './stopwatchComponent/result';
+import { useLocalSearchParams } from 'expo-router';
 
 const Stopwatch = () => {
   const [seconds, setSeconds] = useState(0);
@@ -9,6 +10,9 @@ const Stopwatch = () => {
   const [results, setResults] = useState<number[]>([]);
   const intervalRef: { current: number | NodeJS.Timeout | null } = useRef(null);
   const startTimeRef = useRef(0);
+  const {setAmounts, sets, title} = useLocalSearchParams()
+  console.log(setAmounts, sets, title); //1 {"0":{"distance":"5000","time":"1200"}} Cardiooooooooo
+  
 
   const startStopwatch = () => {
     startTimeRef.current = Date.now() - seconds * 1000;
@@ -42,7 +46,11 @@ const Stopwatch = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>*Exercise*</Text>
+      {/* <View style={styles.infoBox}>
+        <Text style={styles.header}>{title}</Text>
+        <Text>REPS: {shownRepInfo}</Text>
+        <Text>WEIGHT: {shownWeightInfo}KG</Text>
+      </View> */}
       <Text style={styles.timeText}>{DisplayTime(seconds)}</Text>
       <View style={styles.buttonContainer}>
         {running ? (

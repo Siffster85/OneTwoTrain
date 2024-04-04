@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
     padding: 23,
     justifyContent: 'space-between',
     marginVertical: 8,
-    marginHorizontal: 16,
     borderRadius: 10,
   },
   title: {

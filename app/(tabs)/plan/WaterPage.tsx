@@ -1,8 +1,9 @@
 import { getUserProfile, getWater, postWater } from '@/api';
 import { Stack, router } from 'expo-router';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -17,7 +18,6 @@ interface WaterData {
 
 const WaterPage = () => {
   const [currentWater, setCurrentWater] = useState<number>(0);
-  const [waterIncrement, setWaterIncrement] = useState<number>(0);
   const [waterGoal, setWaterGoal] = useState<number>(0);
 
   async function handleSave() {
@@ -37,59 +37,64 @@ const WaterPage = () => {
         return getWater();
       })
       .then((waterData: WaterData) => {
-        setCurrentWater(waterData.currentWater);
+        waterData.currentWater
+          ? setCurrentWater(waterData.currentWater)
+          : setCurrentWater(0);
+      })
+      .catch((err) => {
+        // getWater is undefined (on load)
       });
   }, []);
 
   return (
     <SafeAreaView style={styles.pageContainer}>
-      <Stack.Screen
-        options={{
-          headerBackTitleVisible: false,
-          headerTitle: 'Water',
-        }}
-      />
-      <View>
-        <Text style={styles.title}>Water Tracker</Text>
-      </View>
-      <View style={styles.waterGoal}>
-        <Text style={{ textAlign: 'center', fontSize: 50 }}>
-          {currentWater} ml
-        </Text>
-        <Text style={{ textAlign: 'center', fontSize: 50 }}>
-          {waterGoal} ml
-        </Text>
-      </View>
-      <View style={styles.increment}>
-        <TouchableOpacity onPress={() => setWaterIncrement(100)}>
-          <Text style={styles.individualIncrement}>100 ml</Text>
+      <ScrollView>
+        <Stack.Screen
+          options={{
+            headerBackTitleVisible: false,
+            headerTitle: 'Water',
+          }}
+        />
+        <View style={styles.subContainer}>
+          <Text style={styles.title}>How much have you drank today?</Text>
+        </View>
+        <View style={styles.waterGoal}>
+          <Text style={{ textAlign: 'center', fontSize: 32 }}>
+            {currentWater} ml
+          </Text>
+          <Text style={{ textAlign: 'center', fontSize: 18, marginTop: 28 }}>
+            Goal: {waterGoal} ml
+          </Text>
+        </View>
+        <View style={styles.increment}>
+          <TouchableOpacity style={styles.individualIncrementButton} onPress={() => setCurrentWater((curr) => {
+            return curr + 100;
+          })}>
+            <Text style={styles.individualIncrement}>100 ml</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.individualIncrementButton} onPress={() => setCurrentWater((curr) => {
+            return curr + 500;
+          })}>
+            <Text style={styles.individualIncrement}>500 ml</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.individualIncrementButton} onPress={() => setCurrentWater((curr) => {
+            return curr + 1000;
+          })}>
+            <Text style={styles.individualIncrement}>1000 ml</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.controlButtons}>
+          <TouchableOpacity style={styles.controlButton} onPress={() => setCurrentWater(0)}>
+            <Text style={styles.controlButtonText}>Reset</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.controlButton} onPress={() => setCurrentWater(waterGoal)}>
+            <Text style={styles.controlButtonText}>Max</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={styles.button} onPress={handleSave}>
+          <Text style={{ textAlign: 'center', color: 'white', fontSize: 32}}>Save</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setWaterIncrement(500)}>
-          <Text style={styles.individualIncrement}>500 ml</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setWaterIncrement(1000)}>
-          <Text style={styles.individualIncrement}>1000 ml</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity
-        onPress={() =>
-          setCurrentWater(currValue => {
-            return currValue + waterIncrement;
-          })
-        }>
-        <Text style={styles.incrementButton}>+ {waterIncrement}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => setCurrentWater(0)}>
-        <Text style={styles.reset}>↩︎</Text>
-      </TouchableOpacity>
-      <Text style={styles.reset}>Reset To 0 ml</Text>
-      <TouchableOpacity onPress={() => setCurrentWater(waterGoal)}>
-        <Text style={styles.max}>⇧</Text>
-      </TouchableOpacity>
-      <Text style={styles.max}>Fill To {waterGoal} ml</Text>
-      <TouchableOpacity style={styles.button} onPress={handleSave}>
-        <Text style={{ textAlign: 'center', color: 'white'}}>Save</Text>
-      </TouchableOpacity>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -102,8 +107,15 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight ?? 0,
   },
   title: {
+    fontSize: 32,
     textAlign: 'center',
-    fontSize: 50,
+  },
+  subContainer: {
+    marginTop: 32,
+    alignItems: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: '80%',
   },
   button: {
     borderWidth: 2,
@@ -112,38 +124,60 @@ const styles = StyleSheet.create({
     width: 250,
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: 50,
+    marginTop: 10,
     borderRadius: 150,
     backgroundColor: '#f22b39',
   },
   waterGoal: {
-    margin: 25,
+    margin: 20,
     padding: 10,
     textAlign: 'center',
     flexDirection: 'column',
   },
   increment: {
-    margin: 20,
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     flexDirection: 'row',
     textAlign: 'center',
   },
   individualIncrement: {
     fontSize: 20,
+    color: '#fff',
+  },
+  individualIncrementButton: {
+    backgroundColor: '#55afc5',
+    padding: 10,
+    borderRadius: 15,
   },
   incrementButton: {
-    padding: 10,
-    fontSize: 50,
+    fontSize: 28,
+    textAlign: 'center',
+    color: '#fff',
+  },
+  addButtonWrapper: {
+    padding: 15,
+    backgroundColor: '#f22b39',
+    width: '50%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderRadius: 150,
+    marginTop: 20,
+  },
+  controlButtons: {
+    marginTop: 25,
+    marginBottom: 20,
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
     textAlign: 'center',
   },
-  reset: {
-    textAlign: 'center',
-    fontSize: 25,
-    padding: 10,
+  controlButton: {
+    backgroundColor: '#f22b39',
+    padding: 20,
+    borderRadius: 150,
+    width: '33%',
   },
-  max: {
+  controlButtonText: {
+    fontSize: 18,
+    color: '#fff',
     textAlign: 'center',
-    fontSize: 25,
-    padding: 10,
   },
 });

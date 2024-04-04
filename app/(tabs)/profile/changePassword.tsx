@@ -7,7 +7,13 @@ import {
   updatePassword,
 } from 'firebase/auth';
 import { useState } from 'react';
-import { Alert, Button, StyleSheet, TextInput } from 'react-native';
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 
 const ChangePassword = () => {
   const user = auth.currentUser;
@@ -32,7 +38,7 @@ const ChangePassword = () => {
   };
 
   return (
-    <View style={styles.centralAlign}>
+    <View style={styles.container}>
       <Stack.Screen
         options={{
           headerShown: true,
@@ -40,46 +46,52 @@ const ChangePassword = () => {
           headerTitleAlign: 'center',
         }}
       />
-      <View style={styles.verticallySpaced}>
-        <TextInput
-          style={styles.input}
-          onChangeText={text => setOldPassword(text)}
-          value={oldPassword}
-          secureTextEntry
-          placeholder="Old Password"
-          placeholderTextColor="#808080"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={text => setNewPassword(text)}
-          value={newPassword}
-          secureTextEntry
-          placeholder="New Password"
-          placeholderTextColor="#808080"
-        />
-      </View>
-      <View style={[styles.verticallySpaced, styles.buttonContainer]}>
-        <Button title="Change Password" onPress={changePassword} />
-      </View>
+      <TextInput
+        style={styles.input}
+        onChangeText={text => setOldPassword(text)}
+        value={oldPassword}
+        secureTextEntry
+        placeholder="Old Password"
+        placeholderTextColor="#808080"
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={text => setNewPassword(text)}
+        value={newPassword}
+        secureTextEntry
+        placeholder="New Password"
+        placeholderTextColor="#808080"
+      />
+      <TouchableOpacity onPress={changePassword} style={styles.button}>
+        <Text style={styles.buttonText}>Change Password</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  centralAlign: {
+  container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 10,
+    borderTopColor: '#ececec',
+    borderTopWidth: 1,
+    backgroundColor: '#ececec',
   },
   verticallySpaced: {
     paddingTop: 4,
     paddingBottom: 4,
     alignSelf: 'stretch',
   },
-  buttonContainer: {
-    fontSize: 20,
-    width: '80%',
-    alignSelf: 'center',
+  button: {
+    backgroundColor: '#f22a39',
+    borderRadius: 12,
+    padding: 20,
+    marginTop: 12,
+  },
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 16,
   },
   input: {
     backgroundColor: '#fff',

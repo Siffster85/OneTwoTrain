@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
+    color: '#fff',
   },
   infoText: {
     fontSize: 15,
@@ -113,13 +114,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    borderWidth: 2,
-    borderColor: 'green',
     padding: 35,
     margin: 25,
     width: 250,
     alignItems: 'center',
     borderRadius: 150,
-    backgroundColor: 'green',
+    backgroundColor: '#f32b3a',
   },
 });

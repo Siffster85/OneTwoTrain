@@ -230,3 +230,47 @@ export const deleteExerciseByName = async (exerciseName: string) => {
     throw error;
   }
 };
+
+export const getWater = async () => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const response = await instance.get(`/schedules/${todaysDate}/plan/water`, {
+      headers: {
+        Authorization: `Bearer ${userAccessToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return response.data.water;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const postWater = async (water: number) => {
+  try {
+    const user = auth.currentUser;
+    const userAccessToken = await user?.getIdToken(true);
+
+    const body = {
+      currentWater: water,
+    };
+
+    const response = await instance.post(
+      `/schedules/${todaysDate}/plan/water`,
+      body,
+      {
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

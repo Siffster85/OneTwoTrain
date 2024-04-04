@@ -41,9 +41,7 @@ const DeleteProfile = () => {
         }}
       />
       <View style={styles.message}>
-        <Text style={[styles.text, styles.title]}>
-          Delete Account
-        </Text>
+        <Text style={[styles.text, styles.title]}>Delete Account</Text>
         <Text style={styles.text}>
           Are you sure you wish to delete your account?
         </Text>
@@ -69,18 +67,18 @@ const DeleteProfile = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ececec",
+    backgroundColor: '#ececec',
     padding: 20,
     paddingTop: 60,
   },
   message: {
-    backgroundColor: "#ececec",
+    backgroundColor: '#ececec',
     marginBottom: 20,
   },
   text: {
     fontSize: 16,
-    color: "#000",
-    textAlign: "center",
+    color: '#000',
+    textAlign: 'center',
     marginBottom: 4,
   },
   title: {
@@ -88,7 +86,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   input: {
-    width: "100%",
+    width: '100%',
     backgroundColor: '#fff',
     borderWidth: 2,
     borderRadius: 12,

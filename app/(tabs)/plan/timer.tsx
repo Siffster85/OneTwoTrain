@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
@@ -61,10 +61,12 @@ export default function Timer() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: ""
+          headerTitle: '',
         }}
       />
-      <Text style={[styles.text, styles.setsTitle]}>Set {repIndex} of {setAmounts}</Text>
+      <Text style={[styles.text, styles.setsTitle]}>
+        Set {repIndex} of {setAmounts}
+      </Text>
       <Text style={[styles.text, styles.title]}>{title}</Text>
       <View style={styles.infoBox}>
         <Text style={styles.text}>Reps: {shownRepInfo}</Text>
@@ -116,35 +118,35 @@ const styles = StyleSheet.create({
   },
   buttons: {
     flex: 1,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
   },
   setsTitle: {
     padding: 8,
     marginTop: 8,
-    textAlign: "center",
-    textTransform: "uppercase",
-    backgroundColor: "#CCC",
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    backgroundColor: '#CCC',
   },
   title: {
-    textAlign: "center",
+    textAlign: 'center',
     padding: 8,
     fontSize: 20,
     marginVertical: 8,
-    backgroundColor: "#DDD",
+    backgroundColor: '#DDD',
   },
   infoBox: {
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     alignItems: 'center',
-    flexDirection: "row",
-    backgroundColor: "#ECECEC",
+    flexDirection: 'row',
+    backgroundColor: '#ECECEC',
     padding: 8,
     marginBottom: 20,
   },
   text: {
     fontSize: 16,
-    color: "#333"
+    color: '#333',
   },
   timer: {
     flex: 2,
@@ -173,8 +175,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    textTransform: "uppercase",
-    color: "#333",
+    textTransform: 'uppercase',
+    color: '#333',
   },
   lottie: {
     position: 'absolute',

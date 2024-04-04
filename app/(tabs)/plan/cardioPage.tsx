@@ -65,8 +65,8 @@ const CardioPage = () => {
   const Item = ({ distance, time }: Set) => {
     return (
       <View style={styles.setCard}>
-        <Text style={styles.cardInfo}>distance: {distance}M</Text>
-        <Text style={styles.cardInfo}>time: {time}</Text>
+        <Text>distance: {distance}M</Text>
+        <Text>time: {time}</Text>
       </View>
     );
   };
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
   setContainer: {
     flex: 2,
-    backgroundColor: 'white',
+    padding: 20,
   },
   submitButtonContainer: {
     flex: 1,
@@ -186,12 +186,11 @@ const styles = StyleSheet.create({
   },
   setCard: {
     flexDirection: 'row',
-    padding: 3,
+    padding: 12,
     borderWidth: 1,
-    borderRadius: 150,
-  },
-  cardInfo: {
-    marginLeft: 20,
+    borderRadius: 12,
+    marginBottom: 12,
+    justifyContent: 'space-between',
   },
   textInput: {
     flex: 1,

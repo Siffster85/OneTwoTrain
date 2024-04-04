@@ -2,7 +2,7 @@ import { getSingleDayWorkout } from '@/api';
 import WorkoutList from '@/components/WorkoutList';
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Text, View, Alert, ScrollView, StyleSheet } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 
 type Set = {
   weight?: string;
@@ -19,7 +19,7 @@ type Excersie = {
 
 const DayActivityPage = () => {
   const { date } = useLocalSearchParams();
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const [dayWorkout, setDayWorkout] = useState<Excersie[]>([]);
 
   useEffect(() => {
@@ -31,14 +31,18 @@ const DayActivityPage = () => {
         Alert.alert(err);
       })
       .finally(() => {
-        setIsLoading(false)
-      })
+        setIsLoading(false);
+      });
   }, []);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Your Workout</Text>
-      <WorkoutList isLoading={isLoading} dayWorkout={dayWorkout} handleCopyWorkout={null} />
+      <WorkoutList
+        isLoading={isLoading}
+        dayWorkout={dayWorkout}
+        handleCopyWorkout={null}
+      />
     </View>
   );
 };

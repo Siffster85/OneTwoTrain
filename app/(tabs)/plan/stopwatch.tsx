@@ -7,13 +7,15 @@ import { DisplayTime } from './stopwatchComponent/displayTime';
 const Stopwatch = () => {
   const confettiRef = useRef<LottieView>(null);
 
-  const { setAmounts, sets, title } = useLocalSearchParams()
+  const { setAmounts, sets, title } = useLocalSearchParams();
   const [seconds, setSeconds] = useState(0);
   const [running, setRunning] = useState(false);
   const parsedSets = JSON.parse(sets);
   const [index, setIndex] = useState(1);
   const [shownTimeInfo, setShownTimeInfo] = useState(parsedSets[0].time);
-  const [shownDistanceInfo, setShownDistanceInfo] = useState(parsedSets[0].distance);
+  const [shownDistanceInfo, setShownDistanceInfo] = useState(
+    parsedSets[0].distance,
+  );
   const intervalRef: { current: number | NodeJS.Timeout | null } = useRef(null);
   const startTimeRef = useRef(0);
   const setsLength = Object.keys(parsedSets).length;
@@ -70,7 +72,9 @@ const Stopwatch = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.text, styles.setsTitle]}>Set {index} of {setAmounts}</Text>
+      <Text style={[styles.text, styles.setsTitle]}>
+        Set {index} of {setAmounts}
+      </Text>
       <Text style={[styles.text, styles.title]}>{title}</Text>
       <View style={styles.infoBox}>
         <Text style={styles.text}>Goal time: {shownTimeInfo}s</Text>
@@ -128,46 +132,46 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    textAlign: "center",
+    textAlign: 'center',
     padding: 8,
     fontSize: 20,
     marginVertical: 8,
-    backgroundColor: "#DDD",
+    backgroundColor: '#DDD',
   },
   infoBox: {
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     alignItems: 'center',
-    flexDirection: "row",
-    backgroundColor: "#ECECEC",
+    flexDirection: 'row',
+    backgroundColor: '#ECECEC',
     padding: 8,
     marginBottom: 20,
   },
   text: {
     fontSize: 16,
-    color: "#333"
+    color: '#333',
   },
   timeTextContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   setsTitle: {
     padding: 8,
     marginTop: 8,
-    textAlign: "center",
-    textTransform: "uppercase",
-    backgroundColor: "#CCC",
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    backgroundColor: '#CCC',
   },
   timeText: {
     fontSize: 48,
-    textAlign: "center",
+    textAlign: 'center',
   },
   buttonContainer: {
-    justifyContent: "center",
+    justifyContent: 'center',
     marginTop: 20,
   },
   button: {
-    width: "100%",
+    width: '100%',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -202,10 +206,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#BDCDD6',
   },
   buttonText: {
-    textAlign: "center",
-    color: "#333",
+    textAlign: 'center',
+    color: '#333',
     fontSize: 18,
-    textTransform: "uppercase",
+    textTransform: 'uppercase',
   },
   lottie: {
     position: 'absolute',

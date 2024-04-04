@@ -80,15 +80,15 @@ const styles = StyleSheet.create({
   button: {
     borderWidth: 2,
     borderColor: '#f22b39',
-    padding: 25,
-    width: 250,
+    width: '100%',
     alignItems: 'center',
+    paddingVertical: 20,
     borderRadius: 150,
     backgroundColor: '#f22a39',
   },
   buttonText: {
     color: '#fff',
-    fontSize: 28,
+    fontSize: 20,
   },
   inputContainer: {
     flex: 1,

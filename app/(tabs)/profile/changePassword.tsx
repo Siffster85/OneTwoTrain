@@ -46,6 +46,7 @@ const ChangePassword = () => {
           headerTitleAlign: 'center',
         }}
       />
+      <Text style={[styles.text, styles.title]}>Create new password</Text>
       <TextInput
         style={styles.input}
         onChangeText={text => setOldPassword(text)}
@@ -72,7 +73,7 @@ const ChangePassword = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 20,
     borderTopColor: '#ececec',
     borderTopWidth: 1,
     backgroundColor: '#ececec',
@@ -95,10 +96,23 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: '#fff',
+    borderWidth: 2,
+    borderRadius: 12,
+    borderColor: '#ececec',
     minHeight: 40,
     color: '#000',
     marginBottom: 12,
     padding: 12,
+    fontSize: 16,
+  },
+  text: {
+    fontSize: 16,
+    color: '#000',
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: 24,
+    marginVertical: 20,
   },
 });
 

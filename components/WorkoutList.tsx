@@ -1,4 +1,10 @@
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 type Set = {
   weight?: string;
@@ -14,7 +20,7 @@ type Excersie = {
 };
 
 type Props = {
-  isLoading: boolean,
+  isLoading: boolean;
   dayWorkout: Excersie[];
   handleCopyWorkout: (() => void) | null;
 };
@@ -43,24 +49,24 @@ const WorkoutList = ({ isLoading, dayWorkout, handleCopyWorkout }: Props) => {
     </View>
   );
 
-  const renderFooter = () => (
+  const renderFooter = () =>
     handleCopyWorkout && (
       <TouchableOpacity onPress={handleCopyWorkout} style={styles.button}>
         <Text style={styles.buttonText}>Add this workout</Text>
       </TouchableOpacity>
-    )
-  );
+    );
 
-  return (isLoading ? 
+  return isLoading ? (
     <Text style={styles.subtitle}>Loading...</Text>
-    : dayWorkout.length ? 
+  ) : dayWorkout.length ? (
     <FlatList
       data={dayWorkout}
       renderItem={renderWorkoutItem}
       keyExtractor={(item, index) => `workout-${index}`}
       ListFooterComponent={renderFooter}
     />
-    : <Text style={styles.subtitle}>No exercises recorded on this day</Text>
+  ) : (
+    <Text style={styles.subtitle}>No exercises recorded on this day</Text>
   );
 };
 
@@ -77,8 +83,8 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     padding: 20,
-    backgroundColor: "#ececec",
-    textAlign: "center",
+    backgroundColor: '#ececec',
+    textAlign: 'center',
   },
   listItem: {
     backgroundColor: '#f1f1f1',

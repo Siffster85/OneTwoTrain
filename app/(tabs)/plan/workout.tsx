@@ -1,13 +1,13 @@
 import { getSingleDayWorkout } from '@/api';
 import { Text, View } from '@/components/Themed';
 import { formatDate } from '@/utils';
+import { Ionicons } from '@expo/vector-icons';
 import { Stack, router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
   FlatList,
   Pressable,
   SafeAreaView,
-  StatusBar,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
@@ -27,9 +27,10 @@ const Item = ({ title, category, amountOfSets }: ItemProps): any => {
       style={[
         styles.exItem,
         category === 'cardio' ? styles.cardioItem : styles.weightItem,
+        styles.transparent,
       ]}>
       <Text style={styles.title}>{title}</Text>
-      <View style={styles.itemExtras}>
+      <View style={[styles.itemExtras, styles.transparent]}>
         <Text style={styles.exerciseDetails}>X{amountOfSets}</Text>
         <Text style={styles.exerciseDetails}>{category}</Text>
       </View>
@@ -55,26 +56,6 @@ const Workout = () => {
   const browsePrevWorkout = () => {
     router.navigate('/(tabs)/plan/browseWorkout');
   };
-
-  const renderFooter = () => (
-    <View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.push('/(tabs)/plan/addExercise')}>
-        <Text style={styles.buttonText}>Create New Exercise</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => browsePrevWorkout()}>
-        <Text style={styles.buttonText}>Browse Previous Workouts</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.push('/(tabs)/plan/browseExercises')}>
-        <Text style={styles.buttonText}>Browse Exercises</Text>
-      </TouchableOpacity>
-    </View>
-  );
 
   const renderWorkoutItem = ({ item, index }: renderItemProps) => (
     <Pressable
@@ -105,19 +86,42 @@ const Workout = () => {
           headerBackTitleVisible: false,
         }}
       />
-      <FlatList
-        data={todaysExercises}
-        ListFooterComponent={renderFooter}
-        renderItem={renderWorkoutItem}
-      />
+      <FlatList data={todaysExercises} renderItem={renderWorkoutItem} />
+      <View style={[styles.transparent, styles.btnContainer]}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push('/(tabs)/plan/addExercise')}>
+          <Ionicons name="add-circle-outline" size={24} color="#fff" />
+          <Text style={styles.text}>create</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => browsePrevWorkout()}>
+          <Ionicons name="copy-outline" size={24} color="#fff" />
+          <Text style={styles.text}>copy</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push('/(tabs)/plan/browseExercises')}>
+          <Ionicons name="search-outline" size={24} color="#fff" />
+          <Text style={styles.text}>browse</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: StatusBar.currentHeight ?? 24,
+    margin: 20,
+    flex: 1,
     backgroundColor: '#eef1f4',
+    justifyContent: 'space-between',
+    alignContent: 'space-between',
+  },
+  text: {
+    fontSize: 16,
+    marginLeft: 8,
   },
   buttonContainer: {
     backgroundColor: '#eef1f4',
@@ -126,18 +130,28 @@ const styles = StyleSheet.create({
   itemExtras: {
     flex: 1,
   },
+  btnContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+  },
   button: {
     backgroundColor: '#f32b3a',
-    padding: 20,
-    justifyContent: 'space-between',
+    padding: 12,
+    paddingVertical: 20,
     borderRadius: 20,
-    width: '70%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
     marginVertical: 5,
+    minWidth: 100,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  transparent: {
+    backgroundColor: 'transparent',
   },
   title: {
     fontSize: 25,
+    color: '#737373',
   },
   buttonText: {
     color: '#fff',
@@ -148,21 +162,15 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     color: '#737373',
   },
-  cardioItem: {
-    // additional styles for cardio items go here
-  },
-  weightItem: {
-    // additional styles for weight items go here
-  },
   exItem: {
-    flex: 1,
     flexDirection: 'row',
-    padding: 20,
-    width: '100%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    borderColor: '#d6d6d6',
-    borderBottomWidth: 1,
+    alignItems: 'center',
+    backgroundColor: '#ececec',
+    borderWidth: 2,
+    borderColor: '#737373',
+    borderRadius: 12,
+    padding: 10,
+    marginBottom: 12,
   },
 });
 

@@ -66,8 +66,8 @@ const ResistancePage = () => {
   const Item = ({ weight, reps }: Set) => {
     return (
       <View style={styles.setCard}>
-        <Text style={styles.cardInfo}>Weight: {weight}KG</Text>
-        <Text style={styles.cardInfo}>Reps: {reps}</Text>
+        <Text>Weight: {weight}KG</Text>
+        <Text>Reps: {reps}</Text>
       </View>
     );
   };
@@ -150,8 +150,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   setContainer: {
+    padding: 20,
     flex: 2,
-    backgroundColor: 'white',
   },
   submitButtonContainer: {
     flex: 1,
@@ -189,12 +189,11 @@ const styles = StyleSheet.create({
   },
   setCard: {
     flexDirection: 'row',
-    padding: 3,
+    padding: 12,
     borderWidth: 1,
-    borderRadius: 150,
-  },
-  cardInfo: {
-    marginLeft: 35,
+    borderRadius: 12,
+    marginBottom: 12,
+    justifyContent: 'space-between',
   },
   textInput: {
     flex: 1,

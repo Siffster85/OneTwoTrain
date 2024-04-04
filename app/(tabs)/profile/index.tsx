@@ -1,15 +1,16 @@
-import { getUserProfile } from '@/api';
+import { getUserProfile, patchUser } from '@/api';
 import { Text, View } from '@/components/Themed';
 import { auth } from '@/firebaseConfig';
 import * as ImagePicker from 'expo-image-picker';
 import { Stack, router } from 'expo-router';
 import { signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { Alert, Button, StyleSheet } from 'react-native';
+import { Alert, Button, Image, StyleSheet } from 'react-native';
 import CustomButton from '../../../components/CustomButton';
 
 const Profile = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   const [userProfile, setUserProfile] = useState({
     user: {
       calorieGoal: 0,
@@ -55,6 +56,8 @@ const Profile = () => {
     ['Calorie Goal', userProfile.user.calorieGoal],
   ];
 
+  //console.log(userProfile.user.profileImage);
+  const profileImage = null || userProfile.user.profileImage;
   async function pickImageAsync() {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -64,6 +67,8 @@ const Profile = () => {
 
       if (!result.canceled) {
         setSelectedImage(result.assets[0].uri);
+        const profileImage = { profileImage: result.assets[0].uri };
+        const updateImage = await patchUser(profileImage);
       } else {
         alert('You did not select any image.');
       }
@@ -71,6 +76,13 @@ const Profile = () => {
       Alert.alert(error);
     }
   }
+
+  function ImageViewer({ selectedImage }) {
+    const imageSource = { uri: selectedImage };
+    return <Image source={imageSource} style={styles.image} />;
+  }
+
+  //make the image a Pressable with a default and then have it replaced by the same image route in the profile data.
 
   return (
     <View style={styles.centralAlign}>
@@ -85,11 +97,15 @@ const Profile = () => {
         }}
       />
       <View style={styles.centralAlign}>
-        <CustomButton
-          theme="circular"
-          label="Add Profile Photo"
-          onPress={pickImageAsync}
-        />
+        {selectedImage ? (
+          <ImageViewer selectedImage={selectedImage} />
+        ) : (
+          <CustomButton
+            theme="circular"
+            label="Add Profile Photo"
+            onPress={pickImageAsync}
+          />
+        )}
         <Text>Profile page of {userProfile.user.name}</Text>
       </View>
       <View>
@@ -141,6 +157,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     paddingBottom: 5,
+  },
+  image: {
+    borderWidth: 4,
+    padding: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 150,
+    height: 150,
+    borderColor: '#ffd33d',
+    borderRadius: 100,
   },
 });
 

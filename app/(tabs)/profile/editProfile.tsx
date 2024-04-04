@@ -74,7 +74,7 @@ const EditProfile = () => {
     if (user)
       reauthenticateWithCredential(user, credential)
         .then(() => {
-          if (email) {
+          if (email !== userProfile.user.email) {
             updateEmail(user, email);
           }
         })

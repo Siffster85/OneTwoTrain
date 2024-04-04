@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     marginLeft: 8,
+    color: "#fff"
   },
   buttonContainer: {
     backgroundColor: '#eef1f4',

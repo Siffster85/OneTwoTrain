@@ -42,7 +42,7 @@ const ActivityLevelInput: React.FC<ActivityLevelProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    padding: 10,
     borderWidth: 2,
     borderRadius: 12,
     borderColor: '#ececec',
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   picker: {
-    height: 200,
+    height: 120,
     width: '100%',
     backgroundColor: '#fff',
     borderRadius: 12,

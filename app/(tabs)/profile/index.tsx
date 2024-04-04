@@ -7,12 +7,13 @@ import { signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import {
   Alert,
-  Button,
   Image,
   Pressable,
   ScrollView,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState({
@@ -91,77 +92,76 @@ const Profile = () => {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <Stack.Screen
-        options={{
-          title: 'Profile',
-          headerTitleAlign: 'center',
-          headerRight: () => (
-            <Button title="Sign Out" onPress={() => handleSignOut()} />
-          ),
-        }}
-      />
-      <View style={styles.profileImage}>
-        <Pressable onPress={pickImageAsync} style={styles.imageContainer}>
-          {isLoading ? (
-            <Image source={{ uri: loadingImage }} style={styles.image} />
-          ) : (
-            <Image
-              source={{ uri: selectedImage ? selectedImage : defaultImage }}
-              style={styles.image}
-            />
-          )}
-        </Pressable>
-        <Text style={styles.userName}>{userProfile.user.name}</Text>
-      </View>
-      <View style={styles.profileData}>
-        {profileData.map(data => {
-          return (
-            <View key={data[0]} style={styles.profileItem}>
-              <Text style={styles.text}>{data[0]}</Text>
-              <Text style={styles.text}>{data[1]}</Text>
-            </View>
-          );
-        })}
-        <View style={styles.profileItem}>
-          <Text style={styles.text}>Password</Text>
-          <View style={styles.button}>
-            <Pressable
-              onPress={() =>
-                router.push({
-                  pathname: '/profile/changePassword',
-                })
-              }>
-              <Text style={styles.text}>Change</Text>
-            </Pressable>
-          </View>
-        </View>
-        <Button
-          title="Edit Profile"
-          onPress={() =>
-            router.push({
-              pathname: '/profile/editProfile',
-            })
-          }
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <Stack.Screen
+          options={{
+            title: 'Profile',
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => handleSignOut()}>
+                <Text style={styles.text}>Sign Out</Text>
+              </TouchableOpacity>
+            ),
+          }}
         />
-      </View>
-      <Button
-        title="Delete Account"
-        color="#f22b39"
-        onPress={() =>
-          router.push({
-            pathname: '/profile/deleteProfile',
-          })
-        }
-      />
-    </ScrollView>
+        <View style={styles.profileImage}>
+          <Pressable onPress={pickImageAsync} style={styles.imageContainer}>
+            {isLoading ? (
+              <Image source={{ uri: loadingImage }} style={styles.image} />
+            ) : (
+              <Image
+                source={{ uri: selectedImage ? selectedImage : defaultImage }}
+                style={styles.image}
+              />
+            )}
+          </Pressable>
+          <Text style={styles.userName}>{userProfile.user.name}</Text>
+        </View>
+        <View style={styles.profileData}>
+          {profileData.map(data => {
+            return (
+              <View key={data[0]} style={styles.profileItem}>
+                <Text style={styles.text}>{data[0]}</Text>
+                <Text style={styles.text}>{data[1]}</Text>
+              </View>
+            );
+          })}
+          <View style={styles.profileItem}>
+            <Text style={styles.text}>Password</Text>
+            <View style={styles.button}>
+              <Pressable
+                onPress={() =>
+                  router.push({
+                    pathname: '/profile/changePassword',
+                  })
+                }>
+                <Text style={styles.text}>Change</Text>
+              </Pressable>
+            </View>
+          </View>
+          <TouchableOpacity
+            style={styles.edit}
+            onPress={() => router.push({ pathname: '/profile/editProfile' })}>
+            <Text style={styles.buttonText}>Edit Profile</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          style={styles.delete}
+          onPress={() => router.push({ pathname: '/profile/deleteProfile' })}>
+          <Text style={styles.buttonText}>Delete Account</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 10,
     borderTopColor: '#ececec',
     borderTopWidth: 1,
     backgroundColor: '#ececec',
@@ -208,6 +208,28 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: '#ececec',
     marginBottom: 4,
+  },
+  edit: {
+    fontSize: 16,
+    paddingVertical: 6,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    backgroundColor: '#737373',
+    marginBottom: 4,
+    alignItems: 'center',
+  },
+  delete: {
+    fontSize: 16,
+    paddingVertical: 6,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    backgroundColor: '#f22b39',
+    marginBottom: 4,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
   },
   imageContainer: {
     borderRadius: 12,

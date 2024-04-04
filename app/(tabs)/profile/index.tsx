@@ -132,7 +132,7 @@ const Profile = () => {
           <View style={styles.button}>
             <Pressable
               onPress={() =>
-                router.push({
+                router.navigate({
                   pathname: '/profile/changePassword',
                 })
               }>
@@ -142,13 +142,13 @@ const Profile = () => {
         </View>
         <TouchableOpacity
           style={styles.edit}
-          onPress={() => router.push({ pathname: '/profile/editProfile' })}>
+          onPress={() => router.navigate({ pathname: '/profile/editProfile' })}>
           <Text style={styles.buttonText}>Edit Profile</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity
         style={styles.delete}
-        onPress={() => router.push({ pathname: '/profile/deleteProfile' })}>
+        onPress={() => router.navigate({ pathname: '/profile/deleteProfile' })}>
         <Text style={styles.buttonText}>Delete Account</Text>
       </TouchableOpacity>
     </ScrollView>

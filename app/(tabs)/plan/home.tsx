@@ -25,6 +25,13 @@ const navigation = [
     image:
       'https://images.pexels.com/photos/6975463/pexels-photo-6975463.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
   },
+  {
+    pathname: '/(tabs)/plan/WaterPage',
+    title: 'Water Tracker',
+    text: 'Hit your water goals',
+    image:
+      'https://images.pexels.com/photos/1346155/pexels-photo-1346155.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  },
 ];
 
 const plan = () => {

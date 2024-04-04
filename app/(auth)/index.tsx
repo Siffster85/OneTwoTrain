@@ -36,12 +36,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#eef1f4',
     alignItems: 'center',
+    padding: 20,
   },
   titleContainer: {
     backgroundColor: 'transparent',
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-    padding: 20,
     justifyContent: 'center',
   },
   upperTitle: {

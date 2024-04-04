@@ -55,14 +55,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#eef1f4',
-    paddingHorizontal: 20,
-    paddingVertical: 40,
+    padding: 20,
+    paddingBottom: 40,
   },
   titleContainer: {
     backgroundColor: 'transparent',
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-    paddingVertical: 20,
+    marginBottom: 20,
     justifyContent: 'center',
   },
   title: {
@@ -89,6 +87,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   inputContainer: {
+    flex: 1,
     marginBottom: 20,
   },
 });

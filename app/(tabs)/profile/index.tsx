@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingBottom: 12,
     borderRadius: 12,
-    marginBottom: 20,
+    marginBottom: 12,
   },
   profileItem: {
     flexDirection: 'row',

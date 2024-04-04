@@ -56,6 +56,48 @@ const Workout = () => {
     router.navigate('/(tabs)/plan/browseWorkout');
   };
 
+  const renderFooter = () => (
+    <View>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => router.push('/(tabs)/plan/addExercise')}>
+        <Text style={styles.buttonText}>Create New Exercise</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => browsePrevWorkout()}>
+        <Text style={styles.buttonText}>Browse Previous Workouts</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => router.push('/(tabs)/plan/browseExercises')}>
+        <Text style={styles.buttonText}>Browse Exercises</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  const renderWorkoutItem = ({ item, index }: renderItemProps) => (
+    <Pressable
+      key={index}
+      onPress={() =>
+        router.push({
+          pathname: '/(tabs)/plan/exercises/[id]',
+          params: {
+            id: index,
+            title: item.exerciseName,
+            category: item.category,
+            sets: JSON.stringify(item.sets),
+          },
+        })
+      }>
+      <Item
+        title={item.exerciseName}
+        category={item.category}
+        amountOfSets={Object.keys(item.sets).length}
+      />
+    </Pressable>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen
@@ -65,45 +107,9 @@ const Workout = () => {
       />
       <FlatList
         data={todaysExercises}
-        renderItem={({ item, index }: renderItemProps) => (
-          <Pressable
-            key={index}
-            onPress={() =>
-              router.push({
-                pathname: '/(tabs)/plan/exercises/[id]',
-                params: {
-                  id: index,
-                  title: item.exerciseName,
-                  category: item.category,
-                  sets: JSON.stringify(item.sets),
-                },
-              })
-            }>
-            <Item
-              title={item.exerciseName}
-              category={item.category}
-              amountOfSets={Object.keys(item.sets).length}
-            />
-          </Pressable>
-        )}
+        ListFooterComponent={renderFooter}
+        renderItem={renderWorkoutItem}
       />
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push('/(tabs)/plan/addExercise')}>
-          <Text style={styles.buttonText}>Create New Exercise</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => browsePrevWorkout()}>
-          <Text style={styles.buttonText}>Browse Previous Workouts</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push('/(tabs)/plan/browseExercises')}>
-          <Text style={styles.buttonText}>Browse Exercises</Text>
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 };

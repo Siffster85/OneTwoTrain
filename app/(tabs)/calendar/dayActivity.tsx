@@ -19,7 +19,7 @@ type Excersie = {
 
 const DayActivityPage = () => {
   const { date } = useLocalSearchParams();
-
+  const [isLoading, setIsLoading] = useState(true)
   const [dayWorkout, setDayWorkout] = useState<Excersie[]>([]);
 
   useEffect(() => {
@@ -29,13 +29,16 @@ const DayActivityPage = () => {
       })
       .catch(err => {
         Alert.alert(err);
-      });
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }, []);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Your Workout</Text>
-      <WorkoutList dayWorkout={dayWorkout} handleCopyWorkout={null} />
+      <WorkoutList isLoading={isLoading} dayWorkout={dayWorkout} handleCopyWorkout={null} />
     </View>
   );
 };

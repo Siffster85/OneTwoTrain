@@ -8,7 +8,6 @@ import {
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import {
-  Alert,
   Keyboard,
   SafeAreaView,
   ScrollView,
@@ -82,7 +81,7 @@ const EditProfile = () => {
               headerTitleAlign: 'center',
             }}
           />
-          <Text style={[styles.title, styles.text]}>Update Your Profile.</Text>
+          <Text style={[styles.title, styles.text]}>Update Your Profile</Text>
           <TextInput
             style={styles.input}
             onChangeText={text => setUserName(text)}
@@ -156,10 +155,14 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: '#fff',
+    borderWidth: 2,
+    borderRadius: 12,
+    borderColor: '#ececec',
     minHeight: 40,
     color: '#000',
     marginBottom: 12,
     padding: 12,
+    fontSize: 16,
   },
   buttonText: {
     color: '#fff',

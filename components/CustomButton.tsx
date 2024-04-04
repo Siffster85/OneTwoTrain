@@ -11,51 +11,27 @@ export default function CustomButton({
   if (theme === 'circular') {
     return (
       <View style={[styles.buttonContainer]}>
-        <Pressable
-          style={[styles.button]}
-          onPress={onPress}>
-          <FontAwesome
-            name="picture-o"
-            size={32}
-            color="#25292e"
-          />
-          <Text style={[styles.buttonLabel]}>
-            {label}
-          </Text>
+        <Pressable style={[styles.button]} onPress={onPress}>
+          <FontAwesome name="picture-o" size={32} color="#25292e" />
+          <Text style={[styles.buttonLabel]}>{label}</Text>
         </Pressable>
       </View>
     );
   } else if (theme === 'deleteExercise') {
     return (
       <View style={[styles.buttonContainer, styles.deletedExercise]}>
-        <Pressable
-          style={[styles.button]}
-          onPress={onPress}>
-          <FontAwesome
-            name="trash"
-            size={32}
-            color="#fff"
-          />
-          <Text style={[styles.buttonLabel]}>
-            {label}
-          </Text>
+        <Pressable style={[styles.button]} onPress={onPress}>
+          <FontAwesome name="trash" size={32} color="#fff" />
+          <Text style={[styles.buttonLabel]}>{label}</Text>
         </Pressable>
       </View>
     );
   } else if (theme === 'startExercise') {
     return (
       <View style={[styles.buttonContainer, styles.startExercise]}>
-        <Pressable
-          style={[styles.button]}
-          onPress={onPress}>
-          <FontAwesome
-            name="play"
-            size={32}
-            color="#fff"
-          />
-          <Text style={[styles.buttonLabel]}>
-            {label}
-          </Text>
+        <Pressable style={[styles.button]} onPress={onPress}>
+          <FontAwesome name="play" size={32} color="#fff" />
+          <Text style={[styles.buttonLabel]}>{label}</Text>
         </Pressable>
       </View>
     );
@@ -75,7 +51,7 @@ export default function CustomButton({
 const styles = StyleSheet.create({
   buttonContainer: {
     alignItems: 'center',
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     padding: 3,
     borderWidth: 4,
     // padding: 35,
@@ -91,9 +67,9 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     fontSize: 20,
-    textAlign: "center",
-    color: "#fff",
-    textTransform: "uppercase",
+    textAlign: 'center',
+    color: '#fff',
+    textTransform: 'uppercase',
   },
   deletedExercise: {
     borderWidth: 4,
@@ -109,7 +85,7 @@ const styles = StyleSheet.create({
     padding: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: "#71929c",
+    backgroundColor: '#71929c',
     borderColor: '#71929c',
     borderRadius: 12,
   },

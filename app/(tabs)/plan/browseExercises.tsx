@@ -62,7 +62,7 @@ const BrowseExercises = () => {
         }}
       />
       <FlatList
-      style={{marginTop: 10}}
+        style={{ marginTop: 10 }}
         data={allExercise}
         renderItem={({ item, index }: renderItemProps) => (
           <Pressable

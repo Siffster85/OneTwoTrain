@@ -45,7 +45,8 @@ export default function CurrentExercise() {
       </View>
 
       {fromBrowsePage ? (
-        <View style={[styles.bottomButtonContainer, {justifyContent: "center"}]}>
+        <View
+          style={[styles.bottomButtonContainer, { justifyContent: 'center' }]}>
           <TouchableOpacity style={styles.button} onPress={handleAddExercise}>
             <Text style={styles.title}>Add Exercise</Text>
           </TouchableOpacity>
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
   },
   bottomButtonContainer: {
     flexDirection: 'row',
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   button: {
     padding: 35,

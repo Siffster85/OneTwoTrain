@@ -11,16 +11,17 @@ When creating an account on OneTwoTrain, the user will be asked a series of ques
 
 Installing this application on your device is a straightforward process. Just follow these simple steps:
 
-1. Enter your terminal on your machine and type the following,<br>
-   ```git clone https://github.com/Siffster85/OneTwoTrain.git ``` 
-2. Once complete, please enter the following into your terminal, 
+1. Enter your terminal on your machine and type the following to download the front and backend modules, for the backend modules please follow the readme within that repo as well<br>
+   ```git clone https://github.com/Siffster85/OneTwoTrain.git ```
+   ```git clone https://github.com/jonathondilworth/be-OneTwoTrain.git ```
+3. Once complete, please enter the following into your terminal, 
    ``` cd OneTwotrain ```
    ``` code .```
    This will open the repo within your IDE (development environment).
-3. Then run ```npm install``` to install the dependencies
-4. To run the app using Expo, type the following command into the terminal, <br>
+4. Then run ```npm install``` to install the dependencies
+5. To run the app using Expo, type the following command into the terminal, <br>
     ```npx expo start --tunnel```
-5. You can then follow the QR code to open the app on your mobile device. (Ensure that you install the app Expo Go to run it on your mobile.)
+6. You can then follow the QR code to open the app on your mobile device. (Ensure that you install the app Expo Go to run it on your mobile.)
 
 ### Tech Stack
 - Typescript
